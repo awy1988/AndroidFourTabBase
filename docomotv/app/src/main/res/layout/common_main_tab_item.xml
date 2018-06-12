@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_tabbar_height"
+    android:gravity="center_vertical"
+    android:background="@color/common_white"
+    android:minHeight="@dimen/common_ab_height">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/common_tabbar_icon_size"
+            android:layout_height="@dimen/common_tabbar_icon_size"
+            android:layout_above="@+id/tv_title"
+            android:layout_centerHorizontal="true"
+            android:focusable="false"
+            android:layout_marginBottom="2dp"/>
+        <!--普通红点提示-->
+        <TextView
+            android:id="@+id/tv_unread_msg_num"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:layout_width="@dimen/common_unread_sign_size"
+            android:layout_height="@dimen/common_unread_sign_size"
+            android:visibility="invisible"
+            android:layout_marginLeft="-2dp"
+            android:background="@drawable/shape_bg_badge_circle"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/common_font_size_11" />
+        <!--会话数量红点提示-->
+        <TextView
+            android:id="@+id/tv_count_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_icon"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="-5dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:visibility="invisible"
+            android:background="@drawable/shape_bg_border_badge"
+            android:gravity="center"
+            android:text="9"
+            android:textColor="@color/common_danger_font_color"
+            android:textSize="6sp" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@drawable/selector_tab_bar_txt"
+            android:textSize="@dimen/common_tabbar_title_font_size" >
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

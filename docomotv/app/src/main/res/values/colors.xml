@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--app theme color-->
+    <color name="common_app_theme_color">#2f9bff</color>
+
+    <!-- App common background color -->
+    <color name="common_bg_color">#f5f5f9</color><!-- APP background -->
+    <color name="common_warning_bg_color">#ffe9d4</color>
+    <color name="common_danger_bg_color">#f4333c</color>
+    <color name="common_masking_bg_color">#66000000</color><!-- App mask color-->
+    <color name="common_divider_color">#e1e1e1</color><!-- divider color -->
+    <!-- gradient color -->
+    <color name="common_ab_start_color">#1ec2ff</color>
+    <color name="common_ab_end_color">#437ffb</color>
+    <!-- font color -->
+    <color name="common_primary_font_color">#333333</color>
+    <color name="common_secondary_font_color">#888888</color>
+    <color name="common_hint_font_color">#bbbbbb</color>
+    <color name="common_danger_font_color">#f4333c</color>
+    <color name="common_warn_font_color">#ff5b05</color>
+
+    <!-- common color -->
+    <color name="common_white">#ffffff</color>
+    <color name="common_black">#000000</color>
+    <color name="common_transparent">#00000000</color>
+    <drawable name="common_transparent">#00000000</drawable>
+    <color name="common_btn_pressed_color">#1C77D9</color>
+    <color name="common_pressed_gray_color">#e8e8e8</color>
+
+    <!--list color-->
+    <color name="common_list_image_frame_color">@color/common_divider_color</color>
+
+</resources>
