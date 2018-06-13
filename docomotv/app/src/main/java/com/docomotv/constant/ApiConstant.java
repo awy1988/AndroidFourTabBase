@@ -8,9 +8,12 @@ package com.docomotv.constant;
  */
 public class ApiConstant {
 
-    private static final _ACCESS_POINT ACCESS_POINT = _ACCESS_POINT.STAGING;
+    private static final _ACCESS_POINT ACCESS_POINT = _ACCESS_POINT.RELEASE;
     public static String BASE_UA_APP_NAME = "docomotv";
     public static String BASE_URL = getSaasHost();
+    public static final int REQUEST_TIME_OUT_SECONDS = 30;
+//    public static final boolean IS_DEBUG = getDebugFlag();
+    public static final boolean IS_DEBUG = true;
 
 
     /**
@@ -33,7 +36,8 @@ public class ApiConstant {
     public static String getSaasHost() {
         switch (ACCESS_POINT) {
             case RELEASE:
-                return "https://www.yahoo.co.jp";
+                return "https://api.proding.net";
+//                return "https://www.yahoo.co.jp";
             case STAGING:
                 return "http://39.106.49.60:3001";
             case LOCAL:
@@ -43,6 +47,17 @@ public class ApiConstant {
         }
     }
 
+    /**
+     * get the flag that indicates whether the app is in debug mode or not
+     *
+     * @return true-is debug , false- is release
+     */
+    public static boolean getDebugFlag() {
+
+        return ACCESS_POINT != _ACCESS_POINT.RELEASE;
+    }
+
+
 
     public interface Sort {
         /** 升序 */
@@ -50,5 +65,11 @@ public class ApiConstant {
         /** 降序 */
         String DESC = "desc";
     }
+
+    /* 商品业务 */
+    public static final String API_ITEMS = "/items"; // 查询商品
+    public static final String API_AUTHORIZATIONS = "/authorizations"; // 用户登录
+    public static final String API_USER_PROFILE_PASSWORD = "/user/profile/password"; // 更新登录密码
+    public static final String API_USER_PROFILE = "/user/profile"; // 更新登录用户资料
 
 }

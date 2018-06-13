@@ -150,7 +150,7 @@ public class App extends Application {
      * 获取UserAgent，用于Http请求头中添加UserAgent字段
      * @return userAgent字符串
      */
-    private String getUserAgent() {
+    public String getUserAgent() {
         return ApiConstant.BASE_UA_APP_NAME +"/"+App.getApp().getVersion() + " "+ getDeviceUserAgent();
     }
 

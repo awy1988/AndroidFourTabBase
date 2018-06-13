@@ -44,8 +44,10 @@ dependencies {
     // easyPermission
     implementation 'pub.devrel:easypermissions:1.2.0'
 
-    // retrofit库引入
+    // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    // OKHttp log
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
 }

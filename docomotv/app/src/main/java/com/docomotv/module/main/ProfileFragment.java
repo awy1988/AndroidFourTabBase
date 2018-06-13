@@ -22,6 +22,7 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_frag, container, false);
+
         return view;
     }
 
