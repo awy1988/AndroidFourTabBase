@@ -1,6 +1,6 @@
 package com.docomotv.model.api;
 
-public class UpdateProfileBody {
+public class UpdateProfileRequestBody {
 
     private String logo;
     private String name;

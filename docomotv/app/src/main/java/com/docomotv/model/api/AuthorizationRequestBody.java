@@ -1,6 +1,6 @@
 package com.docomotv.model.api;
 
-public class AuthorizationBody {
+public class AuthorizationRequestBody {
     private String username;
     private String password;
     private Captcha captcha;

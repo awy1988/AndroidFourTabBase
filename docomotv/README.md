@@ -23,7 +23,7 @@ android-project
        │   │   ├── ItemService.java （可选）
        │   │   └── ……
        │   ├── database（可选）
-       │   ├── ui（可选）
+       │   ├── widget（可选）
        │   ├── constant
        │   └── model（可选）
        ├── assets
@@ -132,7 +132,7 @@ android-project
 >正例：if (condition) { statements; }  
 >反例：if (condition) statements;
 
-6. 【强制】单行字符数限制不超过 120 个，超出需要换行，换行时遵循如下原则：
+6. 【推荐】单行字符数限制不超过 120 个，超出需要换行，换行时遵循如下原则：
   - 第二行相对第一行缩进 4 个空格，从第三行开始，不再继续缩进，参考示例。
   - 运算符与下文一起换行。
   - 方法调用的点符号与下文一起换行。

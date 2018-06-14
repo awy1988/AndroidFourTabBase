@@ -15,7 +15,7 @@ import java.util.List;
  *     desc  : Shell 相关工具类
  * </pre>
  */
-public final class ShellUtils {
+public class ShellUtils {
 
     private static final String LINE_SEP = System.getProperty("line.separator");
 

@@ -1,6 +1,6 @@
 package com.docomotv.model.api;
 
-public class UpdatePasswordBody {
+public class UpdatePasswordRequestBody {
 
     private String username;
     private String password;

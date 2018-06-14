@@ -5,8 +5,11 @@ import android.util.Log;
 import com.docomotv.constant.ApiConstant;
 import com.docomotv.model.common.ResponseModel;
 
+import java.net.FileNameMap;
+import java.net.URLConnection;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -24,6 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpApiHelper {
 
     private static final String TAG = HttpApiHelper.class.getSimpleName();
+
+    private static final MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream");
 
     private static Retrofit RETROFIT_INSTANCE;
 
@@ -52,6 +57,17 @@ public class HttpApiHelper {
             }
         }
         return RETROFIT_INSTANCE;
+    }
+
+    /** 根据文件名获取MIME类型 */
+    public static MediaType guessMimeType(String fileName) {
+        FileNameMap fileNameMap = URLConnection.getFileNameMap();
+        fileName = fileName.replace("#", "");   //解决文件名中含有#号异常的问题
+        String contentType = fileNameMap.getContentTypeFor(fileName);
+        if (contentType == null) {
+            return MEDIA_TYPE_STREAM;
+        }
+        return MediaType.parse(contentType);
     }
 
     /**

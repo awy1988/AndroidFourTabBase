@@ -17,7 +17,7 @@ import com.docomotv.module.main.CategoryFragment;
 import com.docomotv.module.main.MainFragment;
 import com.docomotv.module.main.ProfileFragment;
 import com.docomotv.module.main.ShoppingCartFragment;
-import com.docomotv.ui.CommonFragmentTabHost;
+import com.docomotv.widget.CommonFragmentTabHost;
 
 import butterknife.BindArray;
 import butterknife.BindView;

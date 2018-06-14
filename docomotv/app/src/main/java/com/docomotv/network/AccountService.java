@@ -1,8 +1,8 @@
 package com.docomotv.network;
 
-import com.docomotv.model.api.AuthorizationBody;
-import com.docomotv.model.api.UpdatePasswordBody;
-import com.docomotv.model.api.UpdateProfileBody;
+import com.docomotv.model.api.AuthorizationRequestBody;
+import com.docomotv.model.api.UpdatePasswordRequestBody;
+import com.docomotv.model.api.UpdateProfileRequestBody;
 import com.docomotv.model.auth.UserInfoModel;
 import com.docomotv.network.base.HttpApiHelper;
 import com.docomotv.network.base.RequestCallbackListener;
@@ -13,8 +13,8 @@ public class AccountService {
     /**
      * 用户登录
      */
-    public static void authorization(AuthorizationBody authorizationBody, final RequestCallbackListener<UserInfoModel> listener) {
-        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).authorizations(authorizationBody), listener);
+    public static void authorization(AuthorizationRequestBody authorizationRequestBody, final RequestCallbackListener<UserInfoModel> listener) {
+        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).authorizations(authorizationRequestBody), listener);
     }
 
     /**
@@ -27,15 +27,15 @@ public class AccountService {
     /**
      * 更新密码
      */
-    public static void updatePassword(UpdatePasswordBody updatePasswordBody, final RequestCallbackListener<String> listener) {
-        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).updatePassword(updatePasswordBody), listener);
+    public static void updatePassword(UpdatePasswordRequestBody updatePasswordRequestBody, final RequestCallbackListener<String> listener) {
+        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).updatePassword(updatePasswordRequestBody), listener);
     }
 
     /**
      * 更新登录用户信息
      */
-    public static void updateProfile(UpdateProfileBody updateProfileBody, final RequestCallbackListener<String> listener) {
-        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).updateProfile(updateProfileBody), listener);
+    public static void updateProfile(UpdateProfileRequestBody updateProfileRequestBody, final RequestCallbackListener<String> listener) {
+        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IAccountService.class).updateProfile(updateProfileRequestBody), listener);
     }
 
 }

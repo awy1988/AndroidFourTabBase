@@ -10,16 +10,18 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.docomotv.R;
-import com.docomotv.model.api.AuthorizationBody;
-import com.docomotv.model.api.UpdatePasswordBody;
-import com.docomotv.model.api.UpdateProfileBody;
+import com.docomotv.model.api.AuthorizationRequestBody;
+import com.docomotv.model.api.UpdatePasswordRequestBody;
+import com.docomotv.model.api.UpdateProfileRequestBody;
 import com.docomotv.model.auth.UserInfoModel;
 import com.docomotv.model.item.Item;
 import com.docomotv.module.App;
 import com.docomotv.module.MainActivity;
 import com.docomotv.network.AccountService;
+import com.docomotv.network.FileUploadService;
 import com.docomotv.network.ItemService;
 import com.docomotv.network.base.RequestCallbackListener;
+import com.docomotv.util.ImageUtils;
 import com.docomotv.util.SPUtils;
 import com.docomotv.util.ScreenUtils;
 
@@ -51,6 +53,9 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 
     private static final int sleepTime = 1000;// 启动图片停留时间
 
+    private String testUploadImageFileName = "/storage/emulated/0/proding/image/M20180614101231.jpg";
+    private String testUploadImageFileName2 = "/storage/emulated/0/proding/image/M20180614141404.jpg";
+
     //================================================================================
     // 位置服务
     //================================================================================
@@ -78,6 +83,7 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 //        testDelete();
 //        testPut();
 //        testPatch();
+        testUploadImage();
     }
 
 
@@ -189,7 +195,7 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 
 
     private void testPost() {
-        AuthorizationBody requestBody = new AuthorizationBody();
+        AuthorizationRequestBody requestBody = new AuthorizationRequestBody();
         requestBody.setUsername("15840891377");
         requestBody.setPassword("rd123456");
         AccountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
@@ -236,7 +242,7 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 
     private void testPut() {
 
-        UpdatePasswordBody requestBody = new UpdatePasswordBody();
+        UpdatePasswordRequestBody requestBody = new UpdatePasswordRequestBody();
         requestBody.setPassword("rd1234");
         requestBody.setNewPassword("rd123456");
 
@@ -259,7 +265,7 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
     }
 
     private void testPatch() {
-        UpdateProfileBody requestBody = new UpdateProfileBody();
+        UpdateProfileRequestBody requestBody = new UpdateProfileRequestBody();
         requestBody.setName("helloLaoTie");
         AccountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
             @Override
@@ -275,6 +281,25 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
             @Override
             public void onEndedWithError(String errorInfo) {
                 Log.d("testPatch", "onEndedWithError: " + errorInfo);
+            }
+        });
+    }
+
+    private void testUploadImage() {
+        ImageUtils.uploadImage(this, testUploadImageFileName2, FileUploadService.Category.USER_LOGO, new ImageUtils.OnFileUploadResultListener() {
+            @Override
+            public void onUploadSuccess(String data) {
+
+            }
+
+            @Override
+            public void onUploadFailure(String message) {
+
+            }
+
+            @Override
+            public void onUploadError(String error) {
+
             }
         });
     }

@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -50,4 +51,6 @@ dependencies {
     // OKHttp log
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
+    // multidex
+    implementation 'com.android.support:multidex:1.0.3'
 }

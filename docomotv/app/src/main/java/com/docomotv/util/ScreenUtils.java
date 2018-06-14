@@ -26,7 +26,7 @@ import com.docomotv.module.App;
  *     desc  : 屏幕相关工具类
  * </pre>
  */
-public final class ScreenUtils {
+public class ScreenUtils {
 
     private ScreenUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.docomotv.module.App;
-import com.docomotv.ui.CustomProgressDialog;
+import com.docomotv.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

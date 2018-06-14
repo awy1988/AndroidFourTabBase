@@ -1,4 +1,4 @@
-package com.docomotv.ui;
+package com.docomotv.widget;
 
 import android.app.ProgressDialog;
 import android.content.Context;

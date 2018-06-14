@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.docomotv.network.FileUploadService;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -261,19 +262,14 @@ public class ImageUtils {
     //================================================================================
     // 上传图片
     //================================================================================
-    public static void uploadImage(Context context, final String filePath, String upLoadUrl , String category, final OnFileUploadResultListener listener) {
-
-        // 编辑上传URL
-        StringBuilder sURL = new StringBuilder();
-        sURL.append(upLoadUrl);
+    public static void uploadImage(Context context, final String filePath, FileUploadService.Category category, final OnFileUploadResultListener listener) {
 
         //  这里加入压缩的逻辑，先读文件，然后压缩，上传
-
         File file = new File(filePath);
-        String compressedImagePath = filePath;
+        String compressedImagePath = null;
         if(file.exists()){
             long fileSize = file.length() / 1024; // 得到文件的大小，单位为kb
-            Log.e(TAG,"fileSize = " + fileSize);
+            Log.d(TAG,"fileSize = " + fileSize);
 
             if(fileSize < 200){
                 compressedImagePath = filePath;
@@ -293,47 +289,13 @@ public class ImageUtils {
                 // >3000kb
                 compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_60, null);
             }
+
+            Log.d(TAG, "uploadImage: compressedImagePath = " + compressedImagePath);
+            FileUploadService.uploadFile(compressedImagePath, category, listener);
+        } else {
+            Log.e(TAG, "uploadImage: file not exit");
         }
 
-//        PostRequest request = OkGo.post(sURL.toString());
-//
-//        // 本地存有用户token，则加入请求头中
-//        String token = SPUtils.getAccessToken();
-//        if (ObjectUtils.isNotEmpty(token)) {
-//            request.headers("Authorization", "Bearer " + token);
-//        }
-//
-//        request.tag(context);
-//        request.params(category, new File(compressedImagePath))
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onSuccess(com.lzy.okgo.model.Response<String> response) {
-//                        try {
-//                            JSONObject result = new JSONObject(response.body());
-//                            Log.d(TAG,"upload result ==== " + result);
-//                            if(result.getBoolean("success")){
-//                                if(listener!=null){
-//                                    listener.onUploadSuccess(JsonUtils.getStringValue(result,"data"));
-//                                }
-//                            }else {
-//                                if(listener!=null){
-//                                    listener.onUploadFailure(JsonUtils.getStringValue(
-//                                            JsonUtils.getObjectValue(result,"error"),"message"));
-//                                }
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(com.lzy.okgo.model.Response<String> response) {
-//                        super.onError(response);
-//                        if(listener!=null){
-//                            listener.onUploadError(response.body());
-//                        }
-//                    }
-//                });
     }
 
     /**
