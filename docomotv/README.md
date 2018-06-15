@@ -25,6 +25,7 @@ android-project
        │   ├── database（可选）
        │   ├── widget（可选）
        │   ├── constant
+       │   ├── service（可选）
        │   └── model（可选）
        ├── assets
        ├── res

@@ -1,6 +1,9 @@
 package com.docomotv.module.main;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.docomotv.model.auth.UserInfoModel;
 import com.docomotv.model.common.LinksModel;
 import com.docomotv.model.item.Item;
 import com.docomotv.module.base.BaseFragment;
+import com.docomotv.module.common.qrcode.CaptureActivity;
 import com.docomotv.network.AccountService;
 import com.docomotv.network.FileUploadService;
 import com.docomotv.network.ItemService;
@@ -26,14 +30,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.OnClick;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * @author weiyang.an
  * @version 1.0 2018/6/12
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = MainFragment.class.getSimpleName();
+    private static final int REQ_CODE_CAMERA_PERMISSION = 1;
 
 
 
@@ -58,6 +64,23 @@ public class MainFragment extends BaseFragment {
 //        testPatch();
 
 //        testUploadImage();
+    }
+
+    @OnClick({R.id.btn_qrcode})
+    public void onButtonClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_qrcode:
+
+                if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    startActivity(new Intent(getContext(), CaptureActivity.class));
+                } else {
+                    EasyPermissions.requestPermissions(MainFragment.this,getString(R.string.app_name), REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -225,4 +248,20 @@ public class MainFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        // 授权成功，由于本页面只有一个授权的请求，所以可以直接将迁移到二维码画面的逻辑写在这里
+        startActivity(new Intent(getContext(), CaptureActivity.class));
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        // 授权失败
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+    }
 }

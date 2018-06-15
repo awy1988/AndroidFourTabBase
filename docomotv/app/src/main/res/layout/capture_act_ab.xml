@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_ab_height"
+    android:background="@color/common_black">
+
+    <LinearLayout
+        android:id="@+id/ll_ab_back_button"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_btn_ab_back"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/capture_qrcode_close_btn_txt"
+            android:textColor="@color/common_white"
+            android:textSize="@dimen/common_font_size_level_2" />
+    </LinearLayout>
+
+
+    <TextView
+        android:textColor="@color/common_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/capture_qrcode_ab_title"
+        android:textSize="@dimen/common_font_size_level_1"/>
+
+    <LinearLayout
+        android:id="@+id/ll_ab_right_button"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_btn_ab_back"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/capture_qrcode_ab_right_btn_title"
+            android:textColor="@color/common_white"
+            android:textSize="@dimen/common_font_size_level_2" />
+    </LinearLayout>
+
+
+</RelativeLayout>

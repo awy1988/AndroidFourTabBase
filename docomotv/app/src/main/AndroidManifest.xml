@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,6 +44,8 @@ See README(https://goo.gl/l4GJaQ) for more. -->
             </intent-filter>
         </activity>
         <activity android:name=".module.MainActivity" />
+        <activity android:name=".module.common.qrcode.CaptureActivity" />
+        <activity android:name=".module.common.WebViewActivity" />
 
 
         <service
