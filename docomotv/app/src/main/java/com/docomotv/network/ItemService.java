@@ -16,8 +16,15 @@ public class ItemService {
      * @param listener
      */
     public static void getItems(Map<String, String> queryParams, final RequestCallbackListener<List<Item>> listener) {
-        HttpApiHelper.executeRequest(HttpApiHelper.getRetrofitInstance().create(IItemService.class).getItems(queryParams), listener);
+        HttpApiHelper.executeRequest(getItemService().getItems(queryParams), listener);
     }
 
+    public static void getItems(String nextLinkUrl, final RequestCallbackListener<List<Item>> listener) {
+        HttpApiHelper.executeRequest(getItemService().getItems(nextLinkUrl), listener);
+    }
+
+    private static IItemService getItemService() {
+        return HttpApiHelper.getRetrofitInstance().create(IItemService.class);
+    }
 
 }

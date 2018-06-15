@@ -3,6 +3,7 @@ package com.docomotv.network.base;
 import android.util.Log;
 
 import com.docomotv.constant.ApiConstant;
+import com.docomotv.model.common.LinksModel;
 import com.docomotv.model.common.ResponseModel;
 
 import java.net.FileNameMap;
@@ -89,7 +90,13 @@ public class HttpApiHelper {
                     Log.d(TAG, "onResponse: ");
                     // TODO 在这里可以添加针对所有请求返回时的共通处理。
                     if (listener != null) {
-                        listener.onCompleted(response.body() == null ? null : response.body().getData());
+                        if (response.body() != null) {
+                            T data = response.body().getData();
+                            LinksModel links = response.body().getLinks();
+                            listener.onCompleted(data, links);
+                        } else {
+                            listener.onCompleted(null, null);
+                        }
                     }
                 }
 
