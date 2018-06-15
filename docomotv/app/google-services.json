@@ -1,0 +1,81 @@
+{
+  "project_info": {
+    "project_number": "26644825394",
+    "firebase_url": "https://my-first-project-b80aa.firebaseio.com",
+    "project_id": "my-first-project-b80aa",
+    "storage_bucket": "my-first-project-b80aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26644825394:android:604b36ee51db1e1f",
+        "android_client_info": {
+          "package_name": "com.docomotv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26644825394-ilau6ioabcs1kta43te7co3vhj1aedea.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "26644825394-ilau6ioabcs1kta43te7co3vhj1aedea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB16GBnDo0eI4MTceUunlZR01JNGiA4eA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26644825394:android:6ca96ac5c6b7a1d9",
+        "android_client_info": {
+          "package_name": "demo.project.com.myapplication312"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26644825394-ilau6ioabcs1kta43te7co3vhj1aedea.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "26644825394-ilau6ioabcs1kta43te7co3vhj1aedea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB16GBnDo0eI4MTceUunlZR01JNGiA4eA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
