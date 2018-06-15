@@ -1,11 +1,14 @@
 package com.docomotv.network.base;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.docomotv.constant.ApiConstant;
 import com.docomotv.model.common.LinksModel;
 import com.docomotv.model.common.ResponseModel;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.concurrent.TimeUnit;
@@ -88,14 +91,35 @@ public class HttpApiHelper {
                 @Override
                 public void onResponse(Call<ResponseModel<T>> call, Response<ResponseModel<T>> response) {
                     Log.d(TAG, "onResponse: ");
-                    // TODO 在这里可以添加针对所有请求返回时的共通处理。
+
                     if (listener != null) {
                         if (response.body() != null) {
+                            // 返回正确数据
                             T data = response.body().getData();
                             LinksModel links = response.body().getLinks();
                             listener.onCompleted(data, links);
-                        } else {
-                            listener.onCompleted(null, null);
+                            return;
+                        }
+
+                        if(response.errorBody() != null){
+                            // 异常处理，responseCode > 400 时回调接口的 onEndedWithError
+                            try {
+                                String errorInfo = response.errorBody().string();
+                                if (TextUtils.isEmpty(errorInfo)) {
+                                    listener.onEndedWithError("error occurred!");
+                                    return;
+                                }
+                                Gson gson = new Gson();
+                                ResponseModel responseModel = gson.fromJson(errorInfo, ResponseModel.class);
+                                String errorMessage = "error occurred!";
+                                if (responseModel != null && responseModel.getError() != null && responseModel.getError().getMessage() != null) {
+                                    errorMessage = responseModel.getError().getMessage();
+                                }
+                                listener.onEndedWithError(errorMessage);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                listener.onEndedWithError("error occurred!");
+                            }
                         }
                     }
                 }
@@ -110,4 +134,5 @@ public class HttpApiHelper {
             });
         }
     }
+
 }

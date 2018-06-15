@@ -51,9 +51,9 @@ public class MainFragment extends BaseFragment {
 
     private void testRequest() {
 
-        testGet();
+//        testGet();
 //        testPost();
-//        testDelete();
+        testDelete();
 //        testPut();
 //        testPatch();
 
@@ -135,7 +135,7 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public void onEndedWithError(String errorInfo) {
-                Log.d("testDelete", "onEndedWithError: ");
+                Log.d("testDelete", "onEndedWithError: errorinfo = " + errorInfo);
             }
         });
     }
