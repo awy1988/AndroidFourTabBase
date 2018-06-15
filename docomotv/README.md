@@ -53,7 +53,7 @@ android-project
 
 ## 命名规范
 ### 文件命名
-#### Java文件
+#### Java文件
 - Java文件名采用大驼峰命名法。
 - Activity、Fragment、Service、Receiver、Adapter、Listener 类型的类文件名末尾相应的需要以 Activity、Fragment、Service、Receiver、Adapter、Listener结尾。
 - 类的命名用名词，当类名由多个单词组成时，同一类别业务的类使用同一前缀。
