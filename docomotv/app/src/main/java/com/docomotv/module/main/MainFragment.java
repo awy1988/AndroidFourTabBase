@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.docomotv.R;
 import com.docomotv.constant.ApiConstant;
 import com.docomotv.model.api.AuthorizationRequestBody;
+import com.docomotv.model.api.Page;
+import com.docomotv.model.api.Sort;
 import com.docomotv.model.api.UpdatePasswordRequestBody;
 import com.docomotv.model.api.UpdateProfileRequestBody;
 import com.docomotv.model.auth.UserInfoModel;
@@ -60,16 +62,25 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
 //        testGet();
 //        testPost();
-        testDelete();
+//        testDelete();
 //        testPut();
 //        testPatch();
 
 //        testUploadImage();
     }
 
-    @OnClick({R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera})
+    @OnClick({R.id.btn_login, R.id.btn_logout, R.id.btn_get_items, R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera})
     public void onButtonClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_login:
+                testPost();
+                break;
+            case R.id.btn_get_items:
+                testGet();
+                break;
+            case R.id.btn_logout:
+                testDelete();
+                break;
             case R.id.btn_qrcode:
 
                 if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -104,9 +115,11 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
     private void testGet() {
 
-        HashMap<String, String> queryParams = new HashMap<>();
-        queryParams.put("page[no]","1");
-        queryParams.put("page[size]","1");
+        HashMap<String, Object> queryParams = new HashMap<>();
+        queryParams.put("page",new Page(1, 1));
+        Sort sort = new Sort();
+        sort.setCreateAt(ApiConstant.Sort.DESC);
+        queryParams.put("sort", sort);
 
         ItemService.getItems(queryParams, new RequestCallbackListener<List<Item>>() {
             @Override

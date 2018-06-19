@@ -4,13 +4,18 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.docomotv.constant.ApiConstant;
+import com.docomotv.model.api.HttpQueryParamBaseModel;
 import com.docomotv.model.common.LinksModel;
 import com.docomotv.model.common.ResponseModel;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -133,6 +138,64 @@ public class HttpApiHelper {
                 }
             });
         }
+    }
+
+    /**
+     * 获取请求的查询参数
+     */
+    public static Map<String, String> handleQueryParams(Map<String, Object> params) {
+
+
+        if(params == null || params.isEmpty()){
+            return null;
+        }
+
+        Map<String, String> newQueryParams = new HashMap<>();
+
+        // 处理输入的 get 请求查询参数
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+
+            if (entry.getValue() instanceof List) {
+                // 数组
+                StringBuilder sbKey = new StringBuilder(entry.getKey());
+                sbKey.append("[]");
+                List<String> values = (List) entry.getValue();
+
+                if (values != null && !values.isEmpty()) {
+                    for (String value : values) {
+                        newQueryParams.put(sbKey.toString(), value);
+                    }
+                }
+            } else if (entry.getValue() instanceof HttpQueryParamBaseModel) {
+
+                Class clazz = entry.getValue().getClass();
+
+                Field[] fields = clazz.getDeclaredFields();
+
+                for (Field field : fields) {
+                    field.setAccessible(true);
+                    StringBuilder sbKey = new StringBuilder(entry.getKey());
+                    sbKey.append("[")
+                            .append(field.getName())
+                            .append("]");
+                    try {
+                        Object value = field.get(entry.getValue());
+                        if (value != null) {
+                            newQueryParams.put(sbKey.toString(),String.valueOf(value));
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } else {
+                // 普通字符串
+                newQueryParams.put(entry.getKey(), String.valueOf(entry.getValue()));
+            }
+
+        }
+
+        return newQueryParams;
     }
 
 }

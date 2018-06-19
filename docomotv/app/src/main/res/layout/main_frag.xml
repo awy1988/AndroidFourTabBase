@@ -10,10 +10,28 @@
         android:text="mainFragment"/>
 
     <Button
-        android:id="@+id/btn_loadmore"
-        android:onClick="testLoadMore"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="登录"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"/>
+
+    <Button
+        android:id="@+id/btn_get_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取商品数据"/>
+
+    <Button
+        android:id="@+id/btn_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载更多"/>
 
     <Button
         android:id="@+id/btn_qrcode"
