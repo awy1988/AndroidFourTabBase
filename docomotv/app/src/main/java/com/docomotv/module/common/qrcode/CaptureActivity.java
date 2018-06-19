@@ -366,6 +366,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                             finish();
                         }
                         break;
+                    default:
+                        break;
                 }
             }
         }

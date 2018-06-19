@@ -18,6 +18,19 @@
     <Button
         android:id="@+id/btn_qrcode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="二维码扫描"/>
+
+    <Button
+        android:id="@+id/btn_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择图片"/>
+
+    <Button
+        android:id="@+id/btn_take_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照"/>
 
 </LinearLayout>

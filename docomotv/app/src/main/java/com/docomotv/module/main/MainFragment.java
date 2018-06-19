@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.docomotv.R;
 import com.docomotv.constant.ApiConstant;
@@ -66,7 +67,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 //        testUploadImage();
     }
 
-    @OnClick({R.id.btn_qrcode})
+    @OnClick({R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera})
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_qrcode:
@@ -77,6 +78,22 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                     EasyPermissions.requestPermissions(MainFragment.this,getString(R.string.app_name), REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
 
+                break;
+            case R.id.btn_take_photo:
+                ImageUtils.selectSingleImageByPhoto(getActivity(), new ImageUtils.IPathCallBack() {
+                    @Override
+                    public void callBackPath(String filePath) {
+                        Toast.makeText(getContext(), "file path = " + filePath, Toast.LENGTH_SHORT).show();
+                    }
+                }, true);
+                break;
+            case R.id.btn_take_camera:
+                ImageUtils.selectSingleImageByCamera(getActivity(), new ImageUtils.IPathCallBack() {
+                    @Override
+                    public void callBackPath(String filePath) {
+                        Toast.makeText(getContext(), "file path = " + filePath, Toast.LENGTH_SHORT).show();
+                    }
+                }, true);
                 break;
             default:
                 break;

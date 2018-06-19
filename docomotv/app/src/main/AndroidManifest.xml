@@ -46,6 +46,7 @@ See README(https://goo.gl/l4GJaQ) for more. -->
         <activity android:name=".module.MainActivity" />
         <activity android:name=".module.common.qrcode.CaptureActivity" />
         <activity android:name=".module.common.WebViewActivity" />
+        <activity android:name=".util.image.ImageSingleSelectActivity" />
 
 
         <service
@@ -61,6 +62,17 @@ See README(https://goo.gl/l4GJaQ) for more. -->
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.docomotv.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
     </application>
 
 </manifest>

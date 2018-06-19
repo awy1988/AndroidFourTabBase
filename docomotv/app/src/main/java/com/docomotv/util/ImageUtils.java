@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.docomotv.network.FileUploadService;
+import com.docomotv.util.image.ImageSingleSelect;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -443,15 +444,7 @@ public class ImageUtils {
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      */
     public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack , boolean isCrop){
-//        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-//        imageSingleSelect.photo(new ImageSingleSelect.IPathCallBack() {
-//            @Override
-//            public void callBackPath(String filePath) {
-//                if (callBack!=null){
-//                    callBack.callBackPath(filePath);
-//                }
-//            }
-//        },isCrop);
+        selectSingleImageByPhoto(activity, callBack, isCrop, null, null, null, null);
     }
 
     /**
@@ -467,16 +460,16 @@ public class ImageUtils {
      * @param outputX 裁剪图片宽
      * @param outputY 裁剪图片高
      */
-    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack , boolean isCrop, int aspectX, int aspectY, int outputX, int outputY){
-//        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-//        imageSingleSelect.photo(new ImageSingleSelect.IPathCallBack() {
-//            @Override
-//            public void callBackPath(String filePath) {
-//                if (callBack!=null){
-//                    callBack.callBackPath(filePath);
-//                }
-//            }
-//        }, isCrop, aspectX, aspectY, outputX, outputY);
+    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack , boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY){
+        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
+        imageSingleSelect.photo(new ImageSingleSelect.IPathCallBack() {
+            @Override
+            public void callBackPath(String filePath) {
+                if (callBack!=null){
+                    callBack.callBackPath(filePath);
+                }
+            }
+        }, isCrop, aspectX, aspectY, outputX, outputY);
     }
 
     /**
@@ -486,15 +479,7 @@ public class ImageUtils {
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      */
     public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack , boolean isCrop){
-//        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-//        imageSingleSelect.camera(new ImageSingleSelect.IPathCallBack() {
-//            @Override
-//            public void callBackPath(String filePath) {
-//                if (callBack!=null){
-//                    callBack.callBackPath(filePath);
-//                }
-//            }
-//        },isCrop);
+        selectSingleImageByCamera(activity, callBack, isCrop, null, null, null, null);
     }
 
     /**
@@ -510,16 +495,16 @@ public class ImageUtils {
      * @param outputX 裁剪图片宽
      * @param outputY 裁剪图片高
      */
-    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack , boolean isCrop, int aspectX, int aspectY, int outputX, int outputY){
-//        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-//        imageSingleSelect.camera(new ImageSingleSelect.IPathCallBack() {
-//            @Override
-//            public void callBackPath(String filePath) {
-//                if (callBack!=null){
-//                    callBack.callBackPath(filePath);
-//                }
-//            }
-//        }, isCrop, aspectX, aspectY, outputX, outputY);
+    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack , boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY){
+        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
+        imageSingleSelect.camera(new ImageSingleSelect.IPathCallBack() {
+            @Override
+            public void callBackPath(String filePath) {
+                if (callBack!=null){
+                    callBack.callBackPath(filePath);
+                }
+            }
+        }, isCrop, aspectX, aspectY, outputX, outputY);
     }
 
     public interface IPathCallBack{
