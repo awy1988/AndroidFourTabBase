@@ -3,25 +3,25 @@
     <!--####### 共通部分 #######-->
 
     <!--font size-->
-    <dimen name="common_font_size_23">23sp</dimen>
-    <dimen name="common_font_size_21">21sp</dimen>
-    <dimen name="common_font_size_20">20sp</dimen>
-    <dimen name="common_font_size_19">19sp</dimen>
-    <dimen name="common_font_size_18">18sp</dimen>
-    <dimen name="common_font_size_17">17sp</dimen>
-    <dimen name="common_font_size_16">16sp</dimen>
-    <dimen name="common_font_size_15">15sp</dimen>
-    <dimen name="common_font_size_14">14sp</dimen>
-    <dimen name="common_font_size_13">13sp</dimen>
-    <dimen name="common_font_size_12">12sp</dimen>
-    <dimen name="common_font_size_11">11sp</dimen>
-    <dimen name="common_font_size_10">10sp</dimen>
+    <dimen name="common_font_size_23">23dp</dimen>
+    <dimen name="common_font_size_21">21dp</dimen>
+    <dimen name="common_font_size_20">20dp</dimen>
+    <dimen name="common_font_size_19">19dp</dimen>
+    <dimen name="common_font_size_18">18dp</dimen>
+    <dimen name="common_font_size_17">17dp</dimen>
+    <dimen name="common_font_size_16">16dp</dimen>
+    <dimen name="common_font_size_15">15dp</dimen>
+    <dimen name="common_font_size_14">14dp</dimen>
+    <dimen name="common_font_size_13">13dp</dimen>
+    <dimen name="common_font_size_12">12dp</dimen>
+    <dimen name="common_font_size_11">11dp</dimen>
+    <dimen name="common_font_size_10">10dp</dimen>
 
     <!--level font size-->
-    <dimen name="common_font_size_level_1">18sp</dimen>
-    <dimen name="common_font_size_level_2">16sp</dimen>
-    <dimen name="common_font_size_level_3">14sp</dimen>
-    <dimen name="common_font_size_level_4">12sp</dimen>
+    <dimen name="common_font_size_level_1">@dimen/common_font_size_18</dimen>
+    <dimen name="common_font_size_level_2">@dimen/common_font_size_16</dimen>
+    <dimen name="common_font_size_level_3">@dimen/common_font_size_14</dimen>
+    <dimen name="common_font_size_level_4">@dimen/common_font_size_12</dimen>
 
     <!--margin and padding-->
     <dimen name="common_padding_left_and_right">12dp</dimen>

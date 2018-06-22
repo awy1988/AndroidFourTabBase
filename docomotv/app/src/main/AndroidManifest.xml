@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.docomotv">
+    package="com.docomo.watchy">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -43,7 +43,7 @@ See README(https://goo.gl/l4GJaQ) for more. -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.MainActivity" />
+        <activity android:name=".module.main.MainActivity" />
         <activity android:name=".module.common.qrcode.CaptureActivity" />
         <activity android:name=".module.common.WebViewActivity" />
         <activity android:name=".util.image.ImageSingleSelectActivity" />
@@ -66,7 +66,7 @@ See README(https://goo.gl/l4GJaQ) for more. -->
         <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.docomotv.fileprovider"
+            android:authorities="com.docomo.watchy.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

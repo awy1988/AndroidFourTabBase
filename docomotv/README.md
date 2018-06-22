@@ -7,7 +7,7 @@ android-project
   src
     ├──main
        ├── AndroidManifest.xml
-       ├── com.docomotv  
+       ├── com.docomo.watchy
        │   ├── module
        │   │   ├── base
        │   │   ├── auth（可选）
