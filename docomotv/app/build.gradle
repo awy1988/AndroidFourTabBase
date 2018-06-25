@@ -12,37 +12,60 @@ android {
         multiDexEnabled true
         flavorDimensions "1"
     }
+
+    signingConfigs {
+        release {//发布版本的签名配置
+            // TODO 建立Properties文件，配置签名文件信息，然后在此配置文件中读取 properties文件动态指定打包信息
+            storeFile file(WATCHY_RELEASE_STORE_FILE)
+            storePassword WATCHY_RELEASE_STORE_PASSWORD
+            keyAlias WATCHY_RELEASE_KEY_ALIAS
+            keyPassword WATCHY_RELEASE_KEY_PASSWORD
+        }
+        debug {//调试版本的签名配置
+            storeFile file(WATCHY_DEBUG_STORE_FILE)
+            storePassword WATCHY_DEBUG_STORE_PASSWORD
+            keyAlias WATCHY_DEBUG_KEY_ALIAS
+            keyPassword WATCHY_DEBUG_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
 
         debug {
             buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
             buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            signingConfig signingConfigs.debug
             minifyEnabled false
         }
 
         develop {
             buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
             buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            signingConfig signingConfigs.debug
             minifyEnabled false
+
         }
 
         developNoSign {
             buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
             buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            signingConfig signingConfigs.debug
             minifyEnabled false
         }
 
         release {
             buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
             buildConfigField("boolean", "IS_LOG_OUTPUT", "false")
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         releaselog {
             buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
             buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -55,10 +78,11 @@ android {
 
         watchyTest {
             applicationIdSuffix ".test"
+            manifestPlaceholders = [FILE_PROVIDER_NAME: "com.nttdocomo.watchy.test.fileprovider"]
         }
 
         watchy {
-
+            manifestPlaceholders = [FILE_PROVIDER_NAME: "com.nttdocomo.watchy.fileprovider"]
         }
 
     }

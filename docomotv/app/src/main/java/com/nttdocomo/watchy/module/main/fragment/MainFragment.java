@@ -1,7 +1,6 @@
 package com.nttdocomo.watchy.module.main.fragment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -19,7 +18,6 @@ import com.nttdocomo.watchy.model.auth.UserInfoModel;
 import com.nttdocomo.watchy.model.common.LinksModel;
 import com.nttdocomo.watchy.model.item.Item;
 import com.nttdocomo.watchy.module.base.BaseFragment;
-import com.nttdocomo.watchy.module.common.qrcode.CaptureActivity;
 import com.nttdocomo.watchy.network.AccountService;
 import com.nttdocomo.watchy.network.FileUploadService;
 import com.nttdocomo.watchy.network.ItemService;
@@ -81,7 +79,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
             case R.id.btn_qrcode:
 
                 if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    startActivity(new Intent(getContext(), CaptureActivity.class));
+//                    startActivity(new Intent(getContext(), CaptureActivity.class));
                 } else {
                     EasyPermissions.requestPermissions(MainFragment.this,getString(R.string.app_name), REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
@@ -274,7 +272,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
         // 授权成功，由于本页面只有一个授权的请求，所以可以直接将迁移到二维码画面的逻辑写在这里
-        startActivity(new Intent(getContext(), CaptureActivity.class));
+//        startActivity(new Intent(getContext(), CaptureActivity.class));
     }
 
     @Override

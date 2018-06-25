@@ -65,7 +65,7 @@ See README(https://goo.gl/l4GJaQ) for more. -->
         <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.nttdocomo.watchy.fileprovider"
+            android:authorities="${FILE_PROVIDER_NAME}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
