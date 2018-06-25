@@ -3,23 +3,101 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.docomo.watchy"
+        applicationId "com.nttdocomo.watchy"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        flavorDimensions "1"
     }
     buildTypes {
+
+        debug {
+            buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
+            buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            minifyEnabled false
+        }
+
+        develop {
+            buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
+            buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            minifyEnabled false
+        }
+
+        developNoSign {
+            buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
+            buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            minifyEnabled false
+        }
+
         release {
+            buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
+            buildConfigField("boolean", "IS_LOG_OUTPUT", "false")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        releaselog {
+            buildConfigField("String", "API_BASE_URL", "\"https://api.proding.net\"")
+            buildConfigField("boolean", "IS_LOG_OUTPUT", "true")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+
+    }
+
+
+
+    productFlavors {
+
+        watchyTest {
+            applicationIdSuffix ".test"
+        }
+
+        watchy {
+
+        }
+
     }
 
     dataBinding {
         enabled = true
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.each {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileNameSuffix = ""
+                        switch (variant.buildType.name) {
+                            case "debug":
+                                fileNameSuffix = "_debug_on_signed"
+                                break
+                            case "develop":
+                                fileNameSuffix = "_test_on_signed"
+                                break
+                            case "developNoSign":
+                                fileNameSuffix = "_test_on"
+                                break
+                            case "release":
+                                fileNameSuffix = ""
+                                break
+                            case "releaselog":
+                                fileNameSuffix = "_on"
+                                break
+                            default:
+                                break
+                        }
+
+                        def fileName = "dWatchy_${defaultConfig.versionName}${fileNameSuffix}.apk"
+                        output.outputFileName = fileName
+                    }
+            }
     }
 }
 
@@ -30,10 +108,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    // butterKnife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'

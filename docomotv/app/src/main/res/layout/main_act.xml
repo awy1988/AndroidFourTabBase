@@ -13,7 +13,7 @@
 
     <View style="@style/CommonDividerHorizontal" />
 
-    <com.docomo.watchy.widget.CommonFragmentTabHost
+    <com.nttdocomo.watchy.widget.CommonFragmentTabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/common_tabbar_height">
@@ -24,6 +24,6 @@
             android:layout_height="0dp"
             android:layout_weight="0" />
 
-    </com.docomo.watchy.widget.CommonFragmentTabHost>
+    </com.nttdocomo.watchy.widget.CommonFragmentTabHost>
 
 </LinearLayout>

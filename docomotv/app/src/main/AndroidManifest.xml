@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.docomo.watchy">
+    package="com.nttdocomo.watchy">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -50,14 +49,14 @@ See README(https://goo.gl/l4GJaQ) for more. -->
 
 
         <service
-            android:name=".service.fcm.DocomotvFirebaseMessagingService">
+            android:name=".service.fcm.DocomoWatchyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".service.fcm.DocomotvFirebaseInstanceIDService">
+            android:name=".service.fcm.DocomoWatchyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
@@ -66,7 +65,7 @@ See README(https://goo.gl/l4GJaQ) for more. -->
         <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.docomo.watchy.fileprovider"
+            android:authorities="com.nttdocomo.watchy.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
