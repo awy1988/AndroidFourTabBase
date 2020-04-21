@@ -53,9 +53,4 @@ dependencies {
 
     // multidex
     implementation 'com.android.support:multidex:1.0.3'
-
-    // google firebase service
-    implementation 'com.google.firebase:firebase-core:16.0.0'
-    implementation 'com.google.firebase:firebase-messaging:17.0.0'
 }
-apply plugin: 'com.google.gms.google-services'
