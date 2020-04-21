@@ -1,4 +1,4 @@
-# docomoTV
+# demo
 
 ## 工程目录
 
@@ -7,7 +7,7 @@ android-project
   src
     ├──main
        ├── AndroidManifest.xml
-       ├── com.docomotv  
+       ├── com.demo
        │   ├── module
        │   │   ├── base
        │   │   ├── auth（可选）
@@ -61,29 +61,29 @@ android-project
 
 #### xml文件
 - 文件名全部小写，多个单词用下划线分隔。
-- 布局文件（layout 文件夹下）  
-  - 文件命名以模块划分，activity 与 fragment 的布局文件后面加入 act、frag 后缀  
-    >正例：setting_act.xml  
-    >反例：activity_setting.xml 
+- 布局文件（layout 文件夹下）
+  - 文件命名以模块划分，activity 与 fragment 的布局文件后面加入 act、frag 后缀
+    >正例：setting_act.xml
+    >反例：activity_setting.xml
 
     > 注：之所以不推荐 `activity_setting.xml` 这种命名方式，是因为一旦采用这种方式，相同模块的布局文件，在目录中的排列会因为文件命名而分散到各处，比如 `SettingActivity` 画面中用到了两个布局文件，画面整体的布局和页面中的列表条目的布局，推荐如下的命名方式：`setting_act.xml`、`setting_act_lvi.xml`，这样的命名方式在集成开发环境中这两个文件会被排列在一起。如果采用如下方式的命名：`activity_setting.xml`、`item_list_setting.xml`，则在集成开发环境中两个文件就会被排列在距离较远的位置，不利于查找。
 
-   - 布局文件可以使用约定的缩写以减小文件名称长度  
-        常用布局文件名称缩写约定：  
-        `activity -> act`   
-        `fragment -> frag`  
-        `list_view_item -> lvi`  
-        `grid_view_item -> gvi`  
+   - 布局文件可以使用约定的缩写以减小文件名称长度
+        常用布局文件名称缩写约定：
+        `activity -> act`
+        `fragment -> frag`
+        `list_view_item -> lvi`
+        `grid_view_item -> gvi`
 
 
-- 绘画文件（drawable 文件夹下）   
-  文件命名以功能为前缀命名，表示这个绘画文件表示一个什么样的资源（本资源是形状？选择器？图标？等等），功能前缀后面加入表示该资源对应的逻辑名称。  
-  常用前缀：`shape`（形状）、`selector`（选择器）、`icon`（图标）  
-  例：  
-  `shape_common_btn_dialog_cancel_normal.xml` —— 本资源为形状  
-  `selector_btn_round_normal.xml` —— 本资源为选择器  
-  `icon_common_loading.xml` —— 本资源为图标  
- 
+- 绘画文件（drawable 文件夹下）
+  文件命名以功能为前缀命名，表示这个绘画文件表示一个什么样的资源（本资源是形状？选择器？图标？等等），功能前缀后面加入表示该资源对应的逻辑名称。
+  常用前缀：`shape`（形状）、`selector`（选择器）、`icon`（图标）
+  例：
+  `shape_common_btn_dialog_cancel_normal.xml` —— 本资源为形状
+  `selector_btn_round_normal.xml` —— 本资源为选择器
+  `icon_common_loading.xml` —— 本资源为图标
+
   > 注：
   - 用 `shape`、`selector`、`icon` 等做前缀的好处是，我们可以通过文件名一眼看出这个 drawable 的作用是什么，有利于在面对一些画面UI问题时帮助我们快速分析问题（比如某按钮按下时没有样式变化一类的问题）。
   - 之所以不把业务名称写在文件名前面，是因为在工程中往往有很多 drawable 资源是可以复用的，这时如果用业务来命名，会导致资源文件泛滥，比如登录画面中的确定按钮与支付画面中的确定按钮都需要用到一个相同的 selector，由于按照业务名称命名，我们不得不写两个一模一样的 selector 来对应代码的逻辑，`login_btn_selector.xml`，`payment_btn_selector.xml`，其实我们只需要写一个 selector，并给这个 selector 起一个泛化的名称，比如：`selector_common_primary_btn.xml`，然后为两个画面的按钮都指定此 selector 即可。所以，泛化可复用的 drawable 的命名，并复用之。当然，对于程序中没有复用或者需要特殊处理的 drawable 除外。
@@ -92,20 +92,20 @@ android-project
 #### 图片文件
   - 文件名全部小写，多个单词用下划线分隔。
   - 通用图片加入 `common` 前缀，图标类图片加入 `ic` 前缀，背景类图片加入 `bg` 前缀，前缀后面名称按照图片表示的业务逻辑命名。
-  > 注：图片资源加入前缀的目的主要是方便图片的查找与对图片的理解，例如，工程中被很多地方共用的一些图片，加入 `common` 前缀可以有效的防止一个图片被以不同的名称放入资源文件夹多次的问题。加入 `ic` 与 `bg` 前缀可以使我们快速的知道这个图片是一个图标类的小型图片还是一个背景类的大型图片。  
+  > 注：图片资源加入前缀的目的主要是方便图片的查找与对图片的理解，例如，工程中被很多地方共用的一些图片，加入 `common` 前缀可以有效的防止一个图片被以不同的名称放入资源文件夹多次的问题。加入 `ic` 与 `bg` 前缀可以使我们快速的知道这个图片是一个图标类的小型图片还是一个背景类的大型图片。
 
-  例：  
-  `common_ic_arrow_left_white.png` —— 通用类图标，左向箭头图标  
-  `ic_user_info_edit.png` —— 非通用类图标，用户信息编辑图标  
+  例：
+  `common_ic_arrow_left_white.png` —— 通用类图标，左向箭头图标
+  `ic_user_info_edit.png` —— 非通用类图标，用户信息编辑图标
   `bg_startup_bottom.png` —— 非通用类图片，启动画面底部背景图片
 
 #### 资源文件（二进制文件、html、js等等）
   - 文件名全部小写，多个单词用下划线分隔。
-  - 按照业务逻辑进行命名。  
-      例：  
-    `warning.ogg`  
+  - 按照业务逻辑进行命名。
+      例：
+    `warning.ogg`
 
-> 注：如果是 html、js 等 web 资源文件，则相应的遵循 web 资源的命名规则。  
+> 注：如果是 html、js 等 web 资源文件，则相应的遵循 web 资源的命名规则。
 
 ## 编码规范
 ### Java代码编码规范
@@ -113,24 +113,24 @@ android-project
 
 2. 【强制】逻辑复杂、难以理解的代码必须加入注释，比如：复杂的业务逻辑、算法、控制流程等。注释的内容需要写清楚代码的功能，如果有必要还要写明为什么这么做，以便于后续维护。
 
-3. 类、方法、参数、变量的命名  
+3. 类、方法、参数、变量的命名
 
-    【强制】类名使用 UpperCamelCase 风格，必须遵从驼峰形式  
-    >正例:MarcoPolo / UserDO / XmlService / TcpUdpDeal / TaPromotion  
+    【强制】类名使用 UpperCamelCase 风格，必须遵从驼峰形式
+    >正例:MarcoPolo / UserDO / XmlService / TcpUdpDeal / TaPromotion
     >反例:macroPolo / UserDo / XMLService / TCPUDPDeal / TAPromotion
 
-    【强制】方法名、参数名、成员变量、局部变量都统一使用 lowerCamelCase 风格，必须遵从 驼峰形式。  
+    【强制】方法名、参数名、成员变量、局部变量都统一使用 lowerCamelCase 风格，必须遵从 驼峰形式。
     >正例: localValue / getHttpMessage() / inputUserId
 
-    【强制】常量命名全部大写，单词间用下划线隔开，力求语义表达完整清楚，不要嫌名字长。   
-    > 正例:MAX_STOCK_COUNT  
+    【强制】常量命名全部大写，单词间用下划线隔开，力求语义表达完整清楚，不要嫌名字长。
+    > 正例:MAX_STOCK_COUNT
     > 反例:MAX_COUNT
 
-4. 【强制】包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用 单数形式，但是类名如果有复数含义，类名可以使用复数形式。  
+4. 【强制】包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用 单数形式，但是类名如果有复数含义，类名可以使用复数形式。
 `例：应用工具类包名为 com.open.util、类名为 MessageUtils`
 
-5. 【强制】在 if/else/for/while/do 语句中必须使用大括号。即使只有一行代码，避免采用单行的编码方式：  
->正例：if (condition) { statements; }  
+5. 【强制】在 if/else/for/while/do 语句中必须使用大括号。即使只有一行代码，避免采用单行的编码方式：
+>正例：if (condition) { statements; }
 >反例：if (condition) statements;
 
 6. 【推荐】单行字符数限制不超过 120 个，超出需要换行，换行时遵循如下原则：
@@ -138,14 +138,14 @@ android-project
   - 运算符与下文一起换行。
   - 方法调用的点符号与下文一起换行。
   - 方法调用时，多个参数，需要换行时，在逗号后进行。
-  - 在括号前不要换行，见反例。  
+  - 在括号前不要换行，见反例。
 
   >正例
 
   ```java
-    StringBuffer sb = new StringBuffer(); 
-    // 超过 120 个字符的情况下,换行缩进 4 个空格,点号和方法名称一起换行 
-    sb.append("zi").append("xin")... 
+    StringBuffer sb = new StringBuffer();
+    // 超过 120 个字符的情况下,换行缩进 4 个空格,点号和方法名称一起换行
+    sb.append("zi").append("xin")...
         .append("huang")...
         .append("huang")...
         .append("huang");
@@ -154,12 +154,12 @@ android-project
   >反例
 
   ```java
-    StringBuffer sb = new StringBuffer(); 
-    // 超过 120 个字符的情况下,不要在括号前换行 
+    StringBuffer sb = new StringBuffer();
+    // 超过 120 个字符的情况下,不要在括号前换行
     sb.append("zi").append("xin")...append
-        ("huang"); 
-    // 参数很多的方法调用可能超过 120 个字符,不要在逗号前换行 
-    method(args1, args2, args3, ... 
+        ("huang");
+    // 参数很多的方法调用可能超过 120 个字符,不要在逗号前换行
+    method(args1, args2, args3, ...
         , argsX);
 
   ```
@@ -167,16 +167,16 @@ android-project
 ### xml 布局文件编码规范
 
 #### 命名规范
-##### id 命名规范  
-控件缩写_业务规则  
+##### id 命名规范
+控件缩写_业务规则
 例：`et_user_name`、`btn_confirm`、`btn_reload`
 
 ##### 控件缩写
-  为了方便控件 id 的命名，我们约定一些常用控件的缩写，控件缩写采用控件类名驼峰标识的首字母组合。  
-  常用控件缩写：  
+  为了方便控件 id 的命名，我们约定一些常用控件的缩写，控件缩写采用控件类名驼峰标识的首字母组合。
+  常用控件缩写：
 
 |控件名称|缩写名称|
-|-|-|  
+|-|-|
 |TextView|tv|
 |EditText|et|
 |Button|btn（特殊）|
@@ -191,26 +191,26 @@ android-project
 |RecyclerView|rv|
 
 #### 属性排列
-规范布局控件的属性排列顺序，可以提高布局代码的可读性，维护性，提高团队协作的效率。排列顺序如下：  
-**1\. id**   
-    （`id`）  
-**2\. 宽高**  
-    （`layout_width`、`layout_height`）  
-**3\. 内外边距**  
-    （`layout_paddingTop`、`layout_paddingBottom`、`layout_paddingLeft`、`layout_paddingRight`、`layout_marginTop`、`layout_marginBottom`、`layout_marginLeft`、`layout_marginRight`）  
-**4\. 位置**  
-    （`layout_above`、`layout_below`、`layout_toLeftOf`、`layout_toRgithOf`、`layout_gravity`、`layout_centerVertical`、`layout_centerInParent`、`layout_centerHorizontal` 等）  
-**5\. 其他**  
-    例： 
+规范布局控件的属性排列顺序，可以提高布局代码的可读性，维护性，提高团队协作的效率。排列顺序如下：
+**1\. id**
+    （`id`）
+**2\. 宽高**
+    （`layout_width`、`layout_height`）
+**3\. 内外边距**
+    （`layout_paddingTop`、`layout_paddingBottom`、`layout_paddingLeft`、`layout_paddingRight`、`layout_marginTop`、`layout_marginBottom`、`layout_marginLeft`、`layout_marginRight`）
+**4\. 位置**
+    （`layout_above`、`layout_below`、`layout_toLeftOf`、`layout_toRgithOf`、`layout_gravity`、`layout_centerVertical`、`layout_centerInParent`、`layout_centerHorizontal` 等）
+**5\. 其他**
+    例：
   - 文字相关
       （`text`、`textColor`、`textSize`）
   - 背景、图片资源
       （`background`、`src`）
   - 图片的缩放策略、文字的单行显示、超字数省略等等
-      （`scaleType`、`singleLine`、`ellipsize` 等）  
+      （`scaleType`、`singleLine`、`ellipsize` 等）
 
-**6\. 可见性**（`visibility`）  
-    例：  
+**6\. 可见性**（`visibility`）
+    例：
   ```xml
   <Button
     android:id="@+id/btn_reload"

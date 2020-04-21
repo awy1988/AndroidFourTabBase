@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.docomotv">
+    package="com.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -19,54 +19,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".module.App">
+        android:name="com.demo.module.App">
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-See README(https://goo.gl/l4GJaQ) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_stat_ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="fcm_default_channel"/>
-
-        <activity android:name=".module.startup.StartupActivity">
+        <activity android:name="com.demo.module.startup.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.MainActivity" />
-        <activity android:name=".module.common.qrcode.CaptureActivity" />
-        <activity android:name=".module.common.WebViewActivity" />
-        <activity android:name=".util.image.ImageSingleSelectActivity" />
+        <activity android:name="com.demo.module.MainActivity" />
+        <activity android:name="com.demo.module.common.qrcode.CaptureActivity" />
+        <activity android:name="com.demo.module.common.WebViewActivity" />
+        <activity android:name="com.demo.util.image.ImageSingleSelectActivity" />
 
-
-        <service
-            android:name=".service.fcm.DocomotvFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".service.fcm.DocomotvFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
 
         <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.docomotv.fileprovider"
+            android:authorities="com.demo.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
