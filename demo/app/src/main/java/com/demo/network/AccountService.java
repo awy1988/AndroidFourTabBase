@@ -8,37 +8,44 @@ import com.demo.network.base.HttpApiHelper;
 import com.demo.network.base.RequestCallbackListener;
 import com.demo.network.interfaces.IAccountService;
 
+import javax.inject.Inject;
+
 public class AccountService {
+
+    @Inject
+    public AccountService() {
+
+    }
 
     /**
      * 用户登录
      */
-    public static void authorization(AuthorizationRequestBody authorizationRequestBody, final RequestCallbackListener<UserInfoModel> listener) {
+    public void authorization(AuthorizationRequestBody authorizationRequestBody, final RequestCallbackListener<UserInfoModel> listener) {
         HttpApiHelper.executeRequest(getAccountService().authorizations(authorizationRequestBody), listener);
     }
 
     /**
      * 注销登录
      */
-    public static void logout(final RequestCallbackListener<String> listener) {
+    public void logout(final RequestCallbackListener<String> listener) {
         HttpApiHelper.executeRequest(getAccountService().logout(), listener);
     }
 
     /**
      * 更新密码
      */
-    public static void updatePassword(UpdatePasswordRequestBody updatePasswordRequestBody, final RequestCallbackListener<String> listener) {
+    public void updatePassword(UpdatePasswordRequestBody updatePasswordRequestBody, final RequestCallbackListener<String> listener) {
         HttpApiHelper.executeRequest(getAccountService().updatePassword(updatePasswordRequestBody), listener);
     }
 
     /**
      * 更新登录用户信息
      */
-    public static void updateProfile(UpdateProfileRequestBody updateProfileRequestBody, final RequestCallbackListener<String> listener) {
+    public void updateProfile(UpdateProfileRequestBody updateProfileRequestBody, final RequestCallbackListener<String> listener) {
         HttpApiHelper.executeRequest(getAccountService().updateProfile(updateProfileRequestBody), listener);
     }
 
-    private static IAccountService getAccountService() {
+    private IAccountService getAccountService() {
         return HttpApiHelper.getRetrofitInstance().create(IAccountService.class);
     }
 

@@ -1,17 +1,21 @@
 package com.demo.module.base;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.demo.module.App;
+import com.demo.module.base.dagger.helper.DaggerInjectHelper;
 import com.demo.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
@@ -40,6 +44,12 @@ public class BaseFragment extends Fragment {
     public View mRlToolbar;
 
     private Unbinder unbinder;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        DaggerInjectHelper.inject(this);
+        super.onAttach(context);
+    }
 
     @Override
     public void onCreate(Bundle saveInstanceState) {

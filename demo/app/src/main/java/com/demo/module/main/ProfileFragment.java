@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import com.demo.module.base.BaseFragment;
 import com.demo.R;
+import com.demo.network.AccountService;
+
+import javax.inject.Inject;
 
 /**
  * @author weiyang.an
@@ -16,7 +19,8 @@ public class ProfileFragment extends BaseFragment {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
-
+    @Inject
+    AccountService accountService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

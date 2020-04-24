@@ -3,13 +3,15 @@ package com.demo.module.main;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.demo.R;
 import com.demo.constant.ApiConstant;
 import com.demo.model.api.AuthorizationRequestBody;
 import com.demo.model.api.Page;
@@ -27,10 +29,11 @@ import com.demo.network.ItemService;
 import com.demo.network.base.RequestCallbackListener;
 import com.demo.util.ImageUtils;
 import com.demo.util.SPUtils;
-import com.demo.R;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -44,13 +47,13 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final int REQ_CODE_CAMERA_PERMISSION = 1;
 
-
+    @Inject
+    AccountService accountService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_frag, container, false);
-        testRequest();
         return view;
     }
 
@@ -58,16 +61,6 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private String testUploadImageFileName2 = "/storage/emulated/0/proding/image/M20180614141404.jpg";
     private String nextLinkUrl = null;
 
-    private void testRequest() {
-
-//        testGet();
-//        testPost();
-//        testDelete();
-//        testPut();
-//        testPatch();
-
-//        testUploadImage();
-    }
 
     @OnClick({R.id.btn_login, R.id.btn_logout, R.id.btn_get_items, R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera})
     public void onButtonClick(View view) {
@@ -151,7 +144,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         AuthorizationRequestBody requestBody = new AuthorizationRequestBody();
         requestBody.setUsername("15840891377");
         requestBody.setPassword("rd123456");
-        AccountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
+        accountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
             @Override
             public void onStarted() {
                 Log.d("testPost", "onStarted: ");
@@ -175,7 +168,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testDelete() {
-        AccountService.logout(new RequestCallbackListener<String>() {
+        accountService.logout(new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testDelete", "onStarted: ");
@@ -199,7 +192,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         requestBody.setPassword("rd1234");
         requestBody.setNewPassword("rd123456");
 
-        AccountService.updatePassword(requestBody, new RequestCallbackListener<String>() {
+        accountService.updatePassword(requestBody, new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testPut", "onStarted: ");
@@ -220,7 +213,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private void testPatch() {
         UpdateProfileRequestBody requestBody = new UpdateProfileRequestBody();
         requestBody.setName("helloLaoTie");
-        AccountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
+        accountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testPatch", "onStarted: ");

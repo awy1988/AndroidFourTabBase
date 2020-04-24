@@ -3,17 +3,19 @@ package com.demo.module.base;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.demo.module.App;
+import com.demo.module.base.dagger.helper.DaggerInjectHelper;
 import com.demo.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
@@ -59,6 +61,9 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        DaggerInjectHelper.inject(this);
+
         super.onCreate(savedInstanceState);
         mProgressDialog = new CustomProgressDialog(this, "努力加载中...");
         mProgressDialog.setCancelable(false);
