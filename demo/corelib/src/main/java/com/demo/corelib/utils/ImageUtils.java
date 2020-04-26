@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.demo.corelib.network.FileUploadService;
 import com.demo.corelib.utils.image.ImageSingleSelect;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -52,13 +53,13 @@ public class ImageUtils {
      */
     public static void showImageByGlideWithoutScaleType(ImageView imageView, int defaultImageResource, String imgUrl, Context context) {
 
-//        GlideApp.with(context)
-//                .load(imgUrl)
-//                // 如果占位图片与加载的图片不一样大，会出现加载的图片加载完成后先被放大（或缩小）然后再正常显示的问题（此问题见于课程封面系统图库页面）。所以此处注释掉设置占位图片的代码
-////                .placeholder(defaultImageResource)
-//                .error(defaultImageResource)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageView);
+        GlideApp.with(context)
+                .load(imgUrl)
+                // 如果占位图片与加载的图片不一样大，会出现加载的图片加载完成后先被放大（或缩小）然后再正常显示的问题（此问题见于课程封面系统图库页面）。所以此处注释掉设置占位图片的代码
+//                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
 
     }
 
@@ -78,12 +79,12 @@ public class ImageUtils {
             return;
         }
 
-//        GlideApp.with(context)
-//                .load(imgUrl)
-//                .placeholder(defaultImageResource)
-//                .error(defaultImageResource)
-////                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageView);
+        GlideApp.with(context)
+                .load(imgUrl)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+//                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
     }
 
     /**
@@ -97,21 +98,21 @@ public class ImageUtils {
     public static void showImageByGlide(ImageView imageView, Drawable defaultImageResource, String imgUrl, Context context) {
 
         if (imageView instanceof RoundedImageView) {
-//            GlideApp.with(context)
-//                    .asBitmap()
-//                    .load(imgUrl)
-//                    .placeholder(defaultImageResource)
-//                    .error(defaultImageResource)
-//                    .into(imageView);
+            GlideApp.with(context)
+                    .asBitmap()
+                    .load(imgUrl)
+                    .placeholder(defaultImageResource)
+                    .error(defaultImageResource)
+                    .into(imageView);
             return;
         }
 
-//        GlideApp.with(context)
-//                .load(imgUrl)
-//                .placeholder(defaultImageResource)
-//                .error(defaultImageResource)
-////                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageView);
+        GlideApp.with(context)
+                .load(imgUrl)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+//                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
     }
 
     /**
@@ -123,18 +124,18 @@ public class ImageUtils {
      */
     public static void showImageByGlide(ImageView imageView, String imgUrl, Context context) {
 
-//        if (imageView instanceof RoundedImageView) {
-//            GlideApp.with(context)
-//                    .asBitmap()
-//                    .load(imgUrl)
-//                    .into(imageView);
-//            return;
-//        }
-//
-//        GlideApp.with(context)
-//                .load(imgUrl)
-////                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageView);
+        if (imageView instanceof RoundedImageView) {
+            GlideApp.with(context)
+                    .asBitmap()
+                    .load(imgUrl)
+                    .into(imageView);
+            return;
+        }
+
+        GlideApp.with(context)
+                .load(imgUrl)
+//                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
     }
 
     /**
@@ -149,12 +150,12 @@ public class ImageUtils {
 
         if (file != null && file.exists()) {
 
-//            GlideApp.with(context)
-//                    .load(file)
-//                    .placeholder(defaultImageResource)
-//                    .error(defaultImageResource)
-////                    .transition(DrawableTransitionOptions.withCrossFade())
-//                    .into(imageView);
+            GlideApp.with(context)
+                    .load(file)
+                    .placeholder(defaultImageResource)
+                    .error(defaultImageResource)
+//                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imageView);
         }
 
     }
@@ -169,12 +170,12 @@ public class ImageUtils {
      */
     public static void showImageByGlide(ImageView imageView, int defaultImageResource, Uri uri, Context context) {
 
-//        GlideApp.with(context)
-//                .load(uri)
-//                .placeholder(defaultImageResource)
-//                .error(defaultImageResource)
-////                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageView);
+        GlideApp.with(context)
+                .load(uri)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+//                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
 
     }
 
@@ -187,9 +188,9 @@ public class ImageUtils {
      */
     public static void showImageByGlide(ImageView imageView, int imageResId, Context context) {
 
-//        GlideApp.with(context)
-//                .load(imageResId)
-//                .into(imageView);
+        GlideApp.with(context)
+                .load(imageResId)
+                .into(imageView);
 
     }
 
@@ -204,12 +205,12 @@ public class ImageUtils {
     public static void showRoundImageByGlide(final ImageView imageView, int defaultImageResource, String imgUrl, Context context) {
 
         // 解决glide加载圆形图片的问题
-//        GlideApp.with(context)
-//                .asBitmap()
-//                .load(imgUrl)
-//                .placeholder(defaultImageResource)
-//                .error(defaultImageResource)
-//                .into(imageView);
+        GlideApp.with(context)
+                .asBitmap()
+                .load(imgUrl)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+                .into(imageView);
 
     }
 
