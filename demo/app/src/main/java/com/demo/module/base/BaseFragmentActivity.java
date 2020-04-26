@@ -15,7 +15,6 @@ import androidx.databinding.ViewDataBinding;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.demo.module.App;
-import com.demo.module.base.dagger.helper.DaggerInjectHelper;
 import com.demo.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
@@ -62,7 +61,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        DaggerInjectHelper.inject(this);
+//        DaggerInjectHelper.inject(this);
 
         super.onCreate(savedInstanceState);
         mProgressDialog = new CustomProgressDialog(this, "努力加载中...");

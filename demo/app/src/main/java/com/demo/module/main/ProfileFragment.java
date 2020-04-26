@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.demo.module.base.BaseFragment;
 import com.demo.R;
-import com.demo.network.AccountService;
+import com.demo.corelib.network.AccountService;
 
 import javax.inject.Inject;
 

@@ -7,34 +7,37 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.demo.R;
 import com.demo.constant.ApiConstant;
-import com.demo.model.api.AuthorizationRequestBody;
-import com.demo.model.api.Page;
-import com.demo.model.api.Sort;
-import com.demo.model.api.UpdatePasswordRequestBody;
-import com.demo.model.api.UpdateProfileRequestBody;
-import com.demo.model.auth.UserInfoModel;
-import com.demo.model.common.LinksModel;
-import com.demo.model.item.Item;
+import com.demo.corelib.model.api.AuthorizationRequestBody;
+import com.demo.corelib.model.api.Page;
+import com.demo.corelib.model.api.Sort;
+import com.demo.corelib.model.api.UpdatePasswordRequestBody;
+import com.demo.corelib.model.api.UpdateProfileRequestBody;
+import com.demo.corelib.model.auth.UserInfoModel;
+import com.demo.corelib.model.common.LinksModel;
+import com.demo.corelib.model.item.Item;
+import com.demo.corelib.network.AccountService;
+import com.demo.corelib.network.FileUploadService;
+import com.demo.corelib.network.ItemService;
+import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.corelib.utils.ImageUtils;
+import com.demo.corelib.utils.SPUtils;
 import com.demo.module.base.BaseFragment;
 import com.demo.module.common.qrcode.CaptureActivity;
-import com.demo.network.AccountService;
-import com.demo.network.FileUploadService;
-import com.demo.network.ItemService;
-import com.demo.network.base.RequestCallbackListener;
-import com.demo.util.ImageUtils;
-import com.demo.util.SPUtils;
+import com.demo.module.main.viewmodel.MainViewModel;
 
 import java.util.HashMap;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -47,18 +50,35 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final int REQ_CODE_CAMERA_PERMISSION = 1;
 
-    @Inject
-    AccountService accountService;
+    MainViewModel viewModel;
+
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+
+//    @Inject
+//    AccountService AccountService;
+
+    @Override
+    public void onCreate(Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
+        viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        viewModel.getTitle().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                tvTitle.setText(s);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_frag, container, false);
+//        ButterKnife.bind(view);
         return view;
     }
 
     private String testUploadImageFileName = "/storage/emulated/0/proding/image/M20180614101231.jpg";
-    private String testUploadImageFileName2 = "/storage/emulated/0/proding/image/M20180614141404.jpg";
     private String nextLinkUrl = null;
 
 
@@ -67,6 +87,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         switch (view.getId()) {
             case R.id.btn_login:
                 testPost();
+                viewModel.setTitle("hahaha");
                 break;
             case R.id.btn_get_items:
                 testGet();
@@ -144,7 +165,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         AuthorizationRequestBody requestBody = new AuthorizationRequestBody();
         requestBody.setUsername("15840891377");
         requestBody.setPassword("rd123456");
-        accountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
+        AccountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
             @Override
             public void onStarted() {
                 Log.d("testPost", "onStarted: ");
@@ -168,7 +189,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testDelete() {
-        accountService.logout(new RequestCallbackListener<String>() {
+        AccountService.logout(new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testDelete", "onStarted: ");
@@ -192,7 +213,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         requestBody.setPassword("rd1234");
         requestBody.setNewPassword("rd123456");
 
-        accountService.updatePassword(requestBody, new RequestCallbackListener<String>() {
+        AccountService.updatePassword(requestBody, new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testPut", "onStarted: ");
@@ -213,7 +234,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private void testPatch() {
         UpdateProfileRequestBody requestBody = new UpdateProfileRequestBody();
         requestBody.setName("helloLaoTie");
-        accountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
+        AccountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
             @Override
             public void onStarted() {
                 Log.d("testPatch", "onStarted: ");
@@ -253,7 +274,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testUploadImage() {
-        ImageUtils.uploadImage(getContext(), testUploadImageFileName2, FileUploadService.Category.USER_LOGO, new ImageUtils.OnFileUploadResultListener() {
+        ImageUtils.uploadImage(getContext(), testUploadImageFileName, FileUploadService.Category.USER_LOGO, new ImageUtils.OnFileUploadResultListener() {
             @Override
             public void onUploadSuccess(String data) {
 

@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.demo.module.App;
-import com.demo.module.base.dagger.helper.DaggerInjectHelper;
 import com.demo.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
@@ -47,7 +46,7 @@ public class BaseFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        DaggerInjectHelper.inject(this);
+//        DaggerInjectHelper.inject(this);
         super.onAttach(context);
     }
 

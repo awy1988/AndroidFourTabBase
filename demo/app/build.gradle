@@ -28,6 +28,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':corelib')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
@@ -38,21 +39,14 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-    // Glide
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
-    // roundedImageView
-    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+
 
     // easyPermission
     implementation 'pub.devrel:easypermissions:1.2.0'
 
-    // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    // OKHttp log
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+
 
     // multidex
     implementation 'androidx.multidex:multidex:2.0.1'
@@ -63,4 +57,7 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.15'
     implementation 'com.google.dagger:dagger-android-support:2.15'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+
+    // lifecycle
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 }
