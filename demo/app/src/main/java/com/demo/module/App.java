@@ -8,6 +8,7 @@ import android.os.Environment;
 import androidx.multidex.MultiDex;
 
 import com.demo.constant.ApiConstant;
+import com.demo.corelib.utils.SPUtils;
 
 import java.util.List;
 
@@ -72,6 +73,8 @@ public class App extends Application {
 
         // 异常系页面初始化
         initLoadSir();
+
+        SPUtils.init(this);
     }
 
     /**
