@@ -18,14 +18,6 @@ import android.view.WindowManager;
 
 import com.demo.module.App;
 
-/**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/08/02
- *     desc  : 屏幕相关工具类
- * </pre>
- */
 public class ScreenUtils {
 
     private ScreenUtils() {

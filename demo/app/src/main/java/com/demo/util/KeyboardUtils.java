@@ -5,10 +5,6 @@ import android.content.Context;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * @author weiyang.an
- * @version 1.0 2018/6/11
- */
 public class KeyboardUtils {
 
     private static final String TAG = KeyboardUtils.class.getSimpleName();

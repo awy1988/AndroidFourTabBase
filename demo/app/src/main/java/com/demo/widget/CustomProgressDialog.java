@@ -11,8 +11,6 @@ import com.demo.R;
  *
  * 加载中对话框自定义类
  *
- * @author weiyang.an
- * @version 1.0 2017/10/24
  */
 public class CustomProgressDialog extends ProgressDialog {
 

@@ -10,7 +10,6 @@ import com.demo.R;
 
 /**
  * 带进度条的webview
- * Created by weiyang.an on 18/1/4
  */
 @SuppressWarnings("deprecation")
 public class ProgressWebView extends WebView {
