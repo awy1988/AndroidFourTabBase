@@ -1,10 +1,10 @@
-package com.demo.widget;
+package com.demo.widgets.widget;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.demo.R;
+import com.demo.widgets.R;
 
 
 /**

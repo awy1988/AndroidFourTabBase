@@ -41,10 +41,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
-/**
- * @author weiyang.an
- * @version 1.0 2018/6/12
- */
 public class MainFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = MainFragment.class.getSimpleName();

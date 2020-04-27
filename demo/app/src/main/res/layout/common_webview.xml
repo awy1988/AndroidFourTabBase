@@ -5,7 +5,7 @@
 
     <include layout="@layout/common_ab" />
 
-    <com.demo.widget.ProgressWebView
+    <com.demo.widgets.widget.ProgressWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

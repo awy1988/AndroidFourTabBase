@@ -17,7 +17,7 @@ import com.demo.module.main.CategoryFragment;
 import com.demo.module.main.MainFragment;
 import com.demo.module.main.ProfileFragment;
 import com.demo.module.main.ShoppingCartFragment;
-import com.demo.widget.CommonFragmentTabHost;
+import com.demo.widgets.widget.CommonFragmentTabHost;
 
 import butterknife.BindArray;
 import butterknife.BindView;
