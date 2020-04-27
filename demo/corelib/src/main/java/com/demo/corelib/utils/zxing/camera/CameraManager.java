@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.camera;
+package com.demo.corelib.utils.zxing.camera;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -24,7 +24,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import com.demo.util.zxing.camera.open.OpenCameraInterface;
+import com.demo.corelib.utils.zxing.camera.open.OpenCameraInterface;
 
 import java.io.IOException;
 

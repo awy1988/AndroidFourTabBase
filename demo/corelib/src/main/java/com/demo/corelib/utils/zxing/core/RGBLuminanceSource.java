@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.core;
+package com.demo.corelib.utils.zxing.core;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

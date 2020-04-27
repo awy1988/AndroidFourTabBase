@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.utils;
+package com.demo.corelib.utils.zxing.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,8 +26,8 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.demo.module.common.qrcode.CaptureActivity;
-import com.demo.R;
+import com.demo.corelib.R;
+import com.demo.corelib.utils.zxing.qrcode.CaptureActivity;
 
 import java.io.Closeable;
 import java.io.IOException;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.demo.module.common.qrcode;
+package com.demo.corelib.utils.zxing.qrcode;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,21 +38,19 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.demo.R;
-import com.demo.module.common.WebViewActivity;
-import com.demo.util.FileUtils;
-import com.demo.util.zxing.camera.CameraManager;
-import com.demo.util.zxing.core.QRCodeReader;
-import com.demo.util.zxing.core.RGBLuminanceSource;
-import com.demo.util.zxing.decode.DecodeThread;
-import com.demo.util.zxing.utils.BeepManager;
-import com.demo.util.zxing.utils.CaptureActivityHandler;
-import com.demo.util.zxing.utils.InactivityTimer;
+import com.demo.corelib.R;
+import com.demo.corelib.utils.FileUtils;
+import com.demo.corelib.utils.zxing.camera.CameraManager;
+import com.demo.corelib.utils.zxing.core.QRCodeReader;
+import com.demo.corelib.utils.zxing.core.RGBLuminanceSource;
+import com.demo.corelib.utils.zxing.decode.DecodeThread;
+import com.demo.corelib.utils.zxing.utils.BeepManager;
+import com.demo.corelib.utils.zxing.utils.CaptureActivityHandler;
+import com.demo.corelib.utils.zxing.utils.InactivityTimer;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.EncodeHintType;
@@ -219,50 +217,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
         Log.d(TAG,"parsePicCallback result = " + result);
 
-//        String category = "";
-//        if(result.contains("couponDetail")){
-//            category = "couponQRCode"; // 优惠券(邦学币)
-//        }
-//
-//        if(getIntent().hasExtra("category")){
-//            category = getIntent().getStringExtra("category"); // 获取种类
-//        }
-
-//        switch (category){
-//            case "couponQRCode": // 邦学币优惠券
-//                String couponId = result.substring(result.indexOf("=") + 1, result.length());
-//                startActivity(new Intent(CaptureActivity.this, CouponDetailActivity_.class).putExtra("couponId", couponId));
-//                CaptureActivity.this.finish();
-//                break;
-//            case "contestEntryCodeQRCode": // 扫描比赛参赛码
-//                String[] temp = result.split("cr/");
-//                String entryCode = temp[temp.length - 1];
-//                Log.d(TAG,"entryCode : " + entryCode);
-//                Intent data = new Intent();
-//                data.putExtra("entryCode",entryCode);
-//                setResult(RESULT_OK,data);
-//                CaptureActivity.this.finish();
-//                break;
-//            case "webJSInterface": // webView调用原生扫一扫，直接将解析结果返回
-//                Intent intent = new Intent();
-//                intent.putExtra("result",result);
-//                setResult(RESULT_OK,intent);
-//                CaptureActivity.this.finish();
-//                break;
-//            default:
-//                // 从主页面扫一扫进入，直接解析结果，打开需要访问的页面
-//
-//                WebViewActivity_.intent(CaptureActivity.this)
-//                    .extra("url", result)
-//                    .start();
-//                CaptureActivity.this.finish();
-//                break;
-//        }
 
         // 从主页面扫一扫进入，直接解析结果，打开需要访问的页面
-        if (URLUtil.isNetworkUrl(result)) {
-            WebViewActivity.start(CaptureActivity.this,"",result);
-        }
+//        if (URLUtil.isNetworkUrl(result)) {
+//            WebViewActivity.start(CaptureActivity.this,"",result);
+//        }
         CaptureActivity.this.finish();
 
     }

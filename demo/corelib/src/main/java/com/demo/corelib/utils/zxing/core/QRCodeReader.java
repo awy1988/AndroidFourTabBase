@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.core;
+package com.demo.corelib.utils.zxing.core;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

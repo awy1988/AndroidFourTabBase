@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">demo</string>
+
+
+
+    <!-- 二维码 -->
+    <string name="capture_qrcode_ab_title">扫一扫</string>
+    <string name="capture_qrcode_ab_right_btn_title">从相册找</string>
+    <string name="capture_qrcode_scanning_description_msg1">10CM左右，系统会自动识别</string>
+    <string name="capture_qrcode_scanning_description_msg2">将二维码放到框内即可自动扫描</string>
+    <string name="capture_qrcode_close_btn_txt">关闭</string>
+</resources>

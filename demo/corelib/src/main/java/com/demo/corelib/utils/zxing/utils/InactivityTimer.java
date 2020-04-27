@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.utils;
+package com.demo.corelib.utils.zxing.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

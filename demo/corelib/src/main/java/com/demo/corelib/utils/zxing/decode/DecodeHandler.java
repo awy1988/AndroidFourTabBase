@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.decode;
+package com.demo.corelib.utils.zxing.decode;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -24,8 +24,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.demo.module.common.qrcode.CaptureActivity;
-import com.demo.R;
+import com.demo.corelib.R;
+import com.demo.corelib.utils.zxing.qrcode.CaptureActivity;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
@@ -54,14 +54,11 @@ public class DecodeHandler extends Handler {
 		if (!running) {
 			return;
 		}
-		switch (message.what) {
-		case R.id.decode:
+		if (message.what == R.id.decode) {
 			decode((byte[]) message.obj, message.arg1, message.arg2);
-			break;
-		case R.id.quit:
+		} else if (message.what == R.id.quit) {
 			running = false;
 			Looper.myLooper().quit();
-			break;
 		}
 	}
 

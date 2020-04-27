@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.demo.util.zxing.camera;
+package com.demo.corelib.utils.zxing.camera;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

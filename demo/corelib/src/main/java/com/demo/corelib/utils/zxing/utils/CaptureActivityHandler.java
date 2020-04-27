@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.utils;
+package com.demo.corelib.utils.zxing.utils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,10 +22,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.demo.module.common.qrcode.CaptureActivity;
-import com.demo.util.zxing.camera.CameraManager;
-import com.demo.util.zxing.decode.DecodeThread;
-import com.demo.R;
+import com.demo.corelib.R;
+import com.demo.corelib.utils.zxing.camera.CameraManager;
+import com.demo.corelib.utils.zxing.decode.DecodeThread;
+import com.demo.corelib.utils.zxing.qrcode.CaptureActivity;
 import com.google.zxing.Result;
 
 
@@ -61,26 +61,20 @@ public class CaptureActivityHandler extends Handler {
 
 	@Override
 	public void handleMessage(Message message) {
-		switch (message.what) {
-		case R.id.restart_preview:
+		if (message.what == R.id.restart_preview) {
 			restartPreviewAndDecode();
-			break;
-		case R.id.decode_succeeded:
+		} else if (message.what == R.id.decode_succeeded) {
 			state = State.SUCCESS;
 			Bundle bundle = message.getData();
 
 			activity.handleDecode((Result) message.obj, bundle);
-			break;
-		case R.id.decode_failed:
-			// We're decoding as fast as possible, so when one decode fails,
+		} else if (message.what == R.id.decode_failed) {// We're decoding as fast as possible, so when one decode fails,
 			// start another.
 			state = State.PREVIEW;
 			cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
-			break;
-		case R.id.return_scan_result:
+		} else if (message.what == R.id.return_scan_result) {
 			activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
 			activity.finish();
-			break;
 		}
 	}
 

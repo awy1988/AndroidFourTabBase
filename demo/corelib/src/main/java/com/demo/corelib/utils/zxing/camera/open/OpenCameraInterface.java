@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.camera.open;
+package com.demo.corelib.utils.zxing.camera.open;
 
 import android.hardware.Camera;
 import android.util.Log;

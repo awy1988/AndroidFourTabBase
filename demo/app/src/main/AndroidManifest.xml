@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.demo.module.MainActivity" />
-        <activity android:name="com.demo.module.common.qrcode.CaptureActivity" />
+        <activity android:name="com.demo.corelib.utils.zxing.qrcode.CaptureActivity" />
         <activity android:name="com.demo.module.common.WebViewActivity" />
         <activity android:name="com.demo.corelib.utils.image.ImageSingleSelectActivity" />
 

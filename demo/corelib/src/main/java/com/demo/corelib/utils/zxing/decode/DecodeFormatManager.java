@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.demo.util.zxing.decode;
+package com.demo.corelib.utils.zxing.decode;
 
 import com.google.zxing.BarcodeFormat;
 

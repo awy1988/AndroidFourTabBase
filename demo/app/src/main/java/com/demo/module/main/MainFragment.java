@@ -31,7 +31,7 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.utils.ImageUtils;
 import com.demo.corelib.utils.SPUtils;
 import com.demo.module.base.BaseFragment;
-import com.demo.module.common.qrcode.CaptureActivity;
+import com.demo.corelib.utils.zxing.qrcode.CaptureActivity;
 import com.demo.module.main.viewmodel.MainViewModel;
 
 import java.util.HashMap;
