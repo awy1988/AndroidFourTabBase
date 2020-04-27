@@ -7,9 +7,6 @@ import android.preference.PreferenceManager;
 
 /**
  * key-value（键值对）存储类
- *
- * @author weiyang.an
- * @version 1.0 2018/6/13
  */
 public class SPUtils {
 
@@ -18,9 +15,10 @@ public class SPUtils {
     private static final String SP_IS_FIRST_START = "first_start";
     private static final String SP_API_TOKEN = "api_token";
     private static final String SP_USER_INFO = "user_info";
+    private static Application sApp;
 
     public static void init(Application application) {
-        mApp = application;
+        sApp = application;
     }
 
     /**
@@ -145,11 +143,9 @@ public class SPUtils {
     }
 
 
-    private static Application mApp;
-
 
     private static SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(mApp);
+        return PreferenceManager.getDefaultSharedPreferences(sApp);
     }
 
 

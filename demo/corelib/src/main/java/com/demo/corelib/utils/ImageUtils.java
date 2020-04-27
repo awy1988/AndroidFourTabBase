@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.demo.corelib.network.FileUploadService;
+import com.demo.corelib.utils.image.GlideApp;
 import com.demo.corelib.utils.image.ImageSingleSelect;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -28,9 +29,6 @@ import java.util.List;
 
 /**
  * 图片操作共同类
- *
- * @author weiyang.an
- * @version 1.0 2018/6/11
  */
 public class ImageUtils {
 

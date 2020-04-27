@@ -1,4 +1,4 @@
-package com.demo.corelib.utils;
+package com.demo.corelib.utils.image;
 
 import android.content.Context;
 
@@ -10,9 +10,6 @@ import com.bumptech.glide.module.AppGlideModule;
 
 /**
  * Glide
- *
- * @author weiyang.an
- * @version 1.0 2018/6/11
  */
 @GlideModule
 public class DemoGlideModule extends AppGlideModule {

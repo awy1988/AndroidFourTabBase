@@ -1,6 +1,6 @@
 package com.demo.corelib.network.base;
 
-import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 
@@ -20,10 +20,10 @@ import okhttp3.Response;
  */
 public class HttpParamsInterceptor implements Interceptor {
 
-    private Application mApp;
+    private Context mContext;
 
-    public HttpParamsInterceptor (Application application) {
-        this.mApp = application;
+    public HttpParamsInterceptor (Context context) {
+        this.mContext = context;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class HttpParamsInterceptor implements Interceptor {
 
         // add public http header params
         Request.Builder builder = originalRequest.newBuilder();
-        builder.addHeader("User-Agent", getUserAgent());
+//        builder.addHeader("User-Agent", getUserAgent());
 
         String token = SPUtils.getAccessToken();
         if (!TextUtils.isEmpty(token)) {
@@ -48,16 +48,16 @@ public class HttpParamsInterceptor implements Interceptor {
      * 获取UserAgent，用于Http请求头中添加UserAgent字段
      * @return userAgent字符串
      */
-    public String getUserAgent() {
+    private String getUserAgent() {
         return ApiConstant.BASE_UA_APP_NAME +"/"+ getVersion() + " "+ getDeviceUserAgent();
     }
 
     /**
      * 获取当前版本
      * */
-    public String getVersion() {
+    private String getVersion() {
         try {
-            PackageInfo pInfo = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             return pInfo.versionName;
         } catch (Exception e) {
             return "";

@@ -31,8 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * network api helper
  *
- * @author weiyang.an
- * @version 1.0 2018/6/12
  */
 public class HttpApiHelper {
 
@@ -42,6 +40,12 @@ public class HttpApiHelper {
 
     private static Retrofit RETROFIT_INSTANCE;
 
+    private static Application sApp;
+
+    public static void init(Application application) {
+        sApp = application;
+    }
+
     public static Retrofit getRetrofitInstance() {
 
         if (RETROFIT_INSTANCE == null) {
@@ -49,7 +53,7 @@ public class HttpApiHelper {
                 if (RETROFIT_INSTANCE == null) {
 
                     OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                    builder.addInterceptor(new HttpParamsInterceptor(new Application())) // TODO 如何共享APPLICATION对象？
+                    builder.addInterceptor(new HttpParamsInterceptor(sApp))
                         .connectTimeout(ApiConstant.REQUEST_TIME_OUT_SECONDS, TimeUnit.SECONDS);
 
                     if (ApiConstant.IS_DEBUG) {

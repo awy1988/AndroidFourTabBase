@@ -1,18 +1,16 @@
-package com.demo.util;
+package com.demo.corelib.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 
-import com.demo.R;
+import androidx.appcompat.app.AlertDialog;
+
+import com.demo.corelib.R;
 
 
 /**
  * 弹出框工具类
- *
- * @author weiyang.an
- * @version 1.0 2018/6/13
  */
 public class DialogUtils {
     private static final String TAG = DialogUtils.class.getSimpleName();
@@ -21,7 +19,7 @@ public class DialogUtils {
     // 显示提示对话框
     //================================================================================
     public static void showAlertDialog(Context context, String alertStr, final OnAlertOperationCallbackListener listener){
-        showAlertDialog(context, null, "确定", "取消", alertStr, listener);
+        showAlertDialog(context, null, "确定", "取消", alertStr, null, null, listener);
     }
 
     /**
@@ -33,7 +31,7 @@ public class DialogUtils {
      * @param alertStr 警告内容
      * @param listener 回调方法
      */
-    public static void showAlertDialog(Context context, String title, String positiveBtnStr, String negativeBtnStr, String alertStr, final OnAlertOperationCallbackListener listener){
+    public static void showAlertDialog(Context context, String title, String positiveBtnStr, String negativeBtnStr, String alertStr, Integer positiveBtnColorResourceId, Integer negativeBtnColorResourceId, final OnAlertOperationCallbackListener listener){
         AlertDialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(alertStr);
@@ -66,8 +64,15 @@ public class DialogUtils {
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.common_app_theme_color));
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.common_app_theme_color));
+
+        if (null != positiveBtnColorResourceId) {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.common_app_theme_color));
+        }
+
+        if (null != negativeBtnColorResourceId) {
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.common_app_theme_color));
+        }
+
     }
 
     public interface OnAlertOperationCallbackListener {

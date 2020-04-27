@@ -17,7 +17,6 @@ import java.util.Date;
 
 /**
  * 类描述：文件路径相关操作
- * @author weiyang.an
  */
 public class FileUtils {
 

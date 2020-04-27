@@ -26,9 +26,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * 调用照相机和拍照的工具类的Fragment 名字待修订
- *
- * @author weiyang.an
- * @version 1.0 2018/6/19
  */
 public class ImageSingleSelectActivity extends Activity implements EasyPermissions.PermissionCallbacks{
 

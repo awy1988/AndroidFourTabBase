@@ -15,9 +15,6 @@ import com.demo.corelib.constant.AppConstant;
 /**
  * 拍照选择照片的工具类
  * 调用的页面可省去ActivityResult
- *
- * @author weiyang.an
- * @version 1.0 2018/6/19
  */
 
 public class ImageSingleSelect {

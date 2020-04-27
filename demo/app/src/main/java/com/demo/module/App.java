@@ -5,17 +5,14 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Environment;
+
 import androidx.multidex.MultiDex;
 
 import com.demo.constant.ApiConstant;
-import com.demo.corelib.utils.SPUtils;
+import com.demo.corelib.CoreLib;
 
 import java.util.List;
 
-/**
- * @author weiyang.an
- * @version 1.0 2018/6/11
- */
 public class App extends Application {
 
     private static final String TAG = App.class.getSimpleName();
@@ -70,11 +67,7 @@ public class App extends Application {
 
         initThirdPartyAuthorization();
 
-
-        // 异常系页面初始化
-        initLoadSir();
-
-        SPUtils.init(this);
+        CoreLib.init(this);
     }
 
     /**
@@ -176,19 +169,6 @@ public class App extends Application {
      * */
     public void initThirdPartyAuthorization() {
 
-    }
-
-    /**
-     * 初始化异常系页面配置
-     */
-    private void initLoadSir() {
-//        ProgressCallback loadingCallback = new ProgressCallback.Builder()
-//                .setTitle("Loading")
-//                .build();
-//        LoadSir.beginBuilder()
-//                .addCallback(loadingCallback)
-//                .addCallback(new NetworkErrorCallback())
-//                .commit();
     }
 
 }
