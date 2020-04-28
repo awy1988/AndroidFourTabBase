@@ -1,4 +1,4 @@
-package com.demo.util;
+package com.demo.corelib.utils;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

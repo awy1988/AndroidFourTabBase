@@ -1,6 +1,5 @@
 package com.demo.corelib.utils;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -15,11 +14,6 @@ public class SPUtils {
     private static final String SP_IS_FIRST_START = "first_start";
     private static final String SP_API_TOKEN = "api_token";
     private static final String SP_USER_INFO = "user_info";
-    private static Application sApp;
-
-    public static void init(Application application) {
-        sApp = application;
-    }
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -145,7 +139,7 @@ public class SPUtils {
 
 
     private static SharedPreferences getSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(sApp);
+        return PreferenceManager.getDefaultSharedPreferences(Utils.getApp());
     }
 
 

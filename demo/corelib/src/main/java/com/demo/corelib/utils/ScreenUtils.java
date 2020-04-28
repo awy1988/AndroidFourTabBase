@@ -1,4 +1,4 @@
-package com.demo.util;
+package com.demo.corelib.utils;
 
 import android.app.Activity;
 import android.app.KeyguardManager;

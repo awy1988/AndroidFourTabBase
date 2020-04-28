@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.utils.SPUtils;
+import com.demo.corelib.utils.Utils;
 
 public class CoreLib {
 
@@ -12,8 +13,8 @@ public class CoreLib {
      * @param application
      */
     public static void init(Application application) {
-        SPUtils.init(application);
         HttpApiHelper.init(application);
+        Utils.init(application);
     }
 
 }

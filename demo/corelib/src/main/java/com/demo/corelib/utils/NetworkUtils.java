@@ -1,4 +1,4 @@
-package com.demo.util;
+package com.demo.corelib.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.demo.module.App;
 
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -33,7 +32,7 @@ public class NetworkUtils {
      * open the network setting
      */
     public static void openWirelessSettings() {
-        App.getApp().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+        Utils.getApp().startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
@@ -41,7 +40,7 @@ public class NetworkUtils {
     @SuppressLint("MissingPermission")
     private static NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager manager =
-                (ConnectivityManager) App.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (manager == null) return null;
         return manager.getActiveNetworkInfo();
     }
@@ -99,7 +98,7 @@ public class NetworkUtils {
     public static boolean getMobileDataEnabled() {
         try {
             TelephonyManager tm =
-                    (TelephonyManager) App.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return false;
             @SuppressLint("PrivateApi")
             Method getMobileDataEnabledMethod = tm.getClass().getDeclaredMethod("getDataEnabled");
@@ -122,7 +121,7 @@ public class NetworkUtils {
     public static void setMobileDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm =
-                    (TelephonyManager) App.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return;
             Method setMobileDataEnabledMethod =
                     tm.getClass().getDeclaredMethod("setDataEnabled", boolean.class);
@@ -172,7 +171,7 @@ public class NetworkUtils {
      */
     public static boolean getWifiEnabled() {
         @SuppressLint("WifiManagerLeak")
-        WifiManager manager = (WifiManager) App.getApp().getSystemService(Context.WIFI_SERVICE);
+        WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
         return manager != null && manager.isWifiEnabled();
     }
 
@@ -187,7 +186,7 @@ public class NetworkUtils {
     @SuppressLint("MissingPermission")
     public static boolean isWifiConnected() {
         ConnectivityManager cm =
-                (ConnectivityManager) App.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm != null
                 && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
@@ -214,7 +213,7 @@ public class NetworkUtils {
      */
     public static String getNetworkOperatorName() {
         TelephonyManager tm =
-                (TelephonyManager) App.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 

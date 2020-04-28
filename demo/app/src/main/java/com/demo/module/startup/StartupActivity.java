@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.demo.R;
 import com.demo.module.MainActivity;
-import com.demo.util.ScreenUtils;
+import com.demo.corelib.utils.ScreenUtils;
 
 import org.json.JSONObject;
 
