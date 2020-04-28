@@ -3,16 +3,16 @@ package com.demo.module.startup;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
-import com.demo.module.App;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.demo.R;
 import com.demo.module.MainActivity;
 import com.demo.util.ScreenUtils;
-import com.demo.R;
 
 import org.json.JSONObject;
 
@@ -25,9 +25,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * 启动页
- *
- * @author weiyang.an
- * @version 1.0 2017/10/24
  */
 public class StartupActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
 
@@ -104,16 +101,12 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
     private void next() {
 
         // 当前应用程序的版本号
-        final String strCurrentVersion = App.getApp().getVersion();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                    toMain();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        new Thread(() -> {
+            try {
+                Thread.sleep(sleepTime);
+                toMain();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }).start();
 

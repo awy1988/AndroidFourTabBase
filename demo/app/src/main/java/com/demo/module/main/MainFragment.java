@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.demo.R;
-import com.demo.constant.ApiConstant;
+import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.AuthorizationRequestBody;
 import com.demo.corelib.model.api.Page;
 import com.demo.corelib.model.api.Sort;
@@ -30,8 +30,8 @@ import com.demo.corelib.network.ItemService;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.utils.ImageUtils;
 import com.demo.corelib.utils.SPUtils;
-import com.demo.module.base.BaseFragment;
 import com.demo.corelib.utils.zxing.qrcode.CaptureActivity;
+import com.demo.module.base.BaseFragment;
 import com.demo.module.main.viewmodel.MainViewModel;
 
 import java.util.HashMap;

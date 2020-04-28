@@ -8,8 +8,8 @@ import android.os.Environment;
 
 import androidx.multidex.MultiDex;
 
-import com.demo.constant.ApiConstant;
 import com.demo.corelib.CoreLib;
+import com.demo.corelib.constant.ApiConstant;
 
 import java.util.List;
 
