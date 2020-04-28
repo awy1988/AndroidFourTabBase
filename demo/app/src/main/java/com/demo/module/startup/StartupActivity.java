@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.demo.R;
-import com.demo.module.MainActivity;
 import com.demo.corelib.utils.ScreenUtils;
+import com.demo.module.MainActivity;
 
 import org.json.JSONObject;
 
@@ -30,8 +30,8 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 
     private static final String TAG = StartupActivity.class.getSimpleName();
 
-    @BindView(R.id.iv_launch_screen)
-    ImageView mIvLaunchScreen; // 启动图片
+    @BindView(R.id.tv_launch_screen)
+    TextView mTvLaunchScreen; // 启动图片
 
     // 定位权限的请求码
     private static final int REQ_CODE_PERMISSION = 100;
@@ -58,7 +58,7 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
 
         AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
         animation.setDuration(1500);
-        mIvLaunchScreen.startAnimation(animation);
+        mTvLaunchScreen.startAnimation(animation);
         permissionCheck();
 
     }
