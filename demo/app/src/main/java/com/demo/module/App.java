@@ -20,8 +20,8 @@ public class App extends Application {
     //================================================================================
     // 应用程序基本信息
     //================================================================================
-    private static Context _context;// 应用程序的抽象基类对象
-    private static App _application;// 入口启动类对象
+    private static Context sContext;// 应用程序的抽象基类对象
+    private static App sApplication;// 入口启动类对象
 
     //================================================================================
     // 设备屏幕信息
@@ -48,8 +48,8 @@ public class App extends Application {
         String procName = getCurProcessName(getApplicationContext());
         if (this.getPackageName().equals(procName)) {
             // 设置应用程序的基本的实例（任意位置都可以参照）
-            App._context = getApplicationContext();
-            App._application = this;
+            App.sContext = getApplicationContext();
+            App.sApplication = this;
 
             // 检测手机是否挂载SD卡
             final String storageState = Environment.getExternalStorageState();
@@ -80,7 +80,7 @@ public class App extends Application {
             Object object = clazz.newInstance();
             int height = Integer.parseInt(clazz.getField("status_bar_height")
                     .get(object).toString());
-            statusHeight = _context.getResources().getDimensionPixelSize(height);
+            statusHeight = sContext.getResources().getDimensionPixelSize(height);
         } catch (Exception e) {
         }
 
@@ -92,14 +92,14 @@ public class App extends Application {
      * 获取入口启动类对象的方法
      * */
     public static App getApp(){
-        return App._application;
+        return App.sApplication;
     }
 
     /**
      * 获取应用程序的抽象基类对象的方法
      */
     public static Context getContext(){
-        return App._context;
+        return App.sContext;
     }
 
     /**

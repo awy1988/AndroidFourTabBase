@@ -52,7 +52,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     TextView tvTitle;
 
 //    @Inject
-//    AccountService AccountService;
+//    AccountService accountService;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
