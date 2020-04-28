@@ -23,9 +23,6 @@ import butterknife.Unbinder;
 
 /**
  * Fragmen扩展用基类
- *
- * @author weiyang.an
- * @version 1.0 2018/6/11
  */
 public class BaseFragment extends Fragment {
 
@@ -39,8 +36,6 @@ public class BaseFragment extends Fragment {
     private LocalBroadcastManager mLocalBroadcastManager;// 应用内部广播管理对象
 
     private BroadcastReceiver mLocalReceiver;
-
-    public View mRlToolbar;
 
     private Unbinder unbinder;
 
@@ -67,21 +62,7 @@ public class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
-
-        if (isImmersionBarEnabled()) {
-        }
-
     }
-
-    /**
-     * 是否在Fragment使用沉浸式
-     *
-     * @return the boolean
-     */
-    protected boolean isImmersionBarEnabled() {
-        return true;
-    }
-
 
     /**
      * 显示加载中
@@ -168,33 +149,6 @@ public class BaseFragment extends Fragment {
         setReceiver(receiver);
         registerReceiver(action);
     }
-
-    /**
-     * 空数据
-     * @param viewGroup
-     */
-    protected void showNoDataPage(ViewGroup viewGroup) {
-//        BlankPageView mBlankPageView = new BlankPageView(viewGroup, false, BlankPageView.BlankPageType.BlankPageTypeNoData);
-//        mBlankPageView.show();
-    }
-
-
-//    /**
-//     * 获取列表无数据时显示的view
-//     * @return
-//     */
-//    protected View getListEmptyView() {
-//        View view = mInflater.inflate(R.layout.common_exception_hint,null);
-//
-//        ImageView ivBlank = view.findViewById(R.id.iv_blank);
-//        TextView tvTitle = view.findViewById(R.id.tv_blank_title);
-//
-//        ivBlank.setVisibility(View.VISIBLE);
-//        tvTitle.setVisibility(View.VISIBLE);
-//        tvTitle.setText("暂无数据");
-//
-//        return view;
-//    }
 
     public interface OnReloadListener {
         void onReload();

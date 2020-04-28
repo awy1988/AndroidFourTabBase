@@ -14,14 +14,12 @@ public class UserInfoModel {
      * id : xKSWDWPhc4ee
      * accessToken : eyJhbGciOiJIUzI1NiJ9.YzNXS1piZXRsTGJJDQp4S1NXRFdQaGM0ZWUNCuacseadvuadsA.IbrlSE-mgOxKM-03Tl9LuxnGWDEbCgtU1U5h0lbWq38
      */
-
     private String name;
     private String username;
     private String email;
     private String mobile;
     private String id;
     private String logo;
-    private String logoLarge;
     private String gender;
     private String signature;
     private String accessToken;
@@ -72,14 +70,6 @@ public class UserInfoModel {
 
     public void setLogo(String logo) {
         this.logo = logo;
-    }
-
-    public String getLogoLarge() {
-        return logoLarge;
-    }
-
-    public void setLogoLarge(String logoLarge) {
-        this.logoLarge = logoLarge;
     }
 
     public String getGender() {

@@ -21,7 +21,6 @@ import butterknife.BindView;
 
 /**
  * webview共同类
- * Created by weiyang.an on 17/1/4.
  */
 public class WebViewActivity extends BaseFragmentActivity {
 

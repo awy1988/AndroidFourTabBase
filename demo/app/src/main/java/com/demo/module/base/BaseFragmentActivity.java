@@ -25,8 +25,6 @@ import butterknife.Unbinder;
  *
  * Base Activity
  *
- * @author weiyang.an
- * @version 1.0 2018/6/11
  */
 public abstract class BaseFragmentActivity extends AppCompatActivity {
 
@@ -78,20 +76,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
         unbinder = ButterKnife.bind(this);
 
-        if (isImmersionBarEnabled()) {
-            // 是否使用沉浸式状态栏
-        }
-    }
-
-
-    /**
-     * 是否使用沉浸式状态栏
-     * Is immersion bar enabled boolean.
-     *
-     * @return boolean true-使用沉浸式状态栏 false-不使用沉浸式状态栏
-     */
-    protected boolean isImmersionBarEnabled() {
-        return true;
     }
 
     /**
@@ -102,59 +86,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         return false;
     }
 
-//    /**
-//     * 设定ActionBar的标题
-//     * @param title 要设定的标题
-//     */
-//    protected void setCustomActionBarTitle(String title){
-//        if(title == null || mCustomerActionBar == null){
-//            return;
-//        }
-//
-//        TextView tvTitle = (TextView)mCustomerActionBar.findViewById(R.id.tv_common_ab_title);
-//
-//        if (tvTitle != null) {
-//            tvTitle.setText(title);
-//        }
-//    }
-//
-//    /**
-//     * 设定ActionBar的返回按钮监听器
-//     * @param listener 要设定的监听器对象
-//     */
-//    protected void setActionBarBackButtonListener(View.OnClickListener listener){
-//        if(listener == null || mCustomerActionBar == null){
-//            return;
-//        }
-//
-//        View btnBack = mCustomerActionBar.findViewById(R.id.ll_common_ab_back_btn);
-//        if (btnBack != null) {
-//            btnBack.setOnClickListener(listener);
-//        }
-//    }
-
-//    /**
-//     * 自定义工具条（ActionBar）
-//     *
-//     * @param toolbar 自定义ActionBar视图
-//     */
-//    protected void setCustomActionbar(View toolbar){
-//
-//        if(toolbar == null){
-//            return;
-//        }
-//        View btnBack = findViewById(R.id.ll_common_ab_back_btn);
-//        if (btnBack != null) {
-//            btnBack.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    KeyboardUtils.hideKeyboard(BaseFragmentActivity.this);
-//                    finish();
-//                }
-//            });
-//        }
-//        mCustomerActionBar = toolbar;
-//    }
 
     /**
      * 取得自定义工具条（ActionBar）
@@ -241,23 +172,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      * @return layout id
      */
     protected abstract int getContentView();
-
-//    /**
-//     * 获取列表无数据时显示的view
-//     * @return
-//     */
-//    protected View getListEmptyView() {
-//        View view = mInflater.inflate(R.layout.common_exception_hint,null);
-//
-//        ImageView ivBlank = view.findViewById(R.id.iv_blank);
-//        TextView tvTitle = view.findViewById(R.id.tv_blank_title);
-//
-//        ivBlank.setVisibility(View.VISIBLE);
-//        tvTitle.setVisibility(View.VISIBLE);
-//        tvTitle.setText("暂无数据");
-//
-//        return view;
-//    }
 
     @Override
     protected void onResume() {

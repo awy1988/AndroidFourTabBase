@@ -30,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * network api helper
- *
  */
 public class HttpApiHelper {
 

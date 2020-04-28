@@ -15,8 +15,6 @@ import okhttp3.Response;
 
 /**
  * Http params Interceptor
- * @author weiyang.an
- * version 1.0 2018/6/11
  */
 public class HttpParamsInterceptor implements Interceptor {
 

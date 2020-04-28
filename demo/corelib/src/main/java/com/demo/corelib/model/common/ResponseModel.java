@@ -1,7 +1,7 @@
 package com.demo.corelib.model.common;
 
 /**
- * Created by anweiyang on 18/1/3.
+ * 网络请求返回的数据模型共通部分
  */
 
 public class ResponseModel<T> {

@@ -2,9 +2,6 @@ package com.demo.corelib.constant;
 
 /**
  * 基本常量定义类
- *
- * @author weiyang.an
- * @version 1.0 2017/12/28
  */
 public class AppConstant {
 
@@ -12,16 +9,6 @@ public class AppConstant {
     // 广播相关信息
     //================================================================================
 
-    public static String BROADCAST_TAB_RELOAD_ACTION = "BROADCAST_TAB_RELOAD_ACTION";
-    public static String BROADCAST_APP_FINISH_ACTION = "BROADCAST_APP_FINISH_ACTION";
-    public static String BROADCAST_ACTION_SHOPPING_CART_REFRESH = "BROADCAST_ACTION_SHOPPING_CART_REFRESH";
-    public static String BROADCAST_ACTION_SHOPPING_CART_ITEM_COUNT_REFRESH = "BROADCAST_ACTION_SHOPPING_CART_ITEM_COUNT_REFRESH"; // 更新购物车数量圆形红色提示
-    public static String BROADCAST_TAB_RELOAD_PARAM_KEY = "TAB_KEY";
-
-    public static String BROADCAST_ACTION_PAY_SUCCESS = "BROADCAST_ACTION_PAY_SUCCESS"; // 支付成功回调广播
-    public static String BROADCAST_ACTION_PAY_FAILED = "BROADCAST_ACTION_PAY_FAILED"; // 支付失败回调广播
-    public static String BROADCAST_ACTION_REFRESH_ORDER_LIST = "BROADCAST_ACTION_REFRESH_ORDER_LIST"; // 刷新订单列表广播
-    public static String BROADCAST_ACTION_FINISH_ORDER_DETAIL = "BROADCAST_ACTION_FINISH_ORDER_DETAIL"; // 关闭订单详情
     public static final String BROADCAST_ACTION_SINGLE_IMAGE_SELECT = "BROADCAST_ACTION_SINGLE_IMAGE_SELECT"; // 选择单张图片
     /** 登录成功 */
     public static String BROADCAST_ACTION_LOGIN_SUCCESS = "BROADCAST_ACTION_LOGIN_SUCCESS";

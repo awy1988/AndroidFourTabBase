@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import com.demo.module.base.BaseFragment;
 import com.demo.R;
 
-/**
- * @author weiyang.an
- * @version 1.0 2018/6/12
- */
 public class CategoryFragment extends BaseFragment {
 
     private static final String TAG = CategoryFragment.class.getSimpleName();

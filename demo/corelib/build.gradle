@@ -15,7 +15,19 @@ android {
     }
 
     buildTypes {
+        def API_BASE_URL_DEVELOP = "\"https://nei.netease.com\""
+        def API_BASE_URL_PATH = "\"/api/apimock-v2/d164bbd26a3176798df4829598851cc7\""
+        def API_BASE_URL_RELEASE = "\"https://nei.netease.com\""
+
+
+        debug {
+            buildConfigField("String", "API_BASE_URL", API_BASE_URL_DEVELOP)
+            buildConfigField("String", "API_BASE_URL_PATH", API_BASE_URL_PATH)
+        }
+
         release {
+            buildConfigField("String", "API_BASE_URL", API_BASE_URL_RELEASE)
+            buildConfigField("String", "API_BASE_URL_PATH", API_BASE_URL_PATH)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

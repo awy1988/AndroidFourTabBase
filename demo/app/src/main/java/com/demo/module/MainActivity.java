@@ -12,28 +12,22 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.demo.R;
+import com.demo.databinding.MainActBinding;
 import com.demo.module.base.BaseFragmentActivity;
 import com.demo.module.main.CategoryFragment;
 import com.demo.module.main.MainFragment;
 import com.demo.module.main.ProfileFragment;
 import com.demo.module.main.ShoppingCartFragment;
-import com.demo.widgets.widget.CommonFragmentTabHost;
 
 import butterknife.BindArray;
-import butterknife.BindView;
 
 public class MainActivity extends BaseFragmentActivity {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final int REQ_CODE_LOGIN = 1;
-
-    @BindView(android.R.id.tabhost)
-    CommonFragmentTabHost mTabHost;
-
     @BindArray(R.array.tab_ids)
-    String mTabIds[];
+    String[] mTabIds;
 
     TextView tvShoppingCartIndicator;
 
@@ -65,11 +59,16 @@ public class MainActivity extends BaseFragmentActivity {
         return R.layout.main_act;
     }
 
+    @Override
+    protected boolean isDataBindingEnabled() {
+        return true;
+    }
+
     private void initView() {
 
         mTabTitles = this.getResources().getStringArray(R.array.tab_titles);
 
-        this.mTabHost.setup(this, getSupportFragmentManager(), R.id.tabContent);
+        ((MainActBinding)binding).tabhost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 
         final int count = this.contentFragments.length;
         mTabBtnList = new View[count];
@@ -79,14 +78,14 @@ public class MainActivity extends BaseFragmentActivity {
             Bundle bundle = new Bundle();
             bundle.putString("tabId", mTabIds[i]);
             mTabBtnList[i] = getTabItemView(i);
-            TabHost.TabSpec tabSpec = this.mTabHost.newTabSpec(this.mTabIds[i]).setIndicator(mTabBtnList[i]);
-            this.mTabHost.addTab(tabSpec, this.contentFragments[i], bundle);
+            TabHost.TabSpec tabSpec = ((MainActBinding)binding).tabhost.newTabSpec(this.mTabIds[i]).setIndicator(mTabBtnList[i]);
+            ((MainActBinding)binding).tabhost.addTab(tabSpec, this.contentFragments[i], bundle);
         }
 
-        this.mTabWidget = this.mTabHost.getTabWidget();
+        this.mTabWidget = ((MainActBinding)binding).tabhost.getTabWidget();
         this.mTabWidget.setDividerDrawable(null);
 
-        this.mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        ((MainActBinding)binding).tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
 
             private String frontSelection = "main";
             @Override

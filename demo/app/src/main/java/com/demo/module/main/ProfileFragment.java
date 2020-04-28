@@ -11,10 +11,6 @@ import com.demo.corelib.network.AccountService;
 
 import javax.inject.Inject;
 
-/**
- * @author weiyang.an
- * @version 1.0 2018/6/12
- */
 public class ProfileFragment extends BaseFragment {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
