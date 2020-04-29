@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.text.TextUtils;
 
 import com.demo.corelib.constant.ApiConstant;
-import com.demo.corelib.utils.SPUtils;
+import com.demo.corelib.util.SPUtils;
 
 import java.io.IOException;
 

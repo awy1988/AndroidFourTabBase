@@ -13,7 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.demo.module.base.BaseFragmentActivity;
-import com.demo.widgets.widget.ProgressWebView;
+import com.demo.widget.ProgressWebView;
 import com.demo.R;
 
 import butterknife.BindView;

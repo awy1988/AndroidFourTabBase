@@ -5,7 +5,7 @@ import com.demo.corelib.model.common.FileUploadResultModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.interfaces.IFileUploadService;
-import com.demo.corelib.utils.ImageUtils;
+import com.demo.corelib.util.ImageUtils;
 
 import java.io.File;
 

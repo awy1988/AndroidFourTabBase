@@ -29,9 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.demo.module.MainActivity" />
-        <activity android:name="com.demo.corelib.utils.zxing.qrcode.CaptureActivity" />
+        <activity android:name="com.demo.corelib.util.zxing.qrcode.CaptureActivity" />
         <activity android:name="com.demo.module.common.WebViewActivity" />
-        <activity android:name="com.demo.corelib.utils.image.ImageSingleSelectActivity" />
+        <activity android:name="com.demo.corelib.util.image.ImageSingleSelectActivity" />
 
 
         <!-- 文件provider解决7.0以后版本更新时下载安装apk出错的问题 -->

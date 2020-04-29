@@ -15,7 +15,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.demo.module.App;
-import com.demo.widgets.widget.CustomProgressDialog;
+import com.demo.widget.CustomProgressDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

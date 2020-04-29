@@ -3,8 +3,7 @@ package com.demo.corelib;
 import android.app.Application;
 
 import com.demo.corelib.network.base.HttpApiHelper;
-import com.demo.corelib.utils.SPUtils;
-import com.demo.corelib.utils.Utils;
+import com.demo.corelib.util.Utils;
 
 public class CoreLib {
 

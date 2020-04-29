@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.demo.R;
-import com.demo.corelib.utils.ScreenUtils;
+import com.demo.corelib.util.ScreenUtils;
 import com.demo.module.MainActivity;
 
 import org.json.JSONObject;
