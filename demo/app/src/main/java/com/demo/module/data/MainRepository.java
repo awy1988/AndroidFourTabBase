@@ -16,6 +16,9 @@ public class MainRepository {
 
     }
 
+    /**
+     * 获取数据仓库示例
+     */
     public static MainRepository getInstance() {
         if (INSTANCE == null) {
             synchronized (MainRepository.class) {
@@ -30,8 +33,8 @@ public class MainRepository {
     /**
      * TODO 改造该方法，加入本地缓存逻辑。
      * 获取远程商品数据
-     * @param queryParams
-     * @param listener
+     * @param queryParams 查询参数
+     * @param listener 回调接口
      */
     public void getItems(Map<String, Object> queryParams, RequestCallbackListener<List<Item>> listener) {
         ItemService.getItems(queryParams, listener);
@@ -40,8 +43,8 @@ public class MainRepository {
     /**
      * TODO 改造该方法，加入本地缓存逻辑。
      * 从远程加载更多商品数据
-     * @param nextLinkUrl
-     * @param listener
+     * @param nextLinkUrl 请求url
+     * @param listener 回调接口
      */
     public void loadMoreItems(String nextLinkUrl, RequestCallbackListener<List<Item>> listener) {
         ItemService.getItems(nextLinkUrl, listener);
