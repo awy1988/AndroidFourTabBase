@@ -23,7 +23,7 @@ public class ApiConstant {
     public static final String API_UPLOAD_USER_LOGO = "/files/user-logos";
 
     /* 商品业务 */
-    public static final String API_ITEMS = "/items"; // 查询商品
+    public static final String API_ITEMS = BuildConfig.API_BASE_URL_PATH + "/items"; // 查询商品
 
     /* 用户账户 */
     public static final String API_AUTHORIZATIONS = BuildConfig.API_BASE_URL_PATH + "/authorizations"; // 用户登录

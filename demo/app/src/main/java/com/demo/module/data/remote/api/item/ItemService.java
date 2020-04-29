@@ -1,9 +1,8 @@
-package com.demo.corelib.network;
+package com.demo.module.data.remote.api.item;
 
 import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
-import com.demo.corelib.network.interfaces.IItemService;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import java.util.Map;
 public class ItemService {
 
     /**
+     * TODO 优化逻辑，这个类的使用最好使用依赖注入的方式。
      * 获取商品列表
      * @param queryParams 查询参数
      * @param listener

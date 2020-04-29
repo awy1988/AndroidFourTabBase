@@ -1,0 +1,8 @@
+/*
+ * 各模块共通依赖
+ */
+dependencies {
+    // retrofit
+    api 'com.squareup.retrofit2:retrofit:2.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.6.0'
+}

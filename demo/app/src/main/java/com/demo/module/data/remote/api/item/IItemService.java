@@ -1,4 +1,4 @@
-package com.demo.corelib.network.interfaces;
+package com.demo.module.data.remote.api.item;
 
 
 import com.demo.corelib.constant.ApiConstant;

@@ -26,7 +26,7 @@ import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.AccountService;
 import com.demo.corelib.network.FileUploadService;
-import com.demo.corelib.network.ItemService;
+import com.demo.module.data.remote.api.item.ItemService;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.utils.ImageUtils;
 import com.demo.corelib.utils.SPUtils;

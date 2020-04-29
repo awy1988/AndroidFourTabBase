@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply from: '../shared_dependencies.gradle'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
