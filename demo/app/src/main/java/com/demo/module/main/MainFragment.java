@@ -134,13 +134,10 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         ItemService.getItems(queryParams, new RequestCallbackListener<List<Item>>() {
             @Override
             public void onStarted() {
-                System.out.println("onStarted: ");
             }
 
             @Override
             public void onCompleted(List<Item> data, LinksModel links) {
-                System.out.println("onCompleted: ");
-                System.out.println("onCompleted: data[0] = " + data.get(0).getName() );
 
                 if (links != null && links.getNext() != null) {
                     nextLinkUrl = ApiConstant.BASE_URL + links.getNext();
@@ -151,7 +148,6 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
             @Override
             public void onEndedWithError(String errorInfo) {
-                System.out.println("onEndedWithError: " + errorInfo);
             }
         });
     }
