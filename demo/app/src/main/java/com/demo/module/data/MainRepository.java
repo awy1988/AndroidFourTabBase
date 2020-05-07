@@ -11,9 +11,11 @@ public class MainRepository {
 
     private static MainRepository INSTANCE = null;
 
+    private ItemService mItemService;
+
     // 数据来源分为两部分，一部分是本地数据库，一部分是网络
     private MainRepository() {
-
+        mItemService = new ItemService();
     }
 
     /**
@@ -37,7 +39,7 @@ public class MainRepository {
      * @param listener 回调接口
      */
     public void getItems(Map<String, Object> queryParams, RequestCallbackListener<List<Item>> listener) {
-        ItemService.getItems(queryParams, listener);
+        mItemService.getItems(queryParams, listener);
     }
 
     /**
@@ -47,7 +49,7 @@ public class MainRepository {
      * @param listener 回调接口
      */
     public void loadMoreItems(String nextLinkUrl, RequestCallbackListener<List<Item>> listener) {
-        ItemService.getItems(nextLinkUrl, listener);
+        mItemService.getItems(nextLinkUrl, listener);
     }
 
 

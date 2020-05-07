@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.demo.R;
 import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.AuthorizationRequestBody;
@@ -23,22 +22,16 @@ import com.demo.corelib.model.api.UpdatePasswordRequestBody;
 import com.demo.corelib.model.api.UpdateProfileRequestBody;
 import com.demo.corelib.model.auth.UserInfoModel;
 import com.demo.corelib.model.common.LinksModel;
-import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.AccountService;
 import com.demo.corelib.network.FileUploadService;
-import com.demo.module.data.remote.api.item.ItemService;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.SPUtils;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.module.base.BaseFragment;
 import com.demo.module.main.viewmodel.MainViewModel;
-
 import java.util.HashMap;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
@@ -46,7 +39,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final int REQ_CODE_CAMERA_PERMISSION = 1;
 
-    MainViewModel viewModel;
+    private MainViewModel mViewModel;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -57,13 +50,17 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        viewModel.getTitle().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                tvTitle.setText(s);
+        mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+
+        mViewModel.getIsDataLoading().observe(this, isLoading -> {
+            if (isLoading) {
+                showLoadingDialog();
+                return;
             }
+            hideLoadingDialog();
         });
+
+        mViewModel.getTitle().observe(this, s -> tvTitle.setText(s));
     }
 
     @Override
@@ -83,7 +80,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         switch (view.getId()) {
             case R.id.btn_login:
                 testPost();
-                viewModel.setTitle("hahaha");
+                mViewModel.setTitle("hahaha");
                 break;
             case R.id.btn_get_items:
                 testGet();
@@ -131,25 +128,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         sort.setCreateAt(ApiConstant.Sort.DESC);
         queryParams.put("sort", sort);
 
-        ItemService.getItems(queryParams, new RequestCallbackListener<List<Item>>() {
-            @Override
-            public void onStarted() {
-            }
-
-            @Override
-            public void onCompleted(List<Item> data, LinksModel links) {
-
-                if (links != null && links.getNext() != null) {
-                    nextLinkUrl = ApiConstant.BASE_URL + links.getNext();
-                } else {
-                    nextLinkUrl = null;
-                }
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-            }
-        });
+        mViewModel.loadItems(queryParams);
     }
 
 
@@ -246,23 +225,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
     @OnClick(R.id.btn_loadmore)
     public void testLoadMore() {
-
-        ItemService.getItems(nextLinkUrl, new RequestCallbackListener<List<Item>>() {
-            @Override
-            public void onStarted() {
-
-            }
-
-            @Override
-            public void onCompleted(List<Item> data, LinksModel links) {
-
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                Log.d("testLoadMore", "onEndedWithError: " + errorInfo);
-            }
-        });
+        mViewModel.loadMoreItems();
     }
 
     private void testUploadImage() {

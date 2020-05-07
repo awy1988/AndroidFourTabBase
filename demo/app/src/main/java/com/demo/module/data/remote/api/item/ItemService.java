@@ -15,15 +15,15 @@ public class ItemService {
      * @param queryParams 查询参数
      * @param listener
      */
-    public static void getItems(Map<String, Object> queryParams, final RequestCallbackListener<List<Item>> listener) {
+    public void getItems(Map<String, Object> queryParams, final RequestCallbackListener<List<Item>> listener) {
         HttpApiHelper.executeRequest(getItemService().getItems(HttpApiHelper.handleQueryParams(queryParams)), listener);
     }
 
-    public static void getItems(String nextLinkUrl, final RequestCallbackListener<List<Item>> listener) {
+    public void getItems(String nextLinkUrl, final RequestCallbackListener<List<Item>> listener) {
         HttpApiHelper.executeRequest(getItemService().getItems(nextLinkUrl), listener);
     }
 
-    private static IItemService getItemService() {
+    private IItemService getItemService() {
         return HttpApiHelper.getRetrofitInstance().create(IItemService.class);
     }
 
