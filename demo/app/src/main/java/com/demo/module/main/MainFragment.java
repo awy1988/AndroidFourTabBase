@@ -41,11 +41,10 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
     private MainViewModel mViewModel;
 
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+    @BindView(R.id.tv_title) TextView tvTitle;
 
-//    @Inject
-//    AccountService accountService;
+    //    @Inject
+    //    AccountService accountService;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
@@ -67,15 +66,16 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_frag, container, false);
-//        ButterKnife.bind(view);
+        //        ButterKnife.bind(view);
         return view;
     }
 
     private String testUploadImageFileName = "/storage/emulated/0/proding/image/M20180614101231.jpg";
     private String nextLinkUrl = null;
 
-
-    @OnClick({R.id.btn_login, R.id.btn_logout, R.id.btn_get_items, R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera})
+    @OnClick({
+        R.id.btn_login, R.id.btn_logout, R.id.btn_get_items, R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera
+    })
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -90,10 +90,13 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                 break;
             case R.id.btn_qrcode:
 
-                if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     startActivity(new Intent(getContext(), CaptureActivity.class));
                 } else {
-                    EasyPermissions.requestPermissions(MainFragment.this,getString(R.string.app_name), REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    EasyPermissions.requestPermissions(MainFragment.this, getString(R.string.app_name),
+                        REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 }
 
                 break;
@@ -118,19 +121,16 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         }
     }
 
-
-
     private void testGet() {
 
         HashMap<String, Object> queryParams = new HashMap<>();
-        queryParams.put("page",new Page(1, 1));
+        queryParams.put("page", new Page(1, 1));
         Sort sort = new Sort();
         sort.setCreateAt(ApiConstant.Sort.DESC);
         queryParams.put("sort", sort);
 
         mViewModel.loadItems(queryParams);
     }
-
 
     private void testPost() {
         AuthorizationRequestBody requestBody = new AuthorizationRequestBody();
@@ -149,7 +149,6 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
                 // 保存用户信息
                 SPUtils.saveAccessToken(data.getAccessToken());
-
             }
 
             @Override
@@ -229,22 +228,23 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testUploadImage() {
-        ImageUtils.uploadImage(getContext(), testUploadImageFileName, FileUploadService.Category.USER_LOGO, new ImageUtils.OnFileUploadResultListener() {
-            @Override
-            public void onUploadSuccess(String data) {
+        ImageUtils.uploadImage(getContext(), testUploadImageFileName, FileUploadService.Category.USER_LOGO,
+            new ImageUtils.OnFileUploadResultListener() {
+                @Override
+                public void onUploadSuccess(String data) {
 
-            }
+                }
 
-            @Override
-            public void onUploadFailure(String message) {
+                @Override
+                public void onUploadFailure(String message) {
 
-            }
+                }
 
-            @Override
-            public void onUploadError(String error) {
+                @Override
+                public void onUploadError(String error) {
 
-            }
-        });
+                }
+            });
     }
 
     @Override
@@ -259,8 +259,9 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }
