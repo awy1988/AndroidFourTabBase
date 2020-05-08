@@ -68,7 +68,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         mTabTitles = this.getResources().getStringArray(R.array.tab_titles);
 
-        ((MainActBinding)binding).tabhost.setup(this, getSupportFragmentManager(), R.id.tabContent);
+        ((MainActBinding) mDataBinding).tabhost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 
         final int count = this.contentFragments.length;
         mTabBtnList = new View[count];
@@ -78,14 +78,14 @@ public class MainActivity extends BaseFragmentActivity {
             Bundle bundle = new Bundle();
             bundle.putString("tabId", mTabIds[i]);
             mTabBtnList[i] = getTabItemView(i);
-            TabHost.TabSpec tabSpec = ((MainActBinding)binding).tabhost.newTabSpec(this.mTabIds[i]).setIndicator(mTabBtnList[i]);
-            ((MainActBinding)binding).tabhost.addTab(tabSpec, this.contentFragments[i], bundle);
+            TabHost.TabSpec tabSpec = ((MainActBinding) mDataBinding).tabhost.newTabSpec(this.mTabIds[i]).setIndicator(mTabBtnList[i]);
+            ((MainActBinding) mDataBinding).tabhost.addTab(tabSpec, this.contentFragments[i], bundle);
         }
 
-        this.mTabWidget = ((MainActBinding)binding).tabhost.getTabWidget();
+        this.mTabWidget = ((MainActBinding) mDataBinding).tabhost.getTabWidget();
         this.mTabWidget.setDividerDrawable(null);
 
-        ((MainActBinding)binding).tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        ((MainActBinding) mDataBinding).tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
 
             private String frontSelection = "main";
             @Override

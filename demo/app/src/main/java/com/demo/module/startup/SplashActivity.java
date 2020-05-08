@@ -5,65 +5,51 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.viewbinding.ViewBinding;
 import com.demo.R;
 import com.demo.corelib.util.ScreenUtils;
+import com.demo.databinding.SplashActBinding;
 import com.demo.module.MainActivity;
-
-import org.json.JSONObject;
-
+import com.demo.module.base.BaseFragmentActivity;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * 启动页
  */
-public class StartupActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class SplashActivity extends BaseFragmentActivity implements EasyPermissions.PermissionCallbacks {
 
-    private static final String TAG = StartupActivity.class.getSimpleName();
-
-    @BindView(R.id.tv_launch_screen)
-    TextView mTvLaunchScreen; // 启动图片
+    private static final String TAG = SplashActivity.class.getSimpleName();
 
     // 定位权限的请求码
     private static final int REQ_CODE_PERMISSION = 100;
-
-    private static final int sleepTime = 1000;// 启动图片停留时间
-
-
-    //================================================================================
-    // 位置服务
-    //================================================================================
-
-    private JSONObject mAdData; // 广告数据
+    // 启动页面停留时间
+    private static final int sleepTime = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScreenUtils.setFullScreen(this);
-        setContentView(R.layout.startup_act);
-        ButterKnife.bind(this);
         init();
+    }
+
+    @Override protected int getContentView() {
+        return R.layout.splash_act;
+    }
+
+    @Override protected ViewBinding getViewBinding() {
+        return SplashActBinding.inflate(getLayoutInflater());
     }
 
     void init() {
 
         AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
         animation.setDuration(1500);
-        mTvLaunchScreen.startAnimation(animation);
+        ((SplashActBinding) mViewBinding).tvLaunchScreen.startAnimation(animation);
         permissionCheck();
-
     }
-
-
 
     @AfterPermissionGranted(REQ_CODE_PERMISSION)
     public void permissionCheck() {
@@ -71,10 +57,11 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
         if (hasLocationPermissions()) {
             initLocation();
         } else {
-            EasyPermissions.requestPermissions(this, getString(R.string.app_name), REQ_CODE_PERMISSION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+            EasyPermissions.requestPermissions(this, getString(R.string.app_name), REQ_CODE_PERMISSION,
+                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
-
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
@@ -90,7 +77,8 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions,
+        @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
@@ -109,21 +97,17 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
                 e.printStackTrace();
             }
         }).start();
-
     }
-
 
     /**
      * 跳转到下一个画面的方法
      */
     void toMain() {
 
-        Intent intent = new Intent(StartupActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
-
-
 
     //================================================================================
     // 位置服务
@@ -137,15 +121,13 @@ public class StartupActivity extends AppCompatActivity implements EasyPermission
         next();
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
     private boolean hasLocationPermissions() {
-        return EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        return EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
     }
-
-
 }

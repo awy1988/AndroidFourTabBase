@@ -36,8 +36,8 @@ public class MainViewModel extends ViewModel {
         return this.isDataLoading;
     }
 
-    private void setDataLoading() {
-        this.isDataLoading.setValue(true);
+    private void setDataLoading(boolean isLoading) {
+        this.isDataLoading.setValue(isLoading);
     }
 
     /**
@@ -47,7 +47,7 @@ public class MainViewModel extends ViewModel {
     public void loadItems(Map<String, Object> queryParams) {
         this.mMainRepository.getItems(queryParams, new RequestCallbackListener<List<Item>>() {
             @Override public void onStarted() {
-                setDataLoading();
+                setDataLoading(true);
             }
 
             @Override public void onCompleted(List<Item> items, LinksModel links) {
@@ -59,7 +59,7 @@ public class MainViewModel extends ViewModel {
             }
 
             @Override public void onEndedWithError(String s) {
-
+                setDataLoading(false);
             }
         });
     }
@@ -67,7 +67,7 @@ public class MainViewModel extends ViewModel {
     public void loadMoreItems() {
         this.mMainRepository.loadMoreItems(nextLinkUrl, new RequestCallbackListener<List<Item>>() {
             @Override public void onStarted() {
-                setDataLoading();
+                setDataLoading(true);
             }
 
             @Override public void onCompleted(List<Item> items, LinksModel linksModel) {
@@ -75,7 +75,7 @@ public class MainViewModel extends ViewModel {
             }
 
             @Override public void onEndedWithError(String s) {
-
+                setDataLoading(false);
             }
         });
     }

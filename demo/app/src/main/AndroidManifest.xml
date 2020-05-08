@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         android:name="com.demo.module.App">
 
-        <activity android:name="com.demo.module.startup.StartupActivity">
+        <activity android:name="com.demo.module.startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

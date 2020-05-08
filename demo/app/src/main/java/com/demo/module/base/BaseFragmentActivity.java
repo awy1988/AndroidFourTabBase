@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import androidx.viewbinding.ViewBinding;
 import com.demo.module.App;
 import com.demo.widget.CustomProgressDialog;
 
@@ -37,7 +38,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     CustomProgressDialog mProgressDialog;
 
     /** 加载中标题 */
-    private String mLoaddingTitle;
+    private String mLoadingTitle;
 
     /** 应用内部广播管理对象 */
     private LocalBroadcastManager mLocalBroadcastManager;
@@ -49,7 +50,8 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     private Unbinder unbinder;
     private InputMethodManager imm;
-    protected ViewDataBinding binding;
+    protected ViewDataBinding mDataBinding;
+    protected ViewBinding mViewBinding;
 
     /**
      * 实例被创建时调用的第一个方法
@@ -67,9 +69,14 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         mInflater = getLayoutInflater();
         mCustomerActionBar = null;
 
+        mViewBinding = getViewBinding();
 
         if (isDataBindingEnabled()) {
-           binding = DataBindingUtil.setContentView(this, getContentView());
+           mDataBinding = DataBindingUtil.setContentView(this, getContentView());
+           mDataBinding.setLifecycleOwner(this);
+        } else if (mViewBinding != null) {
+            // viewBinding
+            setContentView(mViewBinding.getRoot());
         } else {
             setContentView(getContentView());
         }
@@ -86,6 +93,14 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * 使用ViewBinding时需要复写此方法
+     * @return
+     */
+    protected ViewBinding getViewBinding() {
+        return null;
+    }
+
 
     /**
      * 取得自定义工具条（ActionBar）
@@ -99,7 +114,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     protected void showLoadingDialog(String title){
-        this.mLoaddingTitle = title;
+        this.mLoadingTitle = title;
         showProgressBar(true);
     }
 
