@@ -31,4 +31,14 @@
         <item name="android:layout_height">@dimen/common_divider_line_height</item>
     </style>
 
+    <!--默认系统按钮样式-->
+    <style name="CommonSystemButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_button_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/common_font_size_level_1</item>
+        <item name="android:textColor">@color/common_white</item>
+        <item name="android:background">@drawable/selector_common_btn</item>
+    </style>
+
 </resources>

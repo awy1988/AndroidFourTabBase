@@ -35,11 +35,18 @@ public class SplashActivity extends BaseFragmentActivity implements EasyPermissi
         init();
     }
 
-    @Override protected int getContentView() {
+    @Override
+    protected int getContentView() {
         return R.layout.splash_act;
     }
 
-    @Override protected ViewBinding getViewBinding() {
+    @Override
+    protected boolean isDataBindingEnabled() {
+        return super.isDataBindingEnabled();
+    }
+
+    @Override
+    protected ViewBinding getViewBinding() {
         return SplashActBinding.inflate(getLayoutInflater());
     }
 

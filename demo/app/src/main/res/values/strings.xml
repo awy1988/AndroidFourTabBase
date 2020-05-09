@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">demo</string>
 
-
-
-    <!-- 二维码 -->
-    <string name="capture_qrcode_ab_title">扫一扫</string>
-    <string name="capture_qrcode_ab_right_btn_title">从相册找</string>
-    <string name="capture_qrcode_scanning_description_msg1">10CM左右，系统会自动识别</string>
-    <string name="capture_qrcode_scanning_description_msg2">将二维码放到框内即可自动扫描</string>
-    <string name="capture_qrcode_close_btn_txt">关闭</string>
+    <!-- 登录 -->
+    <string name="login_user_name_input_hint">手机号/邮箱/用户名</string>
+    <string name="login_password_input_hint">密码</string>
+    <string name="login_btn_txt">登录</string>
+    <string name="login_retrieve_password_txt">忘记密码？</string>
+    <string name="login_register_txt">注册</string>
+    <string name="login_input_username_toast">手机号不能为空</string>
+    <string name="login_input_password_toast">密码不能为空</string>
 </resources>
