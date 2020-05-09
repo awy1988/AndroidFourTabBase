@@ -1,6 +1,7 @@
 package com.demo.corelib.network;
 
 
+import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.common.FileUploadResultModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.demo.corelib.network.base.HttpApiHelper;
@@ -33,7 +34,8 @@ public class FileUploadService {
     public static void uploadFile(String filePath, Category category, final ImageUtils.OnFileUploadResultListener listener) {
         File file =  new File(filePath);
         RequestBody requestFile = RequestBody.create( HttpApiHelper.guessMimeType(filePath), file);
-        IFileUploadService uploadService = HttpApiHelper.getRetrofitInstance().create(IFileUploadService.class);
+        // TODO 改造这里的逻辑，将上传路径与是否需要debug的值传入到此方法中。
+        IFileUploadService uploadService = HttpApiHelper.getRetrofitInstance(ApiConstant.BASE_URL, ApiConstant.IS_DEBUG).create(IFileUploadService.class);
         MultipartBody.Part part = null;
         Call<ResponseModel<FileUploadResultModel>> call = null;
         switch (category) {

@@ -3,13 +3,11 @@ package com.demo.corelib.network.base;
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.HttpQueryParamBaseModel;
 import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.FileNameMap;
@@ -18,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,7 +34,8 @@ public class HttpApiHelper {
 
     private static final MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream");
 
-    private static Retrofit RETROFIT_INSTANCE;
+    private static final HashMap<String, Retrofit> SYSTEM_RETROFIT_INSTANCE_MAP = new HashMap<>();
+
 
     private static Application sApp;
 
@@ -45,31 +43,33 @@ public class HttpApiHelper {
         sApp = application;
     }
 
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getRetrofitInstance(String baseUrl, boolean isDebug) {
 
-        if (RETROFIT_INSTANCE == null) {
+        Retrofit retrofitInstance = SYSTEM_RETROFIT_INSTANCE_MAP.get(baseUrl);
+
+        if (retrofitInstance == null) {
             synchronized (HttpApiHelper.class) {
-                if (RETROFIT_INSTANCE == null) {
+                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                builder.addInterceptor(new HttpParamsInterceptor(sApp))
+                    .connectTimeout(ApiConstant.REQUEST_TIME_OUT_SECONDS, TimeUnit.SECONDS);
 
-                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                    builder.addInterceptor(new HttpParamsInterceptor(sApp))
-                        .connectTimeout(ApiConstant.REQUEST_TIME_OUT_SECONDS, TimeUnit.SECONDS);
-
-                    if (ApiConstant.IS_DEBUG) {
-                       builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-                    }
-
-                    OkHttpClient client = builder.build();
-
-                    RETROFIT_INSTANCE = new Retrofit.Builder()
-                            .baseUrl(ApiConstant.BASE_URL)
-                            .client(client)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+                if (isDebug) {
+                   builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
                 }
+
+                OkHttpClient client = builder.build();
+
+                retrofitInstance = new Retrofit.Builder()
+                        .baseUrl(baseUrl)
+                        .client(client)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                SYSTEM_RETROFIT_INSTANCE_MAP.put(baseUrl, retrofitInstance);
             }
         }
-        return RETROFIT_INSTANCE;
+
+        return retrofitInstance;
     }
 
     /** 根据文件名获取MIME类型 */
@@ -100,8 +100,12 @@ public class HttpApiHelper {
                 @Override
                 public void onResponse(Call<ResponseModel<T>> call, Response<ResponseModel<T>> response) {
                     Log.d(TAG, "onResponse: ");
-
                     if (listener != null) {
+
+                        if (listener instanceof HandleResponseHeaderRequestCallbackListener) {
+                            ((HandleResponseHeaderRequestCallbackListener) listener).onHandleResponseHeaders(response.headers());
+                        }
+
                         if (response.body() != null) {
                             // 返回正确数据
                             T data = response.body().getData();

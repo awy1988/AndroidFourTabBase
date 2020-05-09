@@ -1,10 +1,9 @@
 package com.demo.module.data.remote.api.auth;
 
-import com.demo.corelib.model.item.Item;
+import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
 import com.demo.corelib.network.base.HttpApiHelper;
-import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.module.constant.AppModuleApiConstant;
 import com.demo.module.data.remote.api.auth.model.AuthenticateRequestBodyModel;
-import java.util.List;
 
 public class AuthService {
 
@@ -15,7 +14,7 @@ public class AuthService {
      * @param password 密码
      * @param listener
      */
-    public void authorizations(String username, String password, final RequestCallbackListener<List<Item>> listener) {
+    public void authorizations(String username, String password, final HandleResponseHeaderRequestCallbackListener listener) {
         AuthenticateRequestBodyModel authenticateRequestBodyModel = new AuthenticateRequestBodyModel();
         authenticateRequestBodyModel.setUsername(username);
         authenticateRequestBodyModel.setPassword(password);
@@ -23,7 +22,7 @@ public class AuthService {
     }
 
     private IAuthService getAuthService() {
-        return HttpApiHelper.getRetrofitInstance().create(IAuthService.class);
+        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG).create(IAuthService.class);
     }
 
 }

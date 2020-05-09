@@ -12,7 +12,13 @@ android {
         multiDexEnabled true
     }
     buildTypes {
+        def API_BASE_URL_DEVELOP = "\"https://cloud-api.codelet.net\""
+        def API_BASE_URL_RELEASE = "\"https://cloud-api.codelet.net\""
+        debug {
+            buildConfigField("String", "API_BASE_URL", API_BASE_URL_DEVELOP)
+        }
         release {
+            buildConfigField("String", "API_BASE_URL", API_BASE_URL_RELEASE)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -34,7 +40,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(':corelib')
+    implementation project(':corelib')
     implementation project(':widgets')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -42,6 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
 
     // butterKnife
@@ -70,5 +77,5 @@ dependencies {
     // lifecycle
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
-    implementation "com.demo.corelib:corelib:1.0-SNAPSHOT"
+//    implementation "com.demo.corelib:corelib:1.0.1-20200509.075224-1"
 }

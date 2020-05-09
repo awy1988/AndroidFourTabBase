@@ -1,5 +1,6 @@
 package com.demo.module.data.remote.api.item;
 
+import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
@@ -24,7 +25,7 @@ public class ItemService {
     }
 
     private IItemService getItemService() {
-        return HttpApiHelper.getRetrofitInstance().create(IItemService.class);
+        return HttpApiHelper.getRetrofitInstance(ApiConstant.BASE_URL, ApiConstant.IS_DEBUG).create(IItemService.class);
     }
 
 }

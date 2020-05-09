@@ -31,7 +31,7 @@ public class HttpParamsInterceptor implements Interceptor {
 
         // add public http header params
         Request.Builder builder = originalRequest.newBuilder();
-//        builder.addHeader("User-Agent", getUserAgent());
+        builder.addHeader("User-Agent", getUserAgent());
 
         String token = SPUtils.getAccessToken();
         if (!TextUtils.isEmpty(token)) {

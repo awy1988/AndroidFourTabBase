@@ -75,7 +75,7 @@ public class LoginActivity extends BaseFragmentActivity {
             return false;
         }
 
-        if (isPasswordLegal()) {
+        if (!isPasswordLegal()) {
             return false;
         }
         return true;

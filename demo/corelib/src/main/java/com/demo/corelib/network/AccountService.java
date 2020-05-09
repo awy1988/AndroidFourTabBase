@@ -1,6 +1,7 @@
 package com.demo.corelib.network;
 
 
+import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.AuthorizationRequestBody;
 import com.demo.corelib.model.api.UpdatePasswordRequestBody;
 import com.demo.corelib.model.api.UpdateProfileRequestBody;
@@ -41,7 +42,7 @@ public class AccountService {
     }
 
     private static IAccountService getAccountService() {
-        return HttpApiHelper.getRetrofitInstance().create(IAccountService.class);
+        return HttpApiHelper.getRetrofitInstance(ApiConstant.BASE_URL, ApiConstant.IS_DEBUG).create(IAccountService.class);
     }
 
 }
