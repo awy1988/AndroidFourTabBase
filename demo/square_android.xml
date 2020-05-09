@@ -299,6 +299,13 @@
         <section>
           <rule>
             <match>
+              <NAME>data</NAME>
+            </match>
+          </rule>
+        </section>
+        <section>
+          <rule>
+            <match>
               <NAME>layout</NAME>
             </match>
           </rule>
