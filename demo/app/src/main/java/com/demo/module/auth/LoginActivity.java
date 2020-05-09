@@ -2,6 +2,7 @@ package com.demo.module.auth;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
@@ -25,6 +26,7 @@ public class LoginActivity extends BaseFragmentActivity {
         initViewModel();
         initObserver();
         ((LoginActBinding) mDataBinding).setViewModel(mLoginViewModel);
+        ((LoginActBinding) mDataBinding).setLoginActivity(LoginActivity.this);
 
     }
 
@@ -38,6 +40,16 @@ public class LoginActivity extends BaseFragmentActivity {
         return true;
     }
 
+    /**
+     * 登录按钮点击事件
+     * @param view
+     */
+    public void onLoginClick(View view) {
+        if (isLoginFormDataLegal()) {
+            mLoginViewModel.login();
+        }
+    }
+
     private void initActionBar() {
         ((LoginActBinding) mDataBinding).toolbar.setTitle("登录");
         ((LoginActBinding) mDataBinding).toolbar.setTitleTextColor(getColor(R.color.common_primary_font_color));
@@ -48,12 +60,12 @@ public class LoginActivity extends BaseFragmentActivity {
     }
 
     private void initObserver() {
-        mLoginViewModel.getUserName().observe(this, s -> {
-
-        });
-
-        mLoginViewModel.getPassword().observe(this, s -> {
-
+        mLoginViewModel.isLoading().observe(this, isLoading -> {
+            if (isLoading) {
+                showLoadingDialog();
+            } else {
+                hideLoadingDialog();
+            }
         });
     }
 
@@ -66,9 +78,6 @@ public class LoginActivity extends BaseFragmentActivity {
         if (isPasswordLegal()) {
             return false;
         }
-
-
-
         return true;
     }
 

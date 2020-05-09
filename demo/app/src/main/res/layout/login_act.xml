@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.demo.module.auth.viewmodel.LoginViewModel"
+        />
+    <variable
+        name="loginActivity"
+        type="com.demo.module.auth.LoginActivity"
+        />
+  </data>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/rl_root"
       android:layout_width="match_parent"
@@ -17,6 +27,7 @@
         android:layout_marginRight="@dimen/common_margin_left_and_right"
         android:layout_marginTop="20dp"
         android:text="@string/login_btn_txt"
+        android:onClick="@{loginActivity::onLoginClick}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,11 +40,13 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/common_list_item_height"
         android:layout_marginTop="1dp"
-        android:paddingStart="@dimen/common_padding_left_and_right"
         android:paddingEnd="40dp"
+        android:paddingStart="@dimen/common_padding_left_and_right"
         android:background="@color/common_white"
         android:hint="@string/login_password_input_hint"
         android:singleLine="true"
+        android:inputType="textPassword"
+        android:text="@={viewModel.password}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +58,8 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/common_list_item_height"
         android:layout_marginTop="8dp"
-        android:paddingStart="@dimen/common_padding_left_and_right"
         android:paddingEnd="40dp"
+        android:paddingStart="@dimen/common_padding_left_and_right"
         android:background="@color/common_white"
         android:hint="@string/login_user_name_input_hint"
         android:singleLine="true"
@@ -90,11 +103,5 @@
         app:layout_constraintTop_toTopOf="parent"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
-  <data>
-    <variable
-        name="viewModel"
-        type="com.demo.module.auth.viewmodel.LoginViewModel"
-        />
-  </data>
 
 </layout>
