@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- palette 调色板 -->
+    <color name="color_palette_transparent">#00000000</color>
+    <color name="color_palette_white">#ffffff</color>
+    <color name="color_palette_black">#000000</color>
+    <color name="color_palette_light_yellow">#ffe9d4</color>
+    <color name="color_palette_red">#f4333c</color>
+    <color name="color_palette_blue">#2f9bff</color>
+    <color name="color_palette_deep_blue">#1C77D9</color>
+    <color name="color_palette_orange">#ff5b05</color>
+    <color name="color_palette_light_gray">#f5f5f9</color>
+    <color name="color_palette_deep_gray">#e1e1e1</color>
+    <color name="color_palette_font_color_level1">#333333</color>
+    <color name="color_palette_font_color_level2">#888888</color>
+    <color name="color_palette_font_color_level3">#bbbbbb</color>
+
     <!--app theme color-->
-    <color name="common_app_theme_color">#2f9bff</color>
+    <color name="common_app_theme_color">@color/color_palette_blue</color>
+
 
     <!-- App common background color -->
-    <color name="common_bg_color">#f5f5f9</color><!-- APP background -->
-    <color name="common_warning_bg_color">#ffe9d4</color>
-    <color name="common_danger_bg_color">#f4333c</color>
-    <color name="common_masking_bg_color">#66000000</color><!-- App mask color-->
-    <color name="common_divider_color">#e1e1e1</color><!-- divider color -->
-    <!-- gradient color -->
-    <color name="common_ab_start_color">#1ec2ff</color>
-    <color name="common_ab_end_color">#437ffb</color>
+    <color name="common_bg_color">@color/color_palette_light_gray</color><!-- APP background -->
+    <color name="common_warning_bg_color">@color/color_palette_light_yellow</color>
+    <color name="common_danger_bg_color">@color/color_palette_red</color>
+    <color name="common_divider_color">@color/color_palette_deep_gray</color><!-- divider color -->
+
     <!-- font color -->
-    <color name="common_primary_font_color">#333333</color>
-    <color name="common_secondary_font_color">#888888</color>
-    <color name="common_hint_font_color">#bbbbbb</color>
-    <color name="common_danger_font_color">#f4333c</color>
-    <color name="common_warn_font_color">#ff5b05</color>
+    <color name="common_primary_font_color">@color/color_palette_font_color_level1</color>
+    <color name="common_secondary_font_color">@color/color_palette_font_color_level2</color>
+    <color name="common_hint_font_color">@color/color_palette_font_color_level3</color>
+    <color name="common_danger_font_color">@color/color_palette_red</color>
+    <color name="common_warn_font_color">@color/color_palette_orange</color>
 
     <!-- common color -->
-    <color name="common_white">#ffffff</color>
-    <color name="common_black">#000000</color>
-    <color name="common_transparent">#00000000</color>
-    <drawable name="common_transparent">#00000000</drawable>
-    <color name="common_btn_pressed_color">#1C77D9</color>
-    <color name="common_pressed_gray_color">#e8e8e8</color>
+    <color name="common_white">@color/color_palette_white</color>
+    <color name="common_black">@color/color_palette_black</color>
+    <color name="common_transparent">@color/color_palette_transparent</color>
+    <drawable name="common_transparent">@color/color_palette_transparent</drawable>
+    <color name="common_btn_pressed_color">@color/color_palette_deep_blue</color>
 
     <!--list color-->
     <color name="common_list_image_frame_color">@color/common_divider_color</color>
