@@ -19,16 +19,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.demo.module.App">
+        android:name="com.demo.ui.App">
 
-        <activity android:name="com.demo.module.startup.SplashActivity">
+        <activity android:name="com.demo.ui.startup.SplashActivity">
 
         </activity>
-        <activity android:name="com.demo.module.MainActivity" />
+        <activity android:name="com.demo.ui.MainActivity" />
         <activity android:name="com.demo.corelib.util.zxing.qrcode.CaptureActivity" />
-        <activity android:name="com.demo.module.common.WebViewActivity" />
+        <activity android:name="com.demo.ui.common.WebViewActivity" />
         <activity android:name="com.demo.corelib.util.image.ImageSingleSelectActivity" />
-        <activity android:name=".module.auth.LoginActivity" >
+        <activity android:name=".ui.auth.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

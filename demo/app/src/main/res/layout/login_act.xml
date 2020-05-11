@@ -6,11 +6,11 @@
   <data>
     <variable
         name="viewModel"
-        type="com.demo.module.auth.viewmodel.LoginViewModel"
+        type="com.demo.ui.auth.viewmodel.LoginViewModel"
         />
     <variable
         name="loginActivity"
-        type="com.demo.module.auth.LoginActivity"
+        type="com.demo.ui.auth.LoginActivity"
         />
   </data>
   <androidx.constraintlayout.widget.ConstraintLayout
