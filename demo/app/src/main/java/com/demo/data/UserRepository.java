@@ -32,17 +32,17 @@ public class UserRepository {
 
     /**
      * 用户登录
-     * @param userName
-     * @param password
      */
-    public void login(String userName, String password, HandleResponseHeaderRequestCallbackListener listener) {
-        new AuthService().authorizations(userName, password, listener);
+    public void login(String userName, String password, String captchaText, String encryptedData,
+        HandleResponseHeaderRequestCallbackListener listener) {
+        new AuthService().authorizations(userName, password, captchaText, encryptedData, listener);
     }
 
-    public void captchaCheck(String credential, RequestCallbackListener<CaptchaDataModel> listener) {
+    public void captchaNecessaryCheck(String credential, RequestCallbackListener<CaptchaDataModel> listener) {
         new AuthService().captcha(credential, listener);
     }
 
-
-
+    public void validateCaptcha(String text, String encryptedData, RequestCallbackListener listener) {
+        new AuthService().validateCaptcha(text, encryptedData, listener);
+    }
 }

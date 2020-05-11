@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -190,6 +191,17 @@ public class ImageUtils {
                 .load(imageResId)
                 .into(imageView);
 
+    }
+
+    /**
+     * 加载bitmap
+     * @param imageView
+     * @param bitmap
+     * @param context
+     */
+    public static void showImageByGlide(ImageView imageView, Bitmap bitmap, Context context) {
+
+        GlideApp.with(context).load(bitmap).into(imageView);
     }
 
     /**
@@ -503,6 +515,20 @@ public class ImageUtils {
                 }
             }
         }, isCrop, aspectX, aspectY, outputX, outputY);
+    }
+
+    /**
+     * base64转Bitmap
+     * @param base64
+     * @return
+     */
+    public static Bitmap decodeBase64(String base64) {
+        //将返回的字符串拆分 得到的数组中的第二个元素就是真正的Base64码
+        String[] codeResult = base64.split(",");
+
+        //Base64解码，转换成bitmap
+        byte[] byteVCode = Base64.decode(codeResult[codeResult.length - 1], Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(byteVCode, 0, byteVCode.length);
     }
 
     public interface IPathCallBack{

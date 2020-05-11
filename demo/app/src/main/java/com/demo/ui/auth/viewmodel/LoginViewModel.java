@@ -15,6 +15,7 @@ public class LoginViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mUserName = new MutableLiveData<>();
     private MutableLiveData<String> mPassword = new MutableLiveData<>();
+    private MutableLiveData<String> mInputCaptcha = new MutableLiveData<>();
     private MutableLiveData<Boolean> mLoginSuccess = new MutableLiveData<>();
     private MutableLiveData<CaptchaDataModel> mCaptchaData = new MutableLiveData<>();
 
@@ -32,6 +33,10 @@ public class LoginViewModel extends BaseViewModel {
         return mPassword;
     }
 
+    public MutableLiveData<String> getInputCaptchaText() {
+        return mInputCaptcha;
+    }
+
     public MutableLiveData<Boolean> getLoginSuccess() {
         return mLoginSuccess;
     }
@@ -43,53 +48,119 @@ public class LoginViewModel extends BaseViewModel {
     public void login() {
         // 所有的数据都在LoginViewModel中，所以，login的时候就不需要外界传入任何数据。
         // TODO 将UserRepository 改为依赖注入形式
-        UserRepository.getInstance().login(this.mUserName.getValue(), this.mPassword.getValue(),
-            new HandleResponseHeaderRequestCallbackListener() {
+        UserRepository.getInstance()
+            .login(this.mUserName.getValue(), this.mPassword.getValue(), this.mInputCaptcha.getValue(),
+                getEncryptedData(),
+                new HandleResponseHeaderRequestCallbackListener() {
 
+                    @Override
+                    public void onStarted() {
+                        setLoading(true);
+                    }
+
+                    @Override
+                    public void onHandleResponseHeaders(Headers headers) {
+                        String token = headers.get("x-access-token");
+                        if (!TextUtils.isEmpty(token)) {
+                            // 存储token
+                            SPUtils.saveAccessToken(token);
+                        }
+                    }
+
+                    @Override
+                    public void onCompleted(Object data, LinksModel links) {
+                        setLoading(false);
+                    }
+
+                    @Override
+                    public void onEndedWithError(String s) {
+                        setLoading(false);
+                        setErrorMessage(s);
+                    }
+                });
+    }
+
+    private String getEncryptedData() {
+        if (this.mCaptchaData.getValue() != null) {
+            return this.mCaptchaData.getValue().getEncryptedData();
+        }
+        return null;
+    }
+
+    /**
+     * 验证验证码
+     */
+    public void validateCaptcha() {
+        UserRepository.getInstance().validateCaptcha(this.mInputCaptcha.getValue(), getEncryptedData(),
+            new RequestCallbackListener() {
                 @Override
                 public void onStarted() {
-                    setLoading(true);
-                }
 
-                @Override
-                public void onHandleResponseHeaders(Headers headers) {
-                    String token = headers.get("x-access-token");
-                    if (!TextUtils.isEmpty(token)) {
-                        // 存储token
-                        SPUtils.saveAccessToken(token);
-                    }
                 }
 
                 @Override
                 public void onCompleted(Object data, LinksModel links) {
-                    setLoading(false);
-                }
-
-                @Override
-                public void onEndedWithError(String s) {
-                    setLoading(false);
-                    setErrorMessage(s);
-                }
-            });
-    }
-
-    public void captchaCheck() {
-        UserRepository.getInstance().captchaCheck(this.mUserName.getValue(),
-            new RequestCallbackListener<CaptchaDataModel>() {
-                @Override
-                public void onStarted() {
-
-                }
-
-                @Override
-                public void onCompleted(CaptchaDataModel data, LinksModel links) {
-
+                    // 验证成功
+                    login();
                 }
 
                 @Override
                 public void onEndedWithError(String errorInfo) {
-
+                    getErrorMessage().setValue(errorInfo);
+                    refreshCaptcha();
                 }
             });
     }
+
+    /**
+     * 刷新验证码
+     */
+    public void refreshCaptcha() {
+        UserRepository.getInstance().captchaNecessaryCheck(null, new RequestCallbackListener<CaptchaDataModel>() {
+            @Override
+            public void onStarted() {
+
+            }
+
+            @Override
+            public void onCompleted(CaptchaDataModel data, LinksModel links) {
+                mCaptchaData.setValue(data);
+            }
+
+            @Override
+            public void onEndedWithError(String errorInfo) {
+                getErrorMessage().setValue(errorInfo);
+            }
+        });
+    }
+
+    /**
+     * 判断是否需要验证码
+     */
+    public void captchaCheck() {
+        UserRepository.getInstance().captchaNecessaryCheck(this.mUserName.getValue(), mCaptchaCheckListener);
+    }
+
+    private RequestCallbackListener<CaptchaDataModel> mCaptchaCheckListener =
+        new RequestCallbackListener<CaptchaDataModel>() {
+            @Override
+            public void onStarted() {
+
+            }
+
+            @Override
+            public void onCompleted(CaptchaDataModel data, LinksModel links) {
+
+                mCaptchaData.setValue(data);
+
+                if (data == null) {
+                    login();
+                }
+            }
+
+            @Override
+            public void onEndedWithError(String errorInfo) {
+                getErrorMessage().setValue(errorInfo);
+            }
+        };
 }

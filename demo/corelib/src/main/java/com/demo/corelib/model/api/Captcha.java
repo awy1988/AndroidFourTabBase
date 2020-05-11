@@ -2,7 +2,7 @@ package com.demo.corelib.model.api;
 
 public class Captcha {
     private String text;
-    private String hash;
+    private String encryptedData;
 
     public String getText() {
         return text;
@@ -12,11 +12,11 @@ public class Captcha {
         this.text = text;
     }
 
-    public String getHash() {
-        return hash;
+    public String getEncryptedData() {
+        return encryptedData;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public void setEncryptedData(String encryptedData) {
+        this.encryptedData = encryptedData;
     }
 }

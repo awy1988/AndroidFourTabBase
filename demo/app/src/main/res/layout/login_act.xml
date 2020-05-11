@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools"
     >
   <data>
+    <import type="android.view.View"/>
     <variable
         name="viewModel"
         type="com.demo.ui.auth.viewmodel.LoginViewModel"
@@ -73,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/common_white"
-        android:visibility="gone"
+        android:visibility="@{viewModel.captchaData == null ? View.GONE: View.VISIBLE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_password"
         app:layout_constraintTop_toBottomOf="@+id/et_password"
@@ -93,6 +94,7 @@
           android:textColor="@color/common_primary_font_color"
           android:textColorHint="@color/common_hint_font_color"
           android:textSize="@dimen/common_font_size_level_2"
+          android:text="@={viewModel.inputCaptchaText}"
           />
 
       <LinearLayout
@@ -111,6 +113,7 @@
             android:layout_width="115dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:onClick="onRefreshCaptchaClick"
             />
 
         <LinearLayout
@@ -120,6 +123,7 @@
             android:layout_marginLeft="@dimen/common_margin_left_and_right"
             android:gravity="center"
             android:orientation="vertical"
+            android:onClick="@{loginActivity::onRefreshCaptchaClick}"
             >
           <TextView
               android:layout_width="wrap_content"

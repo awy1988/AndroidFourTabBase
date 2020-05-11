@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
+import com.demo.corelib.util.ImageUtils;
 import com.demo.databinding.LoginActBinding;
 import com.demo.ui.auth.viewmodel.LoginViewModel;
 import com.demo.ui.base.BaseFragmentActivity;
@@ -27,7 +28,6 @@ public class LoginActivity extends BaseFragmentActivity {
         initObserver();
         ((LoginActBinding) mDataBinding).setViewModel(mLoginViewModel);
         ((LoginActBinding) mDataBinding).setLoginActivity(LoginActivity.this);
-
     }
 
     @Override
@@ -42,16 +42,29 @@ public class LoginActivity extends BaseFragmentActivity {
 
     /**
      * 登录按钮点击事件
-     * @param view
      */
     public void onLoginClick(View view) {
         if (isLoginFormDataLegal()) {
-            mLoginViewModel.login();
+
+            if (mLoginViewModel.getCaptchaData().getValue() == null) {
+                mLoginViewModel.captchaCheck();
+                return;
+            }
+
+            mLoginViewModel.validateCaptcha();
+
         }
     }
 
+    /**
+     * 刷新图形验证码按钮点击事件
+     */
+    public void onRefreshCaptchaClick(View view) {
+        mLoginViewModel.refreshCaptcha();
+    }
+
     private void initActionBar() {
-        ((LoginActBinding) mDataBinding).toolbar.setTitle("登录");
+        ((LoginActBinding) mDataBinding).toolbar.setTitle(R.string.login_ab_title);
         ((LoginActBinding) mDataBinding).toolbar.setTitleTextColor(getColor(R.color.common_primary_font_color));
     }
 
@@ -69,7 +82,11 @@ public class LoginActivity extends BaseFragmentActivity {
         });
 
         mLoginViewModel.getCaptchaData().observe(this, captchaDataModel -> {
-
+            // 需要显示图形验证码
+            if (captchaDataModel != null) {
+                ((LoginActBinding) mDataBinding).ivLoginVCode.setImageBitmap(
+                    ImageUtils.decodeBase64(captchaDataModel.getImageData()));
+            }
         });
 
         mLoginViewModel.getErrorMessage().observe(this, s -> {
@@ -91,7 +108,8 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private boolean isUserNameLegal() {
         // 用户名是否为空
-        if (TextUtils.isEmpty(mLoginViewModel.getUserName().getValue()) || TextUtils.isEmpty(mLoginViewModel.getUserName().getValue().trim())) {
+        if (TextUtils.isEmpty(mLoginViewModel.getUserName().getValue()) || TextUtils.isEmpty(
+            mLoginViewModel.getUserName().getValue().trim())) {
             Toast.makeText(this, R.string.login_input_username_toast, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -100,12 +118,11 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private boolean isPasswordLegal() {
         // 密码是否为空
-        if (TextUtils.isEmpty(mLoginViewModel.getPassword().getValue()) || TextUtils.isEmpty(mLoginViewModel.getPassword().getValue().trim())) {
+        if (TextUtils.isEmpty(mLoginViewModel.getPassword().getValue()) || TextUtils.isEmpty(
+            mLoginViewModel.getPassword().getValue().trim())) {
             Toast.makeText(this, R.string.login_input_password_toast, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
-
-
 }

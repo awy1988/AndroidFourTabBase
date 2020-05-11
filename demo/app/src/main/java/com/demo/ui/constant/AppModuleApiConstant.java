@@ -9,4 +9,5 @@ public class AppModuleApiConstant extends ApiConstant {
     public static boolean IS_DEBUG = BuildConfig.DEBUG;
     public static final String API_AUTHORIZATIONS = "/authorizations";
     public static final String API_CAPTCHA = "/captcha";
+    public static final String API_VALIDATE_CAPTCHA = "/validate-captcha";
 }
