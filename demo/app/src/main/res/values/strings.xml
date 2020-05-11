@@ -2,6 +2,7 @@
     <string name="app_name">demo</string>
 
     <!-- 登录 -->
+    <string name="login_ab_title">登录</string>
     <string name="login_user_name_input_hint">手机号/邮箱/用户名</string>
     <string name="login_password_input_hint">密码</string>
     <string name="login_btn_txt">登录</string>
@@ -9,4 +10,6 @@
     <string name="login_register_txt">注册</string>
     <string name="login_input_username_toast">手机号不能为空</string>
     <string name="login_input_password_toast">密码不能为空</string>
+    <string name="login_v_code_input_hint">图形验证码</string>
+    <string name="login_change_v_code">换一张</string>
 </resources>

@@ -67,6 +67,14 @@ public class LoginActivity extends BaseFragmentActivity {
                 hideLoadingDialog();
             }
         });
+
+        mLoginViewModel.getCaptchaData().observe(this, captchaDataModel -> {
+
+        });
+
+        mLoginViewModel.getErrorMessage().observe(this, s -> {
+            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        });
     }
 
     private boolean isLoginFormDataLegal() {
