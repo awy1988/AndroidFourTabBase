@@ -1,5 +1,6 @@
 package com.demo.ui.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.databinding.LoginActBinding;
+import com.demo.ui.MainActivity;
 import com.demo.ui.auth.viewmodel.LoginViewModel;
 import com.demo.ui.base.BaseFragmentActivity;
 
@@ -91,6 +93,13 @@ public class LoginActivity extends BaseFragmentActivity {
 
         mLoginViewModel.getErrorMessage().observe(this, s -> {
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        });
+
+        mLoginViewModel.getLoginSuccess().observe(this, isLoginSuccess -> {
+            if (isLoginSuccess) {
+                finish();
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            }
         });
     }
 

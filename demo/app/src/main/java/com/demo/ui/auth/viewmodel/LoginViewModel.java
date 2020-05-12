@@ -64,6 +64,7 @@ public class LoginViewModel extends BaseViewModel {
                         if (!TextUtils.isEmpty(token)) {
                             // 存储token
                             SPUtils.saveAccessToken(token);
+                            mLoginSuccess.setValue(true);
                         }
                     }
 
