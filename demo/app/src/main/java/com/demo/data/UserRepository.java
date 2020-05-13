@@ -35,14 +35,14 @@ public class UserRepository {
      */
     public void login(String userName, String password, String captchaText, String encryptedData,
         HandleResponseHeaderRequestCallbackListener listener) {
-        new AuthService().authorizations(userName, password, captchaText, encryptedData, listener);
+        mAuthService.authorizations(userName, password, captchaText, encryptedData, listener);
     }
 
     public void captchaNecessaryCheck(String credential, RequestCallbackListener<CaptchaDataModel> listener) {
-        new AuthService().captcha(credential, listener);
+        mAuthService.captcha(credential, listener);
     }
 
     public void validateCaptcha(String text, String encryptedData, RequestCallbackListener listener) {
-        new AuthService().validateCaptcha(text, encryptedData, listener);
+        mAuthService.validateCaptcha(text, encryptedData, listener);
     }
 }
