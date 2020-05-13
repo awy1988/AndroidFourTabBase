@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
 import com.demo.corelib.util.ImageUtils;
+import com.demo.corelib.util.KeyboardUtils;
 import com.demo.databinding.LoginActBinding;
 import com.demo.ui.MainActivity;
 import com.demo.ui.auth.viewmodel.LoginViewModel;
@@ -97,8 +98,10 @@ public class LoginActivity extends BaseFragmentActivity {
 
         mLoginViewModel.getLoginSuccess().observe(this, isLoginSuccess -> {
             if (isLoginSuccess) {
-                finish();
+                // 收键盘的逻辑
+                KeyboardUtils.hideKeyboard(LoginActivity.this);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
             }
         });
     }

@@ -59,4 +59,7 @@ dependencies {
     // OKHttp log
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+
+    // 工具类
+    api 'com.blankj:utilcodex:1.28.4'
 }
