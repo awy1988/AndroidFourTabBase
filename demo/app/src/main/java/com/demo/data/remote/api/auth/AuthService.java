@@ -5,12 +5,18 @@ import com.demo.corelib.model.api.Captcha;
 import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.data.remote.api.auth.model.AuthenticateRequestBodyModel;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
 import com.demo.data.remote.api.auth.model.ValidateCaptchaRequestBodyModel;
 import com.demo.ui.constant.AppModuleApiConstant;
-import com.demo.data.remote.api.auth.model.AuthenticateRequestBodyModel;
+import javax.inject.Inject;
 
 public class AuthService {
+
+    @Inject
+    public AuthService() {
+
+    }
 
     /**
      * TODO 优化逻辑，这个类的使用最好使用依赖注入的方式。

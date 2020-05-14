@@ -7,12 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import butterknife.BindView;
-import butterknife.OnClick;
 import com.demo.R;
 import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.AuthorizationRequestBody;
@@ -28,6 +26,7 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.SPUtils;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
+import com.demo.databinding.MainFragBinding;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.MainViewModel;
 import java.util.HashMap;
@@ -41,14 +40,14 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
     private MainViewModel mViewModel;
 
-    @BindView(R.id.tv_title) TextView tvTitle;
-
+    private MainFragBinding mBinding;
     //    @Inject
     //    AccountService accountService;
 
     @Override
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
+
         mViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
 
         mViewModel.getIsDataLoading().observe(this, isLoading -> {
@@ -59,7 +58,8 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
             hideLoadingDialog();
         });
 
-        mViewModel.getTitle().observe(this, s -> tvTitle.setText(s));
+
+
     }
 
     @Override
@@ -67,15 +67,14 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_frag, container, false);
         //        ButterKnife.bind(view);
-        return view;
+        mBinding = DataBindingUtil.bind(view);
+        mBinding.setFragment(MainFragment.this);
+        return mBinding.getRoot();
     }
 
     private String testUploadImageFileName = "/storage/emulated/0/proding/image/M20180614101231.jpg";
     private String nextLinkUrl = null;
 
-    @OnClick({
-        R.id.btn_login, R.id.btn_logout, R.id.btn_get_items, R.id.btn_qrcode, R.id.btn_take_photo, R.id.btn_take_camera
-    })
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -222,7 +221,6 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         });
     }
 
-    @OnClick(R.id.btn_loadmore)
     public void testLoadMore() {
         mViewModel.loadMoreItems();
     }

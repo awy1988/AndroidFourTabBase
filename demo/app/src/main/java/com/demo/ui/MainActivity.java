@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-
 import com.demo.R;
 import com.demo.databinding.MainActBinding;
 import com.demo.ui.base.BaseFragmentActivity;
@@ -19,14 +18,11 @@ import com.demo.ui.main.MainFragment;
 import com.demo.ui.main.ProfileFragment;
 import com.demo.ui.main.ShoppingCartFragment;
 
-import butterknife.BindArray;
-
 public class MainActivity extends BaseFragmentActivity {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @BindArray(R.array.tab_ids)
     String[] mTabIds;
 
     TextView tvShoppingCartIndicator;
@@ -67,6 +63,7 @@ public class MainActivity extends BaseFragmentActivity {
     private void initView() {
 
         mTabTitles = this.getResources().getStringArray(R.array.tab_titles);
+        mTabIds = getResources().getStringArray(R.array.tab_ids);
 
         ((MainActBinding) mDataBinding).tabhost.setup(this, getSupportFragmentManager(), R.id.tabContent);
 

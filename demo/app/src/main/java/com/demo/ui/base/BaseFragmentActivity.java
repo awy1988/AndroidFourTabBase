@@ -18,8 +18,6 @@ import androidx.viewbinding.ViewBinding;
 import com.demo.ui.App;
 import com.demo.widget.CustomProgressDialog;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -48,7 +46,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     /** 用户自定义ActionBar */
     private View mCustomerActionBar;
 
-    private Unbinder unbinder;
     private InputMethodManager imm;
     protected ViewDataBinding mDataBinding;
     protected ViewBinding mViewBinding;
@@ -80,8 +77,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         } else {
             setContentView(getContentView());
         }
-
-        unbinder = ButterKnife.bind(this);
 
     }
 
@@ -200,10 +195,6 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
         if(mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
-        }
-
-        if(unbinder != null) {
-            unbinder.unbind();
         }
 
         imm = null;

@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mainFragment"/>
-
-    <Button
-        android:id="@+id/btn_login"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="fragment"
+            type="com.demo.ui.main.MainFragment"
+            />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="登录"/>
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="退出登录"/>
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            android:onClick="@{fragment::onButtonClick}"/>
 
-    <Button
-        android:id="@+id/btn_get_items"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取商品数据"/>
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:onClick="@{fragment::onButtonClick}"/>
 
-    <Button
-        android:id="@+id/btn_loadmore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="加载更多"/>
+        <Button
+            android:id="@+id/btn_get_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取商品数据"
+            android:onClick="@{fragment::onButtonClick}"/>
 
-    <Button
-        android:id="@+id/btn_qrcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="二维码扫描"/>
+        <Button
+            android:id="@+id/btn_loadmore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="加载更多"
+            android:onClick="@{() -> fragment.testLoadMore()}"/>
 
-    <Button
-        android:id="@+id/btn_take_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="选择图片"/>
+        <Button
+            android:id="@+id/btn_qrcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="二维码扫描"
+            android:onClick="@{fragment::onButtonClick}"/>
 
-    <Button
-        android:id="@+id/btn_take_camera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="拍照"/>
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="选择图片"
+            android:onClick="@{fragment::onButtonClick}"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_take_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="拍照"
+            android:onClick="@{fragment::onButtonClick}"/>
+
+    </LinearLayout>
+</layout>

@@ -20,16 +20,16 @@ public class App extends Application {
     //================================================================================
     // 应用程序基本信息
     //================================================================================
-    private static Context sContext;// 应用程序的抽象基类对象
-    private static App sApplication;// 入口启动类对象
+    private static Context sContext; // 应用程序的抽象基类对象
+    private static App sApplication; // 入口启动类对象
 
     //================================================================================
     // 设备屏幕信息
     //================================================================================
-    public static float sScale;// 显示密度（表示每英寸有多少个显示点(逻辑值)，通常屏幕大时，density就大，屏幕小时，density就小）
-    public static int sWidthDp;// 屏幕宽度(dp)
-    public static int sWidthPix;// 屏幕宽度(像素)
-    public static int sHeightPix;// 屏幕高度(像素)
+    public static float sScale; // 显示密度（表示每英寸有多少个显示点(逻辑值)，通常屏幕大时，density就大，屏幕小时，density就小）
+    public static int sWidthDp; // 屏幕宽度(dp)
+    public static int sWidthPix; // 屏幕宽度(像素)
+    public static int sHeightPix; // 屏幕高度(像素)
 
     // SD卡是否可用（true:手机已经绑定SD卡, false:手机没有SD卡）
     public static Boolean sSDCardIsMounted;

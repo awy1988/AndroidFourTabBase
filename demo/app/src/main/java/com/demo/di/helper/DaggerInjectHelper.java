@@ -1,4 +1,4 @@
-package com.demo.ui.base.dagger.helper;
+package com.demo.di.helper;
 
 public class DaggerInjectHelper {
 

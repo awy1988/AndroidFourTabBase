@@ -8,7 +8,9 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.SPUtils;
 import com.demo.data.UserRepository;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
+import com.demo.di.component.DaggerApplicationGraph;
 import com.demo.ui.base.viewmodel.BaseViewModel;
+import javax.inject.Inject;
 import okhttp3.Headers;
 
 public class LoginViewModel extends BaseViewModel {
@@ -19,9 +21,11 @@ public class LoginViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> mLoginSuccess = new MutableLiveData<>();
     private MutableLiveData<CaptchaDataModel> mCaptchaData = new MutableLiveData<>();
 
-    private UserRepository mUserRepository;
+    @Inject
+    UserRepository mUserRepository;
 
     public LoginViewModel() {
+        DaggerApplicationGraph.create().inject(this);
         mLoginSuccess.setValue(false);
     }
 
@@ -48,37 +52,36 @@ public class LoginViewModel extends BaseViewModel {
     public void login() {
         // 所有的数据都在LoginViewModel中，所以，login的时候就不需要外界传入任何数据。
         // TODO 将UserRepository 改为依赖注入形式
-        UserRepository.getInstance()
-            .login(this.mUserName.getValue(), this.mPassword.getValue(), this.mInputCaptcha.getValue(),
-                getEncryptedData(),
-                new HandleResponseHeaderRequestCallbackListener() {
+        mUserRepository.login(this.mUserName.getValue(), this.mPassword.getValue(), this.mInputCaptcha.getValue(),
+            getEncryptedData(),
+            new HandleResponseHeaderRequestCallbackListener() {
 
-                    @Override
-                    public void onStarted() {
-                        setLoading(true);
-                    }
+                @Override
+                public void onStarted() {
+                    setLoading(true);
+                }
 
-                    @Override
-                    public void onHandleResponseHeaders(Headers headers) {
-                        String token = headers.get("x-access-token");
-                        if (!TextUtils.isEmpty(token)) {
-                            // 存储token
-                            SPUtils.saveAccessToken(token);
-                            mLoginSuccess.setValue(true);
-                        }
+                @Override
+                public void onHandleResponseHeaders(Headers headers) {
+                    String token = headers.get("x-access-token");
+                    if (!TextUtils.isEmpty(token)) {
+                        // 存储token
+                        SPUtils.saveAccessToken(token);
+                        mLoginSuccess.setValue(true);
                     }
+                }
 
-                    @Override
-                    public void onCompleted(Object data, LinksModel links) {
-                        setLoading(false);
-                    }
+                @Override
+                public void onCompleted(Object data, LinksModel links) {
+                    setLoading(false);
+                }
 
-                    @Override
-                    public void onEndedWithError(String s) {
-                        setLoading(false);
-                        setErrorMessage(s);
-                    }
-                });
+                @Override
+                public void onEndedWithError(String s) {
+                    setLoading(false);
+                    setErrorMessage(s);
+                }
+            });
     }
 
     private String getEncryptedData() {
@@ -92,7 +95,7 @@ public class LoginViewModel extends BaseViewModel {
      * 验证验证码
      */
     public void validateCaptcha() {
-        UserRepository.getInstance().validateCaptcha(this.mInputCaptcha.getValue(), getEncryptedData(),
+        mUserRepository.validateCaptcha(this.mInputCaptcha.getValue(), getEncryptedData(),
             new RequestCallbackListener() {
                 @Override
                 public void onStarted() {
@@ -117,7 +120,7 @@ public class LoginViewModel extends BaseViewModel {
      * 刷新验证码
      */
     public void refreshCaptcha() {
-        UserRepository.getInstance().captchaNecessaryCheck(null, new RequestCallbackListener<CaptchaDataModel>() {
+        mUserRepository.captchaNecessaryCheck(null, new RequestCallbackListener<CaptchaDataModel>() {
             @Override
             public void onStarted() {
 
@@ -139,7 +142,7 @@ public class LoginViewModel extends BaseViewModel {
      * 判断是否需要验证码
      */
     public void captchaCheck() {
-        UserRepository.getInstance().captchaNecessaryCheck(this.mUserName.getValue(), mCaptchaCheckListener);
+        mUserRepository.captchaNecessaryCheck(this.mUserName.getValue(), mCaptchaCheckListener);
     }
 
     private RequestCallbackListener<CaptchaDataModel> mCaptchaCheckListener =

@@ -21,7 +21,7 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    private LoginViewModel mLoginViewModel;
+    LoginViewModel mLoginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,8 +17,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.demo.ui.App;
 import com.demo.widget.CustomProgressDialog;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -37,7 +35,6 @@ public class BaseFragment extends Fragment {
 
     private BroadcastReceiver mLocalReceiver;
 
-    private Unbinder unbinder;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -61,7 +58,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
     }
 
     /**
@@ -100,10 +96,6 @@ public class BaseFragment extends Fragment {
         // 为了解决 activity关闭时抛出 android.view.WindowLeaked（窗体内存泄露） 错误
         if(mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
-        }
-
-        if(unbinder != null) {
-            unbinder.unbind();
         }
     }
 

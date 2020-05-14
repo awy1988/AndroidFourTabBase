@@ -51,14 +51,6 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
 
-    // butterKnife
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-
-
-
-
-
     // easyPermission
     implementation 'pub.devrel:easypermissions:1.2.0'
 

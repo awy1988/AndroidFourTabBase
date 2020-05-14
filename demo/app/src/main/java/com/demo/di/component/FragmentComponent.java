@@ -1,4 +1,4 @@
-package com.demo.ui.base.dagger.component;
+package com.demo.di.component;
 
 //@Component
 public interface FragmentComponent {

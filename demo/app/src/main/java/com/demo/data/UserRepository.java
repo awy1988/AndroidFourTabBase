@@ -4,30 +4,16 @@ import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.remote.api.auth.AuthService;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
+import javax.inject.Inject;
 
 public class UserRepository {
 
-    private static UserRepository INSTANCE = null;
-
-    private AuthService mAuthService;
+    private final AuthService mAuthService;
 
     // 数据来源分为两部分，一部分是本地数据库，一部分是网络
-    private UserRepository() {
-        mAuthService = new AuthService();
-    }
-
-    /**
-     * 获取数据仓库示例
-     */
-    public static UserRepository getInstance() {
-        if (INSTANCE == null) {
-            synchronized (UserRepository.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new UserRepository();
-                }
-            }
-        }
-        return INSTANCE;
+    @Inject
+    public UserRepository(AuthService authService) {
+        this.mAuthService = authService;
     }
 
     /**
@@ -45,4 +31,6 @@ public class UserRepository {
     public void validateCaptcha(String text, String encryptedData, RequestCallbackListener listener) {
         mAuthService.validateCaptcha(text, encryptedData, listener);
     }
+
+    // TODO 增加取得用户信息的逻辑，并将其缓存到数据库
 }

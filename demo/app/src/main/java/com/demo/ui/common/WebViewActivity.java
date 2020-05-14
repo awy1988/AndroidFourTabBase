@@ -11,12 +11,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-
+import com.demo.R;
 import com.demo.ui.base.BaseFragmentActivity;
 import com.demo.widget.ProgressWebView;
-import com.demo.R;
-
-import butterknife.BindView;
 
 
 /**
@@ -27,7 +24,6 @@ public class WebViewActivity extends BaseFragmentActivity {
     private static final String TAG = WebViewActivity.class.getSimpleName();
 
     /** 获取WebView控件*/
-    @BindView(R.id.webView)
     ProgressWebView webView;
 
     String defaultTitle;
@@ -43,7 +39,9 @@ public class WebViewActivity extends BaseFragmentActivity {
         return R.layout.common_webview;
     }
 
-    void init(){
+    void init() {
+
+        webView = findViewById(R.id.webView);
 
         /** 获取标题和地址*/
         Intent intent = this.getIntent();

@@ -1,6 +1,6 @@
 <resources>
 
-    <!--####### 共通部分 #######-->
+    <!--####### 共通部分 start #######-->
 
     <!--font size-->
     <dimen name="common_font_size_23">23sp</dimen>
@@ -57,7 +57,7 @@
     <dimen name="common_unread_sign_size">7dp</dimen>
 
 
-    <!--####### 共通部分 #######-->
+    <!--####### 共通部分 end #######-->
 
     <!-- main page-->
     <dimen name="main_pager_indicator_width">10dp</dimen>
