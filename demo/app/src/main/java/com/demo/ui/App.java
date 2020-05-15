@@ -5,12 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Environment;
-
 import androidx.multidex.MultiDex;
-
 import com.demo.corelib.CoreLib;
 import com.demo.corelib.constant.ApiConstant;
-
 import java.util.List;
 
 public class App extends Application {
@@ -68,6 +65,9 @@ public class App extends Application {
         initThirdPartyAuthorization();
 
         CoreLib.init(this);
+
+
+
     }
 
     /**

@@ -8,18 +8,18 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.remote.api.auth.model.AuthenticateRequestBodyModel;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
 import com.demo.data.remote.api.auth.model.ValidateCaptchaRequestBodyModel;
-import com.demo.ui.constant.AppModuleApiConstant;
 import javax.inject.Inject;
 
 public class AuthService {
 
-    @Inject
-    public AuthService() {
+    private IAuthService mAuthService;
 
+    @Inject
+    public AuthService(IAuthService authService) {
+        this.mAuthService = authService;
     }
 
     /**
-     * TODO 优化逻辑，这个类的使用最好使用依赖注入的方式。
      * 获取商品列表
      *
      * @param username 用户名
@@ -36,22 +36,18 @@ public class AuthService {
             captcha.setEncryptedData(encryptedData);
             authenticateRequestBodyModel.setCaptcha(captcha);
         }
-        HttpApiHelper.executeRequest(getAuthService().authorizations(authenticateRequestBodyModel), listener);
+        HttpApiHelper.executeRequest(mAuthService.authorizations(authenticateRequestBodyModel), listener);
     }
 
     public void captcha(String credential, RequestCallbackListener<CaptchaDataModel> listener) {
-        HttpApiHelper.executeRequest(getAuthService().captcha(credential), listener);
+        HttpApiHelper.executeRequest(mAuthService.captcha(credential), listener);
     }
 
     public void validateCaptcha(String text, String encryptedData, RequestCallbackListener listener) {
         ValidateCaptchaRequestBodyModel validateCaptchaRequestBodyModel = new ValidateCaptchaRequestBodyModel();
         validateCaptchaRequestBodyModel.setText(text);
         validateCaptchaRequestBodyModel.setEncryptedData(encryptedData);
-        HttpApiHelper.executeRequest(getAuthService().validateCaptcha(validateCaptchaRequestBodyModel), listener);
+        HttpApiHelper.executeRequest(mAuthService.validateCaptcha(validateCaptchaRequestBodyModel), listener);
     }
 
-    private IAuthService getAuthService() {
-        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
-            .create(IAuthService.class);
-    }
 }

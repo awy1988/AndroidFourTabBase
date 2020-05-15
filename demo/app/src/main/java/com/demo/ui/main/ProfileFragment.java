@@ -15,9 +15,6 @@ public class ProfileFragment extends BaseFragment {
 
     private static final String TAG = ProfileFragment.class.getSimpleName();
 
-    @Inject
-    AccountService accountService;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);

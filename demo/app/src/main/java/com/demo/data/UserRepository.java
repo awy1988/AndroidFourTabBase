@@ -2,6 +2,8 @@ package com.demo.data;
 
 import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
 import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.data.database.User;
+import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
 import javax.inject.Inject;
@@ -9,11 +11,13 @@ import javax.inject.Inject;
 public class UserRepository {
 
     private final AuthService mAuthService;
+    private final AccountService mAccountService;
 
     // 数据来源分为两部分，一部分是本地数据库，一部分是网络
     @Inject
-    public UserRepository(AuthService authService) {
+    public UserRepository(AuthService authService, AccountService accountService) {
         this.mAuthService = authService;
+        this.mAccountService = accountService;
     }
 
     /**
@@ -30,6 +34,14 @@ public class UserRepository {
 
     public void validateCaptcha(String text, String encryptedData, RequestCallbackListener listener) {
         mAuthService.validateCaptcha(text, encryptedData, listener);
+    }
+
+    /**
+     * 获取用户信息
+     * @param listener
+     */
+    public void getUserInfo(RequestCallbackListener<User> listener) {
+        mAccountService.getUserInfo(listener);
     }
 
     // TODO 增加取得用户信息的逻辑，并将其缓存到数据库
