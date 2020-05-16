@@ -69,7 +69,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         //        ButterKnife.bind(view);
         mBinding = DataBindingUtil.bind(view);
         mBinding.setFragment(MainFragment.this);
-        mViewModel.getUserInfo();
+
         return mBinding.getRoot();
     }
 

@@ -110,6 +110,7 @@ public class MainActivity extends BaseFragmentActivity {
                 }
             }
         });
+        ((MainActBinding) mDataBinding).tabhost.setCurrentTab(3);
     }
 
     private void initData() {

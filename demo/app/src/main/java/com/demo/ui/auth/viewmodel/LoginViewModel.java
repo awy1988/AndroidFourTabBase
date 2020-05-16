@@ -27,6 +27,8 @@ public class LoginViewModel extends BaseViewModel {
     public LoginViewModel() {
         DaggerApplicationGraph.create().inject(this);
         mLoginSuccess.setValue(false);
+        mUserName.setValue("super");
+        mPassword.setValue("super");
     }
 
     public MutableLiveData<String> getUserName() {
