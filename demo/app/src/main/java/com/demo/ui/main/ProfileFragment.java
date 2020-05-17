@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
 import com.demo.databinding.ProfileFragBinding;
+import com.demo.di.component.DaggerActivityComponent;
+import com.demo.di.module.AccountModule;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.ProfileViewModel;
+import javax.inject.Inject;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -18,12 +20,15 @@ public class ProfileFragment extends BaseFragment {
 
     private ProfileFragBinding mBinding;
 
-    private ProfileViewModel mViewModel;
+    @Inject
+    ProfileViewModel mViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        DaggerActivityComponent.builder().accountModule(new AccountModule(this)).build().inject(this);
+
         super.onCreateView(inflater, container, savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         View view = inflater.inflate(R.layout.profile_frag, container, false);
         mBinding = (ProfileFragBinding) DataBindingUtil.bind(view);
         mBinding.setFragment(this);

@@ -10,7 +10,6 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.MainRepository;
 import com.demo.data.UserRepository;
 import com.demo.data.database.User;
-import com.demo.di.component.DaggerApplicationGraph;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -27,7 +26,6 @@ public class MainViewModel extends ViewModel {
     private String nextLinkUrl;
 
     public MainViewModel() {
-        DaggerApplicationGraph.create().inject(this);
         this.mMainRepository = MainRepository.getInstance();
     }
 

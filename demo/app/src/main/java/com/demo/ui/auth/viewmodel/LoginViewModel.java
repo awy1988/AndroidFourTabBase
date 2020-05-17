@@ -8,9 +8,7 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.SPUtils;
 import com.demo.data.UserRepository;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
-import com.demo.di.component.DaggerApplicationGraph;
 import com.demo.ui.base.viewmodel.BaseViewModel;
-import javax.inject.Inject;
 import okhttp3.Headers;
 
 public class LoginViewModel extends BaseViewModel {
@@ -21,11 +19,10 @@ public class LoginViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> mLoginSuccess = new MutableLiveData<>();
     private MutableLiveData<CaptchaDataModel> mCaptchaData = new MutableLiveData<>();
 
-    @Inject
     UserRepository mUserRepository;
 
-    public LoginViewModel() {
-        DaggerApplicationGraph.create().inject(this);
+    public LoginViewModel(UserRepository userRepository) {
+        this.mUserRepository = userRepository;
         mLoginSuccess.setValue(false);
         mUserName.setValue("super");
         mPassword.setValue("super");

@@ -7,8 +7,6 @@ import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.UserRepository;
 import com.demo.data.database.User;
-import com.demo.di.component.DaggerApplicationGraph;
-import javax.inject.Inject;
 
 public class ProfileViewModel extends ViewModel {
 
@@ -24,11 +22,10 @@ public class ProfileViewModel extends ViewModel {
         this.mUser.setValue(user);
     }
 
-    @Inject
-    UserRepository mUserRepository;
+    private UserRepository mUserRepository;
 
-    public ProfileViewModel() {
-        DaggerApplicationGraph.create().inject(this);
+    public ProfileViewModel(UserRepository userRepository) {
+        this.mUserRepository = userRepository;
     }
 
     public MutableLiveData<Boolean> getIsDataLoading() {

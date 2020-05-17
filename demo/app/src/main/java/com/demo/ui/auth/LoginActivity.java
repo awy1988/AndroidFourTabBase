@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.KeyboardUtils;
 import com.demo.databinding.LoginActBinding;
+import com.demo.di.component.DaggerActivityComponent;
+import com.demo.di.module.AccountModule;
 import com.demo.ui.MainActivity;
 import com.demo.ui.auth.viewmodel.LoginViewModel;
 import com.demo.ui.base.BaseFragmentActivity;
+import javax.inject.Inject;
 
 /**
  * 登录页
@@ -21,14 +23,21 @@ public class LoginActivity extends BaseFragmentActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
+    @Inject
     LoginViewModel mLoginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DaggerActivityComponent.builder()
+            .accountModule(new AccountModule(this))
+            .build()
+            .inject(this);
+
         super.onCreate(savedInstanceState);
         initActionBar();
         initViewModel();
         initObserver();
+        mDataBinding.setLifecycleOwner(LoginActivity.this);
         ((LoginActBinding) mDataBinding).setViewModel(mLoginViewModel);
         ((LoginActBinding) mDataBinding).setLoginActivity(LoginActivity.this);
     }
@@ -55,7 +64,6 @@ public class LoginActivity extends BaseFragmentActivity {
             }
 
             mLoginViewModel.validateCaptcha();
-
         }
     }
 
@@ -72,7 +80,7 @@ public class LoginActivity extends BaseFragmentActivity {
     }
 
     private void initViewModel() {
-        mLoginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        //mLoginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
     }
 
     private void initObserver() {
