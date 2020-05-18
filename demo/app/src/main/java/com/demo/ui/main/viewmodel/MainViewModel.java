@@ -7,6 +7,7 @@ import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.corelib.util.SPUtils;
 import com.demo.data.MainRepository;
 import com.demo.data.UserRepository;
 import com.demo.data.database.User;
@@ -91,7 +92,7 @@ public class MainViewModel extends ViewModel {
     }
 
     public void getUserInfo() {
-        this.mUserRepository.getUserInfo(new RequestCallbackListener<User>() {
+        this.mUserRepository.getUserInfo(SPUtils.getAccessToken(), new RequestCallbackListener<User>() {
             @Override
             public void onStarted() {
 

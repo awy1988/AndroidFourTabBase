@@ -8,6 +8,7 @@ import android.os.Environment;
 import androidx.multidex.MultiDex;
 import com.demo.corelib.CoreLib;
 import com.demo.corelib.constant.ApiConstant;
+import com.demo.util.AppExecutors;
 import java.util.List;
 
 public class App extends Application {
@@ -33,6 +34,8 @@ public class App extends Application {
 
     // 状态栏的高度
     public static int sStatusBarHeight;
+
+    private AppExecutors mAppExecutors;
 
     /**
      * 启动时调用的第一个方法
@@ -66,7 +69,7 @@ public class App extends Application {
 
         CoreLib.init(this);
 
-
+        mAppExecutors = new AppExecutors();
 
     }
 
@@ -171,4 +174,7 @@ public class App extends Application {
 
     }
 
+    public AppExecutors getAppExecutors() {
+        return mAppExecutors;
+    }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.corelib.util.SPUtils;
 import com.demo.data.UserRepository;
 import com.demo.data.database.User;
 
@@ -19,7 +20,7 @@ public class ProfileViewModel extends ViewModel {
     }
 
     public void setUser(User user) {
-        this.mUser.setValue(user);
+        this.mUser.postValue(user);
     }
 
     private UserRepository mUserRepository;
@@ -38,7 +39,7 @@ public class ProfileViewModel extends ViewModel {
 
 
     public void getUserInfo() {
-        this.mUserRepository.getUserInfo(new RequestCallbackListener<User>() {
+        this.mUserRepository.getUserInfo(SPUtils.getAccessToken(), new RequestCallbackListener<User>() {
             @Override
             public void onStarted() {
 

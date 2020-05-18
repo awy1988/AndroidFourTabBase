@@ -2,6 +2,7 @@ package com.demo.di.module;
 
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.data.UserRepository;
+import com.demo.data.database.AppDatabase;
 import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
 import com.demo.data.remote.api.auth.IAccountService;
@@ -11,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 
-@Module
+@Module(includes = { DatabaseModule.class })
 public class AccountModule {
 
     @Provides
@@ -26,8 +27,8 @@ public class AccountModule {
 
     @Singleton
     @Provides
-    public UserRepository provideUserRepository(AuthService authService, AccountService accountService) {
-        return new UserRepository(authService, accountService);
+    public UserRepository provideUserRepository(AuthService authService, AccountService accountService, AppDatabase appDatabase) {
+        return new UserRepository(authService, accountService, appDatabase);
     }
 
     @Provides
@@ -41,7 +42,4 @@ public class AccountModule {
         return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
             .create(IAccountService.class);
     }
-
-
-
 }

@@ -50,7 +50,6 @@ public class LoginViewModel extends BaseViewModel {
 
     public void login() {
         // 所有的数据都在LoginViewModel中，所以，login的时候就不需要外界传入任何数据。
-        // TODO 将UserRepository 改为依赖注入形式
         mUserRepository.login(this.mUserName.getValue(), this.mPassword.getValue(), this.mInputCaptcha.getValue(),
             getEncryptedData(),
             new HandleResponseHeaderRequestCallbackListener() {

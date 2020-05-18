@@ -10,7 +10,9 @@ import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.KeyboardUtils;
 import com.demo.databinding.LoginActBinding;
 import com.demo.di.component.DaggerActivityComponent;
+import com.demo.di.module.DatabaseModule;
 import com.demo.di.module.ViewModelProviderModule;
+import com.demo.ui.App;
 import com.demo.ui.MainActivity;
 import com.demo.ui.auth.viewmodel.LoginViewModel;
 import com.demo.ui.base.BaseFragmentActivity;
@@ -29,7 +31,11 @@ public class LoginActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        DaggerActivityComponent.builder().viewModelProviderModule(new ViewModelProviderModule(this)).build().inject(this);
+        DaggerActivityComponent.builder()
+            .viewModelProviderModule(new ViewModelProviderModule(this))
+            .databaseModule(new DatabaseModule(App.getContext()))
+            .build()
+            .inject(this);
 
         super.onCreate(savedInstanceState);
         initActionBar();
