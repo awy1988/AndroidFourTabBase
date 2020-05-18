@@ -8,8 +8,8 @@ import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 import com.demo.R;
 import com.demo.databinding.ProfileFragBinding;
-import com.demo.di.component.DaggerActivityComponent;
-import com.demo.di.module.AccountModule;
+import com.demo.di.component.DaggerFragmentComponent;
+import com.demo.di.module.ViewModelProviderModule;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.ProfileViewModel;
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        DaggerActivityComponent.builder().accountModule(new AccountModule(this)).build().inject(this);
+        DaggerFragmentComponent.builder().viewModelProviderModule(new ViewModelProviderModule(this)).build().inject(this);
 
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.profile_frag, container, false);

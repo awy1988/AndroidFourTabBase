@@ -8,13 +8,11 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.remote.api.auth.model.AuthenticateRequestBodyModel;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
 import com.demo.data.remote.api.auth.model.ValidateCaptchaRequestBodyModel;
-import javax.inject.Inject;
 
 public class AuthService {
 
     private IAuthService mAuthService;
 
-    @Inject
     public AuthService(IAuthService authService) {
         this.mAuthService = authService;
     }

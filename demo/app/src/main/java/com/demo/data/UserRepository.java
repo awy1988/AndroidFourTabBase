@@ -6,7 +6,6 @@ import com.demo.data.database.User;
 import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
 import com.demo.data.remote.api.auth.model.CaptchaDataModel;
-import javax.inject.Inject;
 
 public class UserRepository {
 
@@ -14,7 +13,6 @@ public class UserRepository {
     private final AccountService mAccountService;
 
     // 数据来源分为两部分，一部分是本地数据库，一部分是网络
-    @Inject
     public UserRepository(AuthService authService, AccountService accountService) {
         this.mAuthService = authService;
         this.mAccountService = accountService;

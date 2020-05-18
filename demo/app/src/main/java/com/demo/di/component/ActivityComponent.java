@@ -1,13 +1,12 @@
 package com.demo.di.component;
 
-import com.demo.di.module.AccountModule;
+import com.demo.di.module.ViewModelProviderModule;
 import com.demo.ui.auth.LoginActivity;
-import com.demo.ui.main.ProfileFragment;
 import dagger.Component;
+import javax.inject.Singleton;
 
-//@Singleton
-@Component(modules = { AccountModule.class  })
+@Singleton
+@Component(modules = { ViewModelProviderModule.class  })
 public interface ActivityComponent {
     void inject(LoginActivity loginActivity);
-    void inject(ProfileFragment profileFragment);
 }
