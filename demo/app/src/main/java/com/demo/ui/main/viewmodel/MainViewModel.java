@@ -10,7 +10,7 @@ import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.SPUtils;
 import com.demo.data.MainRepository;
 import com.demo.data.UserRepository;
-import com.demo.data.database.User;
+import com.demo.data.db.User;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;

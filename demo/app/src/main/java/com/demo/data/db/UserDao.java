@@ -1,4 +1,4 @@
-package com.demo.data.database;
+package com.demo.data.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

@@ -2,7 +2,7 @@ package com.demo.data.remote.api.auth;
 
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
-import com.demo.data.database.User;
+import com.demo.data.db.User;
 
 public class AccountService {
 

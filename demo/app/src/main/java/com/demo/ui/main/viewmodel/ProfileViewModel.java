@@ -7,7 +7,7 @@ import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.SPUtils;
 import com.demo.data.UserRepository;
-import com.demo.data.database.User;
+import com.demo.data.db.User;
 
 public class ProfileViewModel extends ViewModel {
 

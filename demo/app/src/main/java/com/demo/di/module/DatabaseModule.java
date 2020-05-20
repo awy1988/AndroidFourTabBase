@@ -2,7 +2,7 @@ package com.demo.di.module;
 
 import android.content.Context;
 import androidx.room.Room;
-import com.demo.data.database.AppDatabase;
+import com.demo.data.db.AppDatabase;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

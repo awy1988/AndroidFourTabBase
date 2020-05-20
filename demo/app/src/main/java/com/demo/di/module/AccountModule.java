@@ -2,7 +2,7 @@ package com.demo.di.module;
 
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.data.UserRepository;
-import com.demo.data.database.AppDatabase;
+import com.demo.data.db.AppDatabase;
 import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
 import com.demo.data.remote.api.auth.IAccountService;
