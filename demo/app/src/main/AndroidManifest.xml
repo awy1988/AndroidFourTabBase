@@ -21,19 +21,19 @@
         android:theme="@style/AppTheme"
         android:name="com.demo.ui.App">
 
-        <activity android:name="com.demo.ui.startup.SplashActivity">
+        <activity android:name="com.demo.ui.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.demo.ui.MainActivity" />
         <activity android:name="com.demo.corelib.util.zxing.qrcode.CaptureActivity" />
         <activity android:name="com.demo.ui.common.WebViewActivity" />
         <activity android:name="com.demo.corelib.util.image.ImageSingleSelectActivity" />
         <activity android:name=".ui.auth.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 

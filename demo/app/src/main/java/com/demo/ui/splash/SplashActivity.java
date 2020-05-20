@@ -1,4 +1,4 @@
-package com.demo.ui.startup;
+package com.demo.ui.splash;
 
 import android.Manifest;
 import android.content.Intent;

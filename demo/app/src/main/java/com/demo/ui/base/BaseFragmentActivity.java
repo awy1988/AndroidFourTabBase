@@ -18,12 +18,8 @@ import androidx.viewbinding.ViewBinding;
 import com.demo.ui.App;
 import com.demo.widget.CustomProgressDialog;
 
-
-
 /**
- *
  * Base Activity
- *
  */
 public abstract class BaseFragmentActivity extends AppCompatActivity {
 
@@ -54,11 +50,11 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      * 实例被创建时调用的第一个方法
      *
      * @param savedInstanceState 存储Activity的信息（包括了每个UI的信息和用户自定义在其中存储的信息）
-     * */
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//        DaggerInjectHelper.inject(this);
+        //        DaggerInjectHelper.inject(this);
 
         super.onCreate(savedInstanceState);
         mProgressDialog = new CustomProgressDialog(this, "努力加载中...");
@@ -69,20 +65,18 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         mViewBinding = getViewBinding();
 
         if (isDataBindingEnabled()) {
-           mDataBinding = DataBindingUtil.setContentView(this, getContentView());
-           mDataBinding.setLifecycleOwner(this);
+            mDataBinding = DataBindingUtil.setContentView(this, getContentView());
+            mDataBinding.setLifecycleOwner(this);
         } else if (mViewBinding != null) {
             // viewBinding
             setContentView(mViewBinding.getRoot());
         } else {
             setContentView(getContentView());
         }
-
     }
 
     /**
      * 是否使用 DataBinding
-     * @return
      */
     protected boolean isDataBindingEnabled() {
         return false;
@@ -90,25 +84,23 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 使用ViewBinding时需要复写此方法
-     * @return
      */
     protected ViewBinding getViewBinding() {
         return null;
     }
 
-
     /**
      * 取得自定义工具条（ActionBar）
      */
-    protected View getCustomerActionBar(){
+    protected View getCustomerActionBar() {
         return mCustomerActionBar;
     }
 
-    public void showLoadingDialog(){
+    public void showLoadingDialog() {
         showProgressBar(true);
     }
 
-    protected void showLoadingDialog(String title){
+    protected void showLoadingDialog(String title) {
         this.mLoadingTitle = title;
         showProgressBar(true);
     }
@@ -116,7 +108,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     /**
      * 隐藏加载中
      */
-    public void hideLoadingDialog(){
+    public void hideLoadingDialog() {
         showProgressBar(false);
     }
 
@@ -127,8 +119,8 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 发送应用内广播
-     * */
-    protected void sendLocalBroadcast(String action){
+     */
+    protected void sendLocalBroadcast(String action) {
         Intent intent = new Intent();
         intent.setAction(action);
         LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(intent);
@@ -136,23 +128,23 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 发送应用内广播
-     * */
-    protected void sendLocalBroadcast(Intent intent){
+     */
+    protected void sendLocalBroadcast(Intent intent) {
         LocalBroadcastManager.getInstance(App.getContext()).sendBroadcast(intent);
     }
 
-    public void setReceiver(BroadcastReceiver receiver){
+    public void setReceiver(BroadcastReceiver receiver) {
         mLocalReceiver = receiver;
     }
 
     /**
      * 注册广播接收器
-     * */
-    protected void registerReceiver(String action){
+     */
+    protected void registerReceiver(String action) {
 
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(App.getContext());
 
-        if(mLocalReceiver != null){
+        if (mLocalReceiver != null) {
             final IntentFilter filter = new IntentFilter();
             filter.addAction(action);
             mLocalBroadcastManager.registerReceiver(mLocalReceiver, filter);
@@ -161,24 +153,25 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 注册广播接收器
-     * */
-    protected void registerReceiver(String action, BroadcastReceiver receiver){
+     */
+    protected void registerReceiver(String action, BroadcastReceiver receiver) {
         setReceiver(receiver);
         registerReceiver(action);
     }
 
     /**
      * 取消广播
-     * */
-    protected void unregisterReceiver(){
+     */
+    protected void unregisterReceiver() {
 
-        if(mLocalBroadcastManager != null && mLocalReceiver != null){
+        if (mLocalBroadcastManager != null && mLocalReceiver != null) {
             mLocalBroadcastManager.unregisterReceiver(mLocalReceiver);
         }
     }
 
     /**
      * get content view layout id
+     *
      * @return layout id
      */
     protected abstract int getContentView();
@@ -188,12 +181,11 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         super.onResume();
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if(mProgressDialog != null && mProgressDialog.isShowing()){
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
 
@@ -211,26 +203,24 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         super.onRestart();
     }
 
-
     private void showProgressBar(boolean show) {
         if (show) {
-            if(mProgressDialog.isShowing()) {
+            if (mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();
             }
-            if(!mProgressDialog.isShowing()) {
+            if (!mProgressDialog.isShowing()) {
                 mProgressDialog.show();
             }
         } else {
-            if(mProgressDialog.isShowing()){
+            if (mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();
             }
         }
     }
 
     private void cancelProgress() {
-        if ( mProgressDialog!=null && mProgressDialog.isShowing() ){
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.cancel();
         }
     }
-
 }

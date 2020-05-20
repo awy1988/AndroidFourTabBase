@@ -41,7 +41,6 @@ public class LoginActivity extends BaseFragmentActivity {
         initActionBar();
         initViewModel();
         initObserver();
-        mDataBinding.setLifecycleOwner(LoginActivity.this);
         ((LoginActBinding) mDataBinding).setViewModel(mLoginViewModel);
         ((LoginActBinding) mDataBinding).setLoginActivity(LoginActivity.this);
     }
