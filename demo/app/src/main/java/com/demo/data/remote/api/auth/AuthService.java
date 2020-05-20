@@ -5,9 +5,9 @@ import com.demo.corelib.model.api.Captcha;
 import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
-import com.demo.data.remote.api.auth.model.AuthenticateRequestBodyModel;
-import com.demo.data.remote.api.auth.model.CaptchaDataModel;
-import com.demo.data.remote.api.auth.model.ValidateCaptchaRequestBodyModel;
+import com.demo.data.model.AuthenticateRequestBodyModel;
+import com.demo.data.model.CaptchaDataModel;
+import com.demo.data.model.ValidateCaptchaRequestBodyModel;
 
 public class AuthService {
 

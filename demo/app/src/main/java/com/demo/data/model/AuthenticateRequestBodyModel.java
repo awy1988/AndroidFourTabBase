@@ -1,4 +1,4 @@
-package com.demo.data.remote.api.auth.model;
+package com.demo.data.model;
 
 import com.demo.corelib.model.api.Captcha;
 

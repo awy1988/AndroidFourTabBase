@@ -1,4 +1,4 @@
-package com.demo.data.remote.api.auth.model;
+package com.demo.data.model;
 
 public class CaptchaDataModel {
     private String encryptedData;

@@ -7,7 +7,7 @@ import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.SPUtils;
 import com.demo.data.UserRepository;
-import com.demo.data.remote.api.auth.model.CaptchaDataModel;
+import com.demo.data.model.CaptchaDataModel;
 import com.demo.ui.base.viewmodel.BaseViewModel;
 import okhttp3.Headers;
 

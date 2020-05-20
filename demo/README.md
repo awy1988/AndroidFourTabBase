@@ -2,7 +2,7 @@
 
 ## 工程目录
 
-```java
+```bash
 android-project
   src
     ├──main

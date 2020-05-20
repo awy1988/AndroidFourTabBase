@@ -8,7 +8,7 @@ import com.demo.data.database.AppDatabase;
 import com.demo.data.database.User;
 import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
-import com.demo.data.remote.api.auth.model.CaptchaDataModel;
+import com.demo.data.model.CaptchaDataModel;
 import com.demo.ui.App;
 
 public class UserRepository {
