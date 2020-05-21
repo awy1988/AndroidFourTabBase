@@ -1,3 +1,4 @@
 include ':app'
 include ':corelib'
 include ':widgets'
+include ':appko'

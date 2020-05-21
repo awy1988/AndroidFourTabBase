@@ -20,7 +20,7 @@
     <color name="common_app_theme_color">@color/color_palette_blue</color>
 
 
-    <!-- App common background color -->
+    <!-- com.demo.appko.App common background color -->
     <color name="common_bg_color">@color/color_palette_light_gray</color><!-- APP background -->
     <color name="common_warning_bg_color">@color/color_palette_light_yellow</color>
     <color name="common_danger_bg_color">@color/color_palette_red</color>

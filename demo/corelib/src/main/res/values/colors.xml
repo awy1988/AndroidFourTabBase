@@ -2,4 +2,7 @@
 <resources>
     <!--app theme color-->
     <color name="common_app_theme_color">#2f9bff</color>
+    <color name="color_palette_transparent">#00000000</color>
+    <drawable name="common_transparent">@color/color_palette_transparent</drawable>
+
 </resources>
