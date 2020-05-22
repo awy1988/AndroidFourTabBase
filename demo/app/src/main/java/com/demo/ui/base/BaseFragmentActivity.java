@@ -112,7 +112,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         showProgressBar(false);
     }
 
-    protected void showButtomToast(String msg) {
+    protected void showBottomToast(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
         toast.show();
     }

@@ -61,5 +61,5 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
     // 工具类
-    api 'com.blankj:utilcodex:1.28.4'
+    implementation 'com.blankj:utilcodex:1.28.4'
 }
