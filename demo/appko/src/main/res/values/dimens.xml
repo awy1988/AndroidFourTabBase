@@ -1,0 +1,66 @@
+<resources>
+
+    <!--####### 共通部分 start #######-->
+
+    <!--font size-->
+    <dimen name="common_font_size_23">23sp</dimen>
+    <dimen name="common_font_size_21">21sp</dimen>
+    <dimen name="common_font_size_20">20sp</dimen>
+    <dimen name="common_font_size_19">19sp</dimen>
+    <dimen name="common_font_size_18">18sp</dimen>
+    <dimen name="common_font_size_17">17sp</dimen>
+    <dimen name="common_font_size_16">16sp</dimen>
+    <dimen name="common_font_size_15">15sp</dimen>
+    <dimen name="common_font_size_14">14sp</dimen>
+    <dimen name="common_font_size_13">13sp</dimen>
+    <dimen name="common_font_size_12">12sp</dimen>
+    <dimen name="common_font_size_11">11sp</dimen>
+    <dimen name="common_font_size_10">10sp</dimen>
+
+    <!--level font size-->
+    <dimen name="common_font_size_level_1">18sp</dimen>
+    <dimen name="common_font_size_level_2">16sp</dimen>
+    <dimen name="common_font_size_level_3">14sp</dimen>
+    <dimen name="common_font_size_level_4">12sp</dimen>
+
+    <!--margin and padding-->
+    <dimen name="common_padding_left_and_right">12dp</dimen>
+    <dimen name="common_padding_top">10dp</dimen>
+    <dimen name="common_padding_bottom">10dp</dimen>
+    <dimen name="common_padding">10dp</dimen>
+    <dimen name="common_margin_left_and_right">12dp</dimen>
+    <dimen name="common_margin_top">10dp</dimen>
+    <dimen name="common_margin_bottom">10dp</dimen>
+    <dimen name="common_margin">10dp</dimen>
+
+    <!--divider-->
+    <dimen name="common_divider_line_height">1px</dimen>
+
+    <!--action bar-->
+    <dimen name="common_ab_height">44dp</dimen>
+    <dimen name="common_ab_button_width">60dp</dimen>
+
+
+    <!-- list item height -->
+    <dimen name="common_list_item_height">44dp</dimen>
+    <!-- editText height -->
+    <dimen name="common_edit_height">44dp</dimen>
+    <!-- button height -->
+    <dimen name="common_button_height">44dp</dimen>
+
+    <!-- tabbar size-->
+    <dimen name="common_tabbar_height">54dp</dimen>
+    <dimen name="common_tabbar_title_font_size">@dimen/common_font_size_11</dimen>
+    <dimen name="common_tabbar_icon_size">21dp</dimen>
+
+    <!-- new message icon size-->
+    <dimen name="common_unread_sign_size">7dp</dimen>
+
+
+    <!--####### 共通部分 end #######-->
+
+    <!-- main page-->
+    <dimen name="main_pager_indicator_width">10dp</dimen>
+    <dimen name="main_pager_indicator_height">2dp</dimen>
+
+</resources>
