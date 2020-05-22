@@ -1,11 +1,10 @@
 package com.demo.data;
 
-import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
+import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.db.AppDatabase;
 import com.demo.data.remote.api.auth.AccountService;
 import com.demo.data.remote.api.auth.AuthService;
-import okhttp3.Headers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +24,9 @@ public class UserRepositoryTest {
 
     @Mock
     AppDatabase appDatabase;
+
+    @Mock
+    RequestCallbackListener listener;
 
     @InjectMocks
     UserRepository mUserRepository;
@@ -48,28 +50,7 @@ public class UserRepositoryTest {
      */
     @Test
     public void login() {
-
-        HandleResponseHeaderRequestCallbackListener listener = new HandleResponseHeaderRequestCallbackListener() {
-            @Override
-            public void onHandleResponseHeaders(Headers headers) {
-
-            }
-
-            @Override
-            public void onStarted() {
-
-            }
-
-            @Override
-            public void onCompleted(Object data, LinksModel links) {
-
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-
-            }
-        };
+        HandleResponseHeaderRequestCallbackListener listener = Mockito.mock(HandleResponseHeaderRequestCallbackListener.class);
         mUserRepository.login("super", "super", null, null, listener);
 
         Mockito.verify(authService).authorizations("super","super",null, null, listener);
@@ -77,13 +58,20 @@ public class UserRepositoryTest {
 
     @Test
     public void captchaNecessaryCheck() {
+        mUserRepository.captchaNecessaryCheck("super", listener);
+        Mockito.verify(authService).captcha("super",listener);
     }
 
     @Test
     public void validateCaptcha() {
+        mUserRepository.validateCaptcha("abcd",null, listener);
+        Mockito.verify(authService).validateCaptcha("abcd", null, listener);
     }
 
     @Test
     public void getUserInfo() {
+        // 在getUserInfo中用到了App对象，所以无法实施Junit单体测试
+        //mUserRepository.getUserInfo("token",listener);
+        //Mockito.verify(accountService).getUserInfo(listener);
     }
 }
