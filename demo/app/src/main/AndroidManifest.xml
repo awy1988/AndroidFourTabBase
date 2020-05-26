@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.demo.ui.com.demo.appko.App">
+        android:name="com.demo.ui.App">
 
         <activity android:name="com.demo.ui.splash.SplashActivity">
             <intent-filter>

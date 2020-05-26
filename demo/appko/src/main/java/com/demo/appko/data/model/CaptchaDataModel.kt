@@ -1,4 +1,4 @@
-package com.demo.appko.data
+package com.demo.appko.data.model
 
 import com.demo.corelib.util.ScreenUtils
 
