@@ -4,23 +4,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.demo.appko.R
 import com.demo.appko.databinding.LoginActBinding
+import com.demo.appko.di.component.DaggerAuthComponent
+import com.demo.appko.di.module.AuthModule
 import com.demo.appko.ui.AppKoMainActivity
 import com.demo.appko.ui.auth.viewmodel.LoginViewModel
 import com.demo.appko.ui.base.BaseFragmentActivity
 import com.demo.corelib.util.KeyboardUtils
+import javax.inject.Inject
 
 class LoginActivity : BaseFragmentActivity() {
 
     private lateinit var binding: LoginActBinding
-    private val viewModel: LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var viewModel: LoginViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        DaggerAuthComponent.builder().authModule(AuthModule(this)).build().inject(this)
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.login_act)
         binding.lifecycleOwner = this
