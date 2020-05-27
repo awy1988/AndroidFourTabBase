@@ -36,7 +36,6 @@ public class HttpApiHelper {
 
     private static final HashMap<String, Retrofit> SYSTEM_RETROFIT_INSTANCE_MAP = new HashMap<>();
 
-
     private static Application sApp;
 
     public static void init(Application application) {
@@ -50,20 +49,20 @@ public class HttpApiHelper {
         if (retrofitInstance == null) {
             synchronized (HttpApiHelper.class) {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                builder.addInterceptor(new HttpParamsInterceptor(sApp))
+                builder.addInterceptor(new HttpParamsInterceptor())
                     .connectTimeout(ApiConstant.REQUEST_TIME_OUT_SECONDS, TimeUnit.SECONDS);
 
                 if (isDebug) {
-                   builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+                    builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
                 }
 
                 OkHttpClient client = builder.build();
 
                 retrofitInstance = new Retrofit.Builder()
-                        .baseUrl(baseUrl)
-                        .client(client)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                    .baseUrl(baseUrl)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
                 SYSTEM_RETROFIT_INSTANCE_MAP.put(baseUrl, retrofitInstance);
             }
@@ -85,9 +84,6 @@ public class HttpApiHelper {
 
     /**
      * 执行网络请求
-     * @param call
-     * @param listener
-     * @param <T>
      */
     public static <T> void executeRequest(Call<ResponseModel<T>> call, final RequestCallbackListener<T> listener) {
 
@@ -95,57 +91,80 @@ public class HttpApiHelper {
             listener.onStarted();
         }
 
-        if (call != null) {
-            call.enqueue(new Callback<ResponseModel<T>>() {
-                @Override
-                public void onResponse(Call<ResponseModel<T>> call, Response<ResponseModel<T>> response) {
-                    Log.d(TAG, "onResponse: ");
-                    if (listener != null) {
-
-                        if (listener instanceof HandleResponseHeaderRequestCallbackListener) {
-                            ((HandleResponseHeaderRequestCallbackListener) listener).onHandleResponseHeaders(response.headers());
-                        }
-
-                        if (response.body() != null) {
-                            // 返回正确数据
-                            T data = response.body().getData();
-                            LinksModel links = response.body().getLinks();
-                            listener.onCompleted(data, links);
-                            return;
-                        }
-
-                        if(response.errorBody() != null){
-                            // 异常处理，responseCode > 400 时回调接口的 onEndedWithError
-                            try {
-                                String errorInfo = response.errorBody().string();
-                                if (TextUtils.isEmpty(errorInfo)) {
-                                    listener.onEndedWithError("error occurred!");
-                                    return;
-                                }
-                                Gson gson = new Gson();
-                                ResponseModel responseModel = gson.fromJson(errorInfo, ResponseModel.class);
-                                String errorMessage = "error occurred!";
-                                if (responseModel != null && responseModel.getError() != null && responseModel.getError().getMessage() != null) {
-                                    errorMessage = responseModel.getError().getMessage();
-                                }
-                                listener.onEndedWithError(errorMessage);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                listener.onEndedWithError("error occurred!");
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseModel<T>> call, Throwable t) {
-                    Log.d(TAG, "onFailure: ");
-                    if (listener != null) {
-                        listener.onEndedWithError(t == null ? "error occurred!" : t.getMessage());
-                    }
-                }
-            });
+        if (call == null) {
+            return;
         }
+
+        call.enqueue(new Callback<ResponseModel<T>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<T>> call, Response<ResponseModel<T>> response) {
+                Log.d(TAG, "onResponse: ");
+                if (listener == null) {
+                    return;
+                }
+
+                handleResponseHeaders(response);
+
+                if (handleResponseBody(response)) {
+                    return;
+                }
+
+                handleResponseError(response);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<T>> call, Throwable t) {
+                Log.d(TAG, "onFailure: ");
+                if (listener != null) {
+                    listener.onEndedWithError(t == null ? "error occurred!" : t.getMessage());
+                }
+            }
+
+            private void handleResponseHeaders(Response<ResponseModel<T>> response) {
+                if (listener instanceof HandleResponseHeaderRequestCallbackListener) {
+                    ((HandleResponseHeaderRequestCallbackListener) listener).onHandleResponseHeaders(
+                        response.headers());
+                }
+            }
+
+            private boolean handleResponseBody(Response<ResponseModel<T>> response) {
+                if (response.body() != null) {
+                    // 返回正确数据
+                    T data = response.body().getData();
+                    LinksModel links = response.body().getLinks();
+                    listener.onCompleted(data, links);
+                    return true;
+                }
+                return false;
+            }
+
+            private void handleResponseError(Response<ResponseModel<T>> response) {
+                if (response.errorBody() == null) {
+                    return;
+                }
+                // 异常处理，responseCode > 400 时回调接口的 onEndedWithError
+                try {
+                    String errorInfo = response.errorBody().string();
+                    if (TextUtils.isEmpty(errorInfo)) {
+                        listener.onEndedWithError("error occurred!");
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(errorInfo, ResponseModel.class);
+                    String errorMessage = "error occurred!";
+                    if (responseModel != null
+                        && responseModel.getError() != null
+                        && responseModel.getError().getMessage() != null) {
+                        errorMessage = responseModel.getError().getMessage();
+                    }
+                    listener.onEndedWithError(errorMessage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    listener.onEndedWithError("error occurred!");
+                }
+            }
+
+        });
     }
 
     /**
@@ -153,8 +172,7 @@ public class HttpApiHelper {
      */
     public static Map<String, String> handleQueryParams(Map<String, Object> params) {
 
-
-        if(params == null || params.isEmpty()){
+        if (params == null || params.isEmpty()) {
             return null;
         }
 
@@ -184,26 +202,23 @@ public class HttpApiHelper {
                     field.setAccessible(true);
                     StringBuilder sbKey = new StringBuilder(entry.getKey());
                     sbKey.append("[")
-                            .append(field.getName())
-                            .append("]");
+                        .append(field.getName())
+                        .append("]");
                     try {
                         Object value = field.get(entry.getValue());
                         if (value != null) {
-                            newQueryParams.put(sbKey.toString(),String.valueOf(value));
+                            newQueryParams.put(sbKey.toString(), String.valueOf(value));
                         }
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
-
             } else {
                 // 普通字符串
                 newQueryParams.put(entry.getKey(), String.valueOf(entry.getValue()));
             }
-
         }
 
         return newQueryParams;
     }
-
 }

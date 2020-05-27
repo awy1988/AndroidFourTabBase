@@ -1,8 +1,7 @@
 package com.demo.corelib.network.base;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.text.TextUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.demo.corelib.util.SPUtils;
 import java.io.IOException;
 import okhttp3.Interceptor;
@@ -14,10 +13,14 @@ import okhttp3.Response;
  */
 public class HttpParamsInterceptor implements Interceptor {
 
-    private Context mContext;
+    private String mUserAgent;
 
-    public HttpParamsInterceptor (Context context) {
-        this.mContext = context;
+    public HttpParamsInterceptor() {
+
+    }
+
+    public HttpParamsInterceptor (String userAgent) {
+        this.mUserAgent = userAgent;
     }
 
     @Override
@@ -27,7 +30,10 @@ public class HttpParamsInterceptor implements Interceptor {
 
         // add public http header params
         Request.Builder builder = originalRequest.newBuilder();
-        builder.addHeader("User-Agent", getUserAgent());
+        String userAgent = getUserAgent();
+        if (!StringUtils.isEmpty(userAgent)) {
+            builder.addHeader("User-Agent", userAgent);
+        }
 
         String token = SPUtils.getAccessToken();
         if (!TextUtils.isEmpty(token)) {
@@ -45,27 +51,6 @@ public class HttpParamsInterceptor implements Interceptor {
     private String getUserAgent() {
         return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36";
         //return ApiConstant.BASE_UA_APP_NAME +"/"+ getVersion() + " "+ getDeviceUserAgent();
-    }
-
-    /**
-     * 获取当前版本
-     * */
-    private String getVersion() {
-        try {
-            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            return pInfo.versionName;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    /**
-     * 获取设备User-Agent的后半部分
-     * @return
-     */
-    private String getDeviceUserAgent(){
-        String defaultUserAgent = System.getProperty("http.agent");
-        String[] uaSplit = defaultUserAgent.split("\\(");
-        return "(" + uaSplit[1];
+        //return this.mUserAgent;
     }
 }
