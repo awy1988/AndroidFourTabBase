@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
         )
     }
 
-    val loginCallbackListener = object : HandleResponseHeaderRequestCallbackListener<Any> {
+    var loginCallbackListener = object : HandleResponseHeaderRequestCallbackListener<Any> {
         override fun onStarted() {
         }
 

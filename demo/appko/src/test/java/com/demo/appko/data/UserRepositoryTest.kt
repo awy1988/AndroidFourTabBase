@@ -28,6 +28,7 @@ class UserRepositoryTest {
     @Test
     fun test_login() {
         userRepository.login("username", "password", "1234","encryptedData", listener)
+
         verify(authService).authorizations("username", "password", "1234", "encryptedData",listener)
     }
 }

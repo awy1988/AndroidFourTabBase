@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import org.mockito.Mockito
 
 class LoginViewModelTest {
 
@@ -38,8 +39,11 @@ class LoginViewModelTest {
         viewModel.passWord.value = "super"
         viewModel.inputCaptcha.value = ""
         viewModel.captchaData.value = CaptchaDataModel("","",1234L)
+        viewModel.loginCallbackListener = loginCallbackListener
         viewModel.login()
         verify(userRepository).login("super", "super","","", viewModel.loginCallbackListener)
+//        verify(userRepository).login(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+
 
     }
 
