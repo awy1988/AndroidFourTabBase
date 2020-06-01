@@ -1,6 +1,5 @@
 package com.demo.corelib.network.base;
 
-import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 import com.demo.corelib.constant.ApiConstant;
@@ -35,12 +34,6 @@ public class HttpApiHelper {
     private static final MediaType MEDIA_TYPE_STREAM = MediaType.parse("application/octet-stream");
 
     private static final HashMap<String, Retrofit> SYSTEM_RETROFIT_INSTANCE_MAP = new HashMap<>();
-
-    private static Application sApp;
-
-    public static void init(Application application) {
-        sApp = application;
-    }
 
     public static Retrofit getRetrofitInstance(String baseUrl, boolean isDebug) {
 
