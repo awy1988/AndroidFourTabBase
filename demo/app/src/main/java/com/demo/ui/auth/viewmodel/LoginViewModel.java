@@ -21,11 +21,20 @@ public class LoginViewModel extends BaseViewModel {
 
     UserRepository mUserRepository;
 
+    private LoginCallbackListener mLoginCallbackListener;
+    private ValidateCaptchaCallbackListener mValidateCaptchaCallbackListener;
+    private RefreshCaptchaCallbackListener mRefreshCaptchaCallbackListener;
+    private CaptchaCheckListener mCaptchaCheckListener;
+
     public LoginViewModel(UserRepository userRepository) {
         this.mUserRepository = userRepository;
         mLoginSuccess.setValue(false);
         mUserName.setValue("super");
         mPassword.setValue("super");
+        mLoginCallbackListener = new LoginCallbackListener();
+        mValidateCaptchaCallbackListener = new ValidateCaptchaCallbackListener();
+        mRefreshCaptchaCallbackListener = new RefreshCaptchaCallbackListener();
+        mCaptchaCheckListener = new CaptchaCheckListener();
     }
 
     public MutableLiveData<String> getUserName() {
@@ -52,34 +61,7 @@ public class LoginViewModel extends BaseViewModel {
         // 所有的数据都在LoginViewModel中，所以，login的时候就不需要外界传入任何数据。
         mUserRepository.login(this.mUserName.getValue(), this.mPassword.getValue(), this.mInputCaptcha.getValue(),
             getEncryptedData(),
-            new HandleResponseHeaderRequestCallbackListener() {
-
-                @Override
-                public void onStarted() {
-                    setLoading(true);
-                }
-
-                @Override
-                public void onHandleResponseHeaders(Headers headers) {
-                    String token = headers.get("x-access-token");
-                    if (!TextUtils.isEmpty(token)) {
-                        // 存储token
-                        SPUtils.saveAccessToken(token);
-                        mLoginSuccess.setValue(true);
-                    }
-                }
-
-                @Override
-                public void onCompleted(Object data, LinksModel links) {
-                    setLoading(false);
-                }
-
-                @Override
-                public void onEndedWithError(String s) {
-                    setLoading(false);
-                    setErrorMessage(s);
-                }
-            });
+            mLoginCallbackListener);
     }
 
     private String getEncryptedData() {
@@ -94,46 +76,14 @@ public class LoginViewModel extends BaseViewModel {
      */
     public void validateCaptcha() {
         mUserRepository.validateCaptcha(this.mInputCaptcha.getValue(), getEncryptedData(),
-            new RequestCallbackListener() {
-                @Override
-                public void onStarted() {
-
-                }
-
-                @Override
-                public void onCompleted(Object data, LinksModel links) {
-                    // 验证成功
-                    login();
-                }
-
-                @Override
-                public void onEndedWithError(String errorInfo) {
-                    getErrorMessage().setValue(errorInfo);
-                    refreshCaptcha();
-                }
-            });
+            mValidateCaptchaCallbackListener);
     }
 
     /**
      * 刷新验证码
      */
     public void refreshCaptcha() {
-        mUserRepository.captchaNecessaryCheck(null, new RequestCallbackListener<CaptchaDataModel>() {
-            @Override
-            public void onStarted() {
-
-            }
-
-            @Override
-            public void onCompleted(CaptchaDataModel data, LinksModel links) {
-                mCaptchaData.setValue(data);
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                getErrorMessage().setValue(errorInfo);
-            }
-        });
+        mUserRepository.captchaNecessaryCheck(null, mRefreshCaptchaCallbackListener);
     }
 
     /**
@@ -143,26 +93,101 @@ public class LoginViewModel extends BaseViewModel {
         mUserRepository.captchaNecessaryCheck(this.mUserName.getValue(), mCaptchaCheckListener);
     }
 
-    private RequestCallbackListener<CaptchaDataModel> mCaptchaCheckListener =
-        new RequestCallbackListener<CaptchaDataModel>() {
-            @Override
-            public void onStarted() {
+    /**
+     * 是否需要验证码判断接口回调
+     */
+    public class CaptchaCheckListener implements RequestCallbackListener<CaptchaDataModel> {
+        @Override
+        public void onStarted() {
 
+        }
+
+        @Override
+        public void onCompleted(CaptchaDataModel data, LinksModel links) {
+
+            mCaptchaData.setValue(data);
+
+            if (data == null) {
+                login();
             }
+        }
 
-            @Override
-            public void onCompleted(CaptchaDataModel data, LinksModel links) {
+        @Override
+        public void onEndedWithError(String errorInfo) {
+            getErrorMessage().setValue(errorInfo);
+        }
+    }
 
-                mCaptchaData.setValue(data);
+    /**
+     * 登录回调
+     */
+    public class LoginCallbackListener implements HandleResponseHeaderRequestCallbackListener {
+        @Override
+        public void onStarted() {
+            setLoading(true);
+        }
 
-                if (data == null) {
-                    login();
-                }
+        @Override
+        public void onHandleResponseHeaders(Headers headers) {
+            String token = headers.get("x-access-token");
+            if (!TextUtils.isEmpty(token)) {
+                // 存储token
+                SPUtils.saveAccessToken(token);
+                mLoginSuccess.setValue(true);
             }
+        }
 
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                getErrorMessage().setValue(errorInfo);
-            }
-        };
+        @Override
+        public void onCompleted(Object data, LinksModel links) {
+            setLoading(false);
+        }
+
+        @Override
+        public void onEndedWithError(String s) {
+            setLoading(false);
+            setErrorMessage(s);
+        }
+    }
+
+    /**
+     * 验证验证码回调
+     */
+    public class ValidateCaptchaCallbackListener implements RequestCallbackListener {
+        @Override
+        public void onStarted() {
+
+        }
+
+        @Override
+        public void onCompleted(Object data, LinksModel links) {
+            // 验证成功
+            LoginViewModel.this.login();
+        }
+
+        @Override
+        public void onEndedWithError(String errorInfo) {
+            getErrorMessage().setValue(errorInfo);
+            refreshCaptcha();
+        }
+    }
+
+    /**
+     * 刷新验证码回调
+     */
+    public class RefreshCaptchaCallbackListener implements RequestCallbackListener<CaptchaDataModel> {
+        @Override
+        public void onStarted() {
+
+        }
+
+        @Override
+        public void onCompleted(CaptchaDataModel data, LinksModel links) {
+            mCaptchaData.setValue(data);
+        }
+
+        @Override
+        public void onEndedWithError(String errorInfo) {
+            getErrorMessage().setValue(errorInfo);
+        }
+    }
 }
