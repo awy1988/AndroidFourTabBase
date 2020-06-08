@@ -1,3 +1,4 @@
+include ':appmvp'
 include ':app'
 include ':corelib'
 include ':widgets'
