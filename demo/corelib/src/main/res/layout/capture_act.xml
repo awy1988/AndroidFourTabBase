@@ -25,9 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
-            android:background="#00000000"
+            android:background="@android:color/transparent"
             android:text="@string/capture_qrcode_scanning_description_msg1"
-            android:textColor="#ffffff"
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
         <ImageView
             android:id="@+id/capture_mask_top"
@@ -67,9 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="0dp"
-                android:background="#00000000"
+                android:background="@android:color/transparent"
                 android:text="@string/capture_qrcode_scanning_description_msg2"
-                android:textColor="#ffffff"
+                android:textColor="@android:color/white"
                 android:textSize="15sp" />
         </LinearLayout>
 
