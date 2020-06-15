@@ -1,7 +1,7 @@
 package com.demo.data;
 
-import com.demo.corelib.model.item.Item;
 import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.data.model.item.Item;
 import java.util.List;
 import java.util.Map;
 
