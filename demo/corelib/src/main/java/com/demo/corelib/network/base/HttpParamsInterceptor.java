@@ -1,6 +1,8 @@
 package com.demo.corelib.network.base;
 
+import android.text.TextUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.demo.corelib.util.SPUtils;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -33,10 +35,10 @@ public class HttpParamsInterceptor implements Interceptor {
             builder.addHeader("User-Agent", userAgent);
         }
 
-        //String token = SPUtils.getAccessToken();
-        //if (!TextUtils.isEmpty(token)) {
-        //    builder.addHeader("Authorization", "Bearer " + token);
-        //}
+        String token = SPUtils.getAccessToken();
+        if (!TextUtils.isEmpty(token)) {
+            builder.addHeader("Authorization", "Bearer " + token);
+        }
         Request request = builder.build();
 
         return chain.proceed(request);
