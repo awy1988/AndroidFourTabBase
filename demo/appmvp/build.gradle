@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: '../shared_dependencies.gradle'
 
 android {
   compileSdkVersion 29
@@ -15,9 +16,15 @@ android {
   }
 
   buildTypes {
+    def API_BASE_URL_DEVELOP = "\"https://cloud-api.codelet.net\""
+    def API_BASE_URL_RELEASE = "\"https://cloud-api.codelet.net\""
+    debug {
+      buildConfigField("String", "API_BASE_URL", API_BASE_URL_DEVELOP)
+    }
     release {
+      buildConfigField("String", "API_BASE_URL", API_BASE_URL_RELEASE)
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
 
@@ -44,6 +51,10 @@ dependencies {
   implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
   testImplementation 'junit:junit:4.12'
+  testImplementation "io.reactivex.rxjava3:rxjava:3.0.4"
+  testImplementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+  testImplementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
   androidTestImplementation 'androidx.test.ext:junit:1.1.1'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -52,4 +63,19 @@ dependencies {
 
   // multidex
   implementation 'androidx.multidex:multidex:2.0.1'
+
+  // room
+  def room_version = "2.2.3"
+
+  implementation "androidx.room:room-runtime:$room_version"
+  annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+  // dagger2
+  implementation 'com.google.dagger:dagger:2.25.4'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.25.4'
+
+  // RxJava3
+  implementation "io.reactivex.rxjava3:rxjava:3.0.4"
+  implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
 }

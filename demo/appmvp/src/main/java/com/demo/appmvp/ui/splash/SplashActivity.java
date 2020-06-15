@@ -62,7 +62,7 @@ public class SplashActivity extends BaseFragmentActivity implements EasyPermissi
     public void permissionCheck() {
         // 权限检查
         if (hasLocationPermissions()) {
-            initLocation();
+            next();
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.app_name), REQ_CODE_PERMISSION,
                 Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -114,18 +114,6 @@ public class SplashActivity extends BaseFragmentActivity implements EasyPermissi
         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    //================================================================================
-    // 位置服务
-    //================================================================================
-
-    /**
-     * 位置信息初始化
-     */
-    public void initLocation() {
-        // TODO 按照实际业务改造
-        next();
     }
 
     @Override
