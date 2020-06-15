@@ -7,6 +7,7 @@ import com.demo.corelib.model.api.HttpQueryParamBaseModel;
 import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.google.gson.Gson;
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.FileNameMap;
@@ -55,6 +56,7 @@ public class HttpApiHelper {
                     .baseUrl(baseUrl)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                     .build();
 
                 SYSTEM_RETROFIT_INSTANCE_MAP.put(baseUrl, retrofitInstance);
