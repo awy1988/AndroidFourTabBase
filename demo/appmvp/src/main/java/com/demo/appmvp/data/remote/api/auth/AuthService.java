@@ -39,7 +39,7 @@ public class AuthService {
         return mAuthService.captcha(credential);
     }
 
-    public Observable<ResponseModel<Object>>  validateCaptcha(String text, String encryptedData) {
+    public Observable<Response<ResponseModel<Object>>>  validateCaptcha(String text, String encryptedData) {
         ValidateCaptchaRequestBodyModel validateCaptchaRequestBodyModel = new ValidateCaptchaRequestBodyModel();
         validateCaptchaRequestBodyModel.setText(text);
         validateCaptchaRequestBodyModel.setEncryptedData(encryptedData);

@@ -2,17 +2,10 @@ package com.demo.appmvp.network.payload;
 
 public class ApiException extends Exception {
     private int code;
-    private String displayMessage;
 
-    public ApiException(int code, String displayMessage) {
-        this.code = code;
-        this.displayMessage = displayMessage;
-    }
-
-    public ApiException(int code, String message, String displayMessage) {
+    public ApiException(int code, String message) {
         super(message);
         this.code = code;
-        this.displayMessage = displayMessage;
     }
 
     public int getCode() {
@@ -23,11 +16,4 @@ public class ApiException extends Exception {
         this.code = code;
     }
 
-    public String getDisplayMessage() {
-        return displayMessage;
-    }
-
-    public void setDisplayMessage(String displayMessage) {
-        this.displayMessage = displayMessage;
-    }
 }

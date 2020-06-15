@@ -21,6 +21,6 @@ public interface IAuthService {
     Observable<ResponseModel<CaptchaDataModel>> captcha(@Query("credential") String credential);
 
     @POST(AppMvpModuleApiConstant.API_VALIDATE_CAPTCHA)
-    Observable<ResponseModel<Object>> validateCaptcha(@Body ValidateCaptchaRequestBodyModel validateCaptchaRequestBodyModel);
+    Observable<Response<ResponseModel<Object>>> validateCaptcha(@Body ValidateCaptchaRequestBodyModel validateCaptchaRequestBodyModel);
 
 }

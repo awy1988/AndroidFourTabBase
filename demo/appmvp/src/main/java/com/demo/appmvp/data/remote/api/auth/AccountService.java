@@ -1,8 +1,8 @@
 package com.demo.appmvp.data.remote.api.auth;
 
 import com.demo.appmvp.data.db.User;
-import com.demo.corelib.network.base.HttpApiHelper;
-import com.demo.corelib.network.base.RequestCallbackListener;
+import com.demo.corelib.model.common.ResponseModel;
+import io.reactivex.rxjava3.core.Observable;
 
 public class AccountService {
 
@@ -12,8 +12,8 @@ public class AccountService {
         this.mAccountService = accountService;
     }
 
-    public void getUserInfo(RequestCallbackListener<User> listener) {
-        HttpApiHelper.executeRequest(this.mAccountService.getUserInfo(), listener);
+    public Observable<ResponseModel<User>> getUserInfo() {
+        return this.mAccountService.getUserInfo();
     }
 
 

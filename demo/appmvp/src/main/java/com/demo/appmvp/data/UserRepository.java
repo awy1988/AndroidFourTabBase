@@ -5,12 +5,16 @@ import com.demo.appmvp.data.db.User;
 import com.demo.appmvp.data.model.CaptchaDataModel;
 import com.demo.appmvp.data.remote.api.auth.AccountService;
 import com.demo.appmvp.data.remote.api.auth.AuthService;
-import com.demo.appmvp.ui.App;
-import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.demo.corelib.network.base.RequestCallbackListener;
-import com.demo.corelib.util.SPUtils;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class UserRepository {
@@ -37,7 +41,7 @@ public class UserRepository {
         return mAuthService.captcha(credential);
     }
 
-    public Observable<ResponseModel<Object>> validateCaptcha(String text, String encryptedData) {
+    public Observable<Response<ResponseModel<Object>>> validateCaptcha(String text, String encryptedData) {
         return mAuthService.validateCaptcha(text, encryptedData);
     }
 
@@ -47,48 +51,61 @@ public class UserRepository {
      */
     public void getUserInfo(String token, RequestCallbackListener<User> listener) {
 
-        App.getApp().getAppExecutors().diskIO().execute(() -> {
-            User user = mAppDatabase.userDao().getUserInfoByToken(token);
-
-            if (user != null) {
-                listener.onCompleted(user, null);
-                return;
-            }
-
-            mAccountService.getUserInfo(new RequestCallbackListener<User>() {
+        Observable.just(token)
+            .subscribeOn(Schedulers.io())
+            .flatMap(new Function<String, ObservableSource<User>>() {
                 @Override
-                public void onStarted() {
-                    listener.onStarted();
+                public ObservableSource<User> apply(String token) throws Throwable {
+                    User user = mAppDatabase.userDao().getUserInfoByToken(token);
+                    if (user == null) {
+                        user = new User();
+                    }
+                    return Observable.just(user);
                 }
-
+            })
+            .flatMap(new Function<User, ObservableSource<ResponseModel<User>>>() {
                 @Override
-                public void onCompleted(User data, LinksModel links) {
+                public ObservableSource<ResponseModel<User>> apply(User user) throws Throwable {
+                    if (user.token == null) {
+                        return mAccountService.getUserInfo();
+                    }
+                    ResponseModel<User> responseModel = new ResponseModel<>();
+                    responseModel.setData(user);
+                    return Observable.just(responseModel);
+                }
+            })
+            .flatMap(new Function<ResponseModel<User>, ObservableSource<ResponseModel<User>>>() {
+                @Override
+                public ObservableSource<ResponseModel<User>> apply(ResponseModel<User> userResponseModel) throws Throwable {
                     // 缓存用户信息
-                    App.getApp().getAppExecutors().diskIO().execute(() -> {
+                    User user = userResponseModel.getData();
+                    user.token = token;
+                    mAppDatabase.userDao().insertAll(user);
+                    return Observable.just(userResponseModel);
+                }
+            })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<ResponseModel<User>>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
 
-                        // 数据库中已经存在用户信息
-                        User user1 = mAppDatabase.userDao().getUserInfoById(data.id);
-                        if (user1 != null) {
-                            user1.token = SPUtils.getAccessToken();
-                            mAppDatabase.userDao().updateUsers(user1);
-                            return;
-                        }
-
-                        // 数据库中不存在用户信息
-                        data.token = SPUtils.getAccessToken();
-                        mAppDatabase.userDao().insertAll(data);
-                    });
-                    listener.onCompleted(data, links);
                 }
 
                 @Override
-                public void onEndedWithError(String errorInfo) {
-                    listener.onEndedWithError(errorInfo);
+                public void onNext(@NonNull ResponseModel<User> userResponseModel) {
+                    listener.onCompleted(userResponseModel.getData(), null);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                    listener.onEndedWithError(e.getMessage());
+                }
+
+                @Override
+                public void onComplete() {
+
                 }
             });
-        });
-
-
 
     }
 

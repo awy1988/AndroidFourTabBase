@@ -25,6 +25,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     LoginContract.View mView;
 
+    // TODO 将 repository中的内容封装到Model中，presenter中依赖model接口
     private UserRepository mUserRepository;
 
     private CompositeDisposable mCompositeDisposable;
@@ -56,17 +57,25 @@ public class LoginPresenter implements LoginContract.Presenter {
         mUserRepository.validateCaptcha(inputCaptcha, encryptedData)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .flatMap(new Function<ResponseModel<Object>, ObservableSource<Response<ResponseModel>>>() {
+            .flatMap(new Function<Response<ResponseModel<Object>>, ObservableSource<Response<ResponseModel>>>() {
                 @Override
-                public ObservableSource<Response<ResponseModel>> apply(ResponseModel<Object> objectResponseModel)
+                public ObservableSource<Response<ResponseModel>> apply(Response<ResponseModel<Object>> objectResponseModel)
                     throws Throwable {
-                    if (objectResponseModel.getSuccess()) {
-                        return mUserRepository.login(userName, password, inputCaptcha, encryptedData).subscribeOn(
-                            Schedulers.io());
+                    if (objectResponseModel.body() != null && objectResponseModel.body().getSuccess()) {
+                        return mUserRepository.login(userName, password, inputCaptcha, encryptedData).subscribeOn(Schedulers.io());
                     } else {
-                        return Observable.error(new ApiException(200, objectResponseModel.getError().getMessage(),
-                            objectResponseModel.getError().getMessage()));
+                        String errorInfo = objectResponseModel.errorBody().string();
+                        Gson gson = new Gson();
+                        ResponseModel responseModel = gson.fromJson(errorInfo, ResponseModel.class);
+                        String errorMessage = "出现错误";
+                        if (responseModel != null
+                            && responseModel.getError() != null
+                            && responseModel.getError().getMessage() != null) {
+                            errorMessage = responseModel.getError().getMessage();
+                        }
+                        return Observable.error(new ApiException(objectResponseModel.code(), errorMessage));
                     }
+
                 }
             }).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -105,20 +114,50 @@ public class LoginPresenter implements LoginContract.Presenter {
                             Schedulers.io());
                     }
                     mView.showCaptcha(captchaDataModelResponseModel.getData());
-                    return Observable.error(new ApiException(200, "请输入验证码", "请输入验证码"));
+                    return Observable.error(new ApiException(200, "请输入验证码"));
                 }).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Observer<Response<ResponseModel>>() {
+            .map(new Function<Response<ResponseModel>, Boolean>() {
+                @Override
+                public Boolean apply(Response<ResponseModel> response) throws Throwable {
 
+                    // 登陆失败
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorInfo = response.errorBody().string();
+                            if (TextUtils.isEmpty(errorInfo)) {
+                                throw new ApiException(response.code(), "出现错误");
+                            }
+                            Gson gson = new Gson();
+                            ResponseModel responseModel = gson.fromJson(errorInfo, ResponseModel.class);
+                            String errorMessage = "出现错误";
+                            if (responseModel != null
+                                && responseModel.getError() != null
+                                && responseModel.getError().getMessage() != null) {
+                                errorMessage = responseModel.getError().getMessage();
+                            }
+                            throw new ApiException(response.code(), errorMessage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // 登陆成功
+                    saveToken(response);
+                    mView.loginSuccess();
+                    return true;
+                }
+            }).subscribe(new Observer<Boolean>() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
 
                 }
 
                 @Override
-                public void onNext(@NonNull Response<ResponseModel> response) {
-
-                    handleLogin(response);
+                public void onNext(@NonNull Boolean isLoginSuccess) {
+                    if (isLoginSuccess) {
+                        mView.loginSuccess();
+                    }
                 }
 
                 @Override
@@ -135,7 +174,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private void handleLogin(@NonNull Response<ResponseModel> response) {
         saveToken(response);
-
+        mView.loginSuccess();
         if (response.errorBody() == null) {
             return;
         }
@@ -166,7 +205,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (!TextUtils.isEmpty(token)) {
             // 存储token
             SPUtils.saveAccessToken(token);
-            mView.loginSuccess();
         }
     }
 
