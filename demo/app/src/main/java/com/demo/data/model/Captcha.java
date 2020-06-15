@@ -1,4 +1,4 @@
-package com.demo.corelib.model.api;
+package com.demo.data.model;
 
 public class Captcha {
     private String text;

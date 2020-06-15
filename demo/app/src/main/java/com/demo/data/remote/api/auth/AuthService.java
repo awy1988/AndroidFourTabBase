@@ -1,11 +1,11 @@
 package com.demo.data.remote.api.auth;
 
 import android.text.TextUtils;
-import com.demo.corelib.model.api.Captcha;
 import com.demo.corelib.network.base.HandleResponseHeaderRequestCallbackListener;
 import com.demo.corelib.network.base.HttpApiHelper;
 import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.data.model.AuthenticateRequestBodyModel;
+import com.demo.data.model.Captcha;
 import com.demo.data.model.CaptchaDataModel;
 import com.demo.data.model.ValidateCaptchaRequestBodyModel;
 

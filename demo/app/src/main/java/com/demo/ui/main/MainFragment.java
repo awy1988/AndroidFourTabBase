@@ -3,7 +3,6 @@ package com.demo.ui.main;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
 import com.demo.corelib.constant.ApiConstant;
-import com.demo.corelib.model.api.AuthorizationRequestBody;
 import com.demo.corelib.model.api.Page;
 import com.demo.corelib.model.api.Sort;
-import com.demo.corelib.model.api.UpdatePasswordRequestBody;
-import com.demo.corelib.model.api.UpdateProfileRequestBody;
-import com.demo.corelib.model.auth.UserInfoModel;
-import com.demo.corelib.model.common.LinksModel;
-import com.demo.corelib.network.AccountService;
 import com.demo.corelib.network.FileUploadService;
-import com.demo.corelib.network.base.RequestCallbackListener;
 import com.demo.corelib.util.ImageUtils;
-import com.demo.corelib.util.SPUtils;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.databinding.MainFragBinding;
 import com.demo.ui.base.BaseFragment;
@@ -79,14 +70,11 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                testPost();
-                mViewModel.setTitle("hahaha");
                 break;
             case R.id.btn_get_items:
                 testGet();
                 break;
             case R.id.btn_logout:
-                testDelete();
                 break;
             case R.id.btn_qrcode:
 
@@ -132,95 +120,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         mViewModel.loadItems(queryParams);
     }
 
-    private void testPost() {
-        AuthorizationRequestBody requestBody = new AuthorizationRequestBody();
-        requestBody.setUsername("15840891377");
-        requestBody.setPassword("rd123456");
-        AccountService.authorization(requestBody, new RequestCallbackListener<UserInfoModel>() {
-            @Override
-            public void onStarted() {
-                Log.d("testPost", "onStarted: ");
-            }
 
-            @Override
-            public void onCompleted(UserInfoModel data, LinksModel links) {
-                Log.d("testPost", "onCompleted: ");
-                Log.d("testPost", "onCompleted: data = " + data.getName());
-
-                // 保存用户信息
-                SPUtils.saveAccessToken(data.getAccessToken());
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                Log.d("testPost", "onEndedWithError: ");
-            }
-        });
-    }
-
-    private void testDelete() {
-        AccountService.logout(new RequestCallbackListener<String>() {
-            @Override
-            public void onStarted() {
-                Log.d("testDelete", "onStarted: ");
-            }
-
-            @Override
-            public void onCompleted(String data, LinksModel links) {
-                Log.d("testDelete", "onCompleted: ");
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                Log.d("testDelete", "onEndedWithError: errorinfo = " + errorInfo);
-            }
-        });
-    }
-
-    private void testPut() {
-
-        UpdatePasswordRequestBody requestBody = new UpdatePasswordRequestBody();
-        requestBody.setPassword("rd1234");
-        requestBody.setNewPassword("rd123456");
-
-        AccountService.updatePassword(requestBody, new RequestCallbackListener<String>() {
-            @Override
-            public void onStarted() {
-                Log.d("testPut", "onStarted: ");
-            }
-
-            @Override
-            public void onCompleted(String data, LinksModel links) {
-                Log.d("testPut", "onCompleted: ");
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                Log.d("testPut", "onEndedWithError: " + errorInfo);
-            }
-        });
-    }
-
-    private void testPatch() {
-        UpdateProfileRequestBody requestBody = new UpdateProfileRequestBody();
-        requestBody.setName("helloLaoTie");
-        AccountService.updateProfile(requestBody, new RequestCallbackListener<String>() {
-            @Override
-            public void onStarted() {
-                Log.d("testPatch", "onStarted: ");
-            }
-
-            @Override
-            public void onCompleted(String data, LinksModel links) {
-                Log.d("testPatch", "onCompleted: ");
-            }
-
-            @Override
-            public void onEndedWithError(String errorInfo) {
-                Log.d("testPatch", "onEndedWithError: " + errorInfo);
-            }
-        });
-    }
 
     public void testLoadMore() {
         mViewModel.loadMoreItems();
