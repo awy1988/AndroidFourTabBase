@@ -1,4 +1,4 @@
-package com.demo.corelib.model.item;
+package com.demo.data.model.item;
 
 public class Item {
 

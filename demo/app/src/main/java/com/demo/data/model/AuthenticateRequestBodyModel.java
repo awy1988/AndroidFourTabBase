@@ -1,7 +1,5 @@
 package com.demo.data.model;
 
-import com.demo.corelib.model.api.Captcha;
-
 public class AuthenticateRequestBodyModel {
     private String username;
     private String password;

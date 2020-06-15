@@ -45,31 +45,24 @@ public class ImageUtils {
      * 加载网络图片
      * 不指定图片的显示策略
      *
-     * @param imageView
-     * @param defaultImageResource
-     * @param imgUrl               A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
-     * @param context
+     * @param imgUrl A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
      */
-    public static void showImageByGlideWithoutScaleType(ImageView imageView, int defaultImageResource, String imgUrl, Context context) {
+    public static void showImageByGlideWithoutScaleType(ImageView imageView, int defaultImageResource, String imgUrl,
+        Context context) {
 
         GlideApp.with(context)
-                .load(imgUrl)
-                // 如果占位图片与加载的图片不一样大，会出现加载的图片加载完成后先被放大（或缩小）然后再正常显示的问题（此问题见于课程封面系统图库页面）。所以此处注释掉设置占位图片的代码
-//                .placeholder(defaultImageResource)
-                .error(defaultImageResource)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
-
+            .load(imgUrl)
+            // 如果占位图片与加载的图片不一样大，会出现加载的图片加载完成后先被放大（或缩小）然后再正常显示的问题（此问题见于课程封面系统图库页面）。所以此处注释掉设置占位图片的代码
+            //                .placeholder(defaultImageResource)
+            .error(defaultImageResource)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView);
     }
-
 
     /**
      * 加载网络图片
      *
-     * @param imageView
-     * @param defaultImageResource
-     * @param imgUrl               A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
-     * @param context
+     * @param imgUrl A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
      */
     public static void showImageByGlide(ImageView imageView, int defaultImageResource, String imgUrl, Context context) {
 
@@ -79,125 +72,101 @@ public class ImageUtils {
         }
 
         GlideApp.with(context)
-                .load(imgUrl)
-                .placeholder(defaultImageResource)
-                .error(defaultImageResource)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
+            .load(imgUrl)
+            .placeholder(defaultImageResource)
+            .error(defaultImageResource)
+            //                .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView);
     }
 
     /**
      * 加载网络图片
      *
-     * @param imageView
-     * @param defaultImageResource
-     * @param imgUrl               A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
-     * @param context
+     * @param imgUrl A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
      */
-    public static void showImageByGlide(ImageView imageView, Drawable defaultImageResource, String imgUrl, Context context) {
+    public static void showImageByGlide(ImageView imageView, Drawable defaultImageResource, String imgUrl,
+        Context context) {
 
         if (imageView instanceof RoundedImageView) {
             GlideApp.with(context)
-                    .asBitmap()
-                    .load(imgUrl)
-                    .placeholder(defaultImageResource)
-                    .error(defaultImageResource)
-                    .into(imageView);
+                .asBitmap()
+                .load(imgUrl)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+                .into(imageView);
             return;
         }
 
         GlideApp.with(context)
-                .load(imgUrl)
-                .placeholder(defaultImageResource)
-                .error(defaultImageResource)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
+            .load(imgUrl)
+            .placeholder(defaultImageResource)
+            .error(defaultImageResource)
+            //                .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView);
     }
 
     /**
      * 加载网络图片
      *
-     * @param imageView
-     * @param imgUrl               A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
-     * @param context
+     * @param imgUrl A file path, or a uri or url handled by {@link com.bumptech.glide.load.model.UriLoader}
      */
     public static void showImageByGlide(ImageView imageView, String imgUrl, Context context) {
 
         if (imageView instanceof RoundedImageView) {
             GlideApp.with(context)
-                    .asBitmap()
-                    .load(imgUrl)
-                    .into(imageView);
+                .asBitmap()
+                .load(imgUrl)
+                .into(imageView);
             return;
         }
 
         GlideApp.with(context)
-                .load(imgUrl)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
+            .load(imgUrl)
+            //                .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView);
     }
 
     /**
      * 加载图片文件
-     *
-     * @param imageView
-     * @param defaultImageResource
-     * @param file
-     * @param context
      */
     public static void showImageByGlide(ImageView imageView, int defaultImageResource, File file, Context context) {
 
         if (file != null && file.exists()) {
 
             GlideApp.with(context)
-                    .load(file)
-                    .placeholder(defaultImageResource)
-                    .error(defaultImageResource)
-//                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imageView);
+                .load(file)
+                .placeholder(defaultImageResource)
+                .error(defaultImageResource)
+                //                    .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
         }
-
     }
 
     /**
      * 从URI加载图片
-     *
-     * @param imageView
-     * @param defaultImageResource
-     * @param uri
-     * @param context
      */
     public static void showImageByGlide(ImageView imageView, int defaultImageResource, Uri uri, Context context) {
 
         GlideApp.with(context)
-                .load(uri)
-                .placeholder(defaultImageResource)
-                .error(defaultImageResource)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView);
-
+            .load(uri)
+            .placeholder(defaultImageResource)
+            .error(defaultImageResource)
+            //                .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView);
     }
-
 
     /**
      * 加载资源图片
-     *
-     * @param imageView
-     * @param context
      */
     public static void showImageByGlide(ImageView imageView, int imageResId, Context context) {
 
         GlideApp.with(context)
-                .load(imageResId)
-                .into(imageView);
-
+            .load(imageResId)
+            .into(imageView);
     }
 
     /**
      * 加载bitmap
-     * @param imageView
-     * @param bitmap
-     * @param context
      */
     public static void showImageByGlide(ImageView imageView, Bitmap bitmap, Context context) {
 
@@ -206,52 +175,43 @@ public class ImageUtils {
 
     /**
      * 加载圆形图片用（与既存的RoundImageView、RoundedImageView连用）
-     *
-     * @param imageView
-     * @param defaultImageResource
-     * @param imgUrl
-     * @param context
      */
-    public static void showRoundImageByGlide(final ImageView imageView, int defaultImageResource, String imgUrl, Context context) {
+    public static void showRoundImageByGlide(final ImageView imageView, int defaultImageResource, String imgUrl,
+        Context context) {
 
         // 解决glide加载圆形图片的问题
         GlideApp.with(context)
-                .asBitmap()
-                .load(imgUrl)
-                .placeholder(defaultImageResource)
-                .error(defaultImageResource)
-                .into(imageView);
-
+            .asBitmap()
+            .load(imgUrl)
+            .placeholder(defaultImageResource)
+            .error(defaultImageResource)
+            .into(imageView);
     }
 
     /**
      * 旋转图片bitmap用函数
-     * @param angle
-     * @param bitmap
-     * @return
      */
-    public static Bitmap rotatingImageView(int angle , Bitmap bitmap) {
+    public static Bitmap rotatingImageView(int angle, Bitmap bitmap) {
         //旋转图片 动作
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
 
         // 创建新的图片
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         return resizedBitmap;
     }
 
     /**
      * 读取图片的旋转角度
-     * @param path
-     * @return
      */
     public static int readPictureDegree(String path) {
-        int degree  = 0;
+        int degree = 0;
         try {
             ExifInterface exifInterface = new ExifInterface(path);
-//            exifInterface
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            //            exifInterface
+            int orientation =
+                exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     degree = 90;
@@ -269,31 +229,31 @@ public class ImageUtils {
         return degree;
     }
 
-
     //================================================================================
     // 上传图片
     //================================================================================
-    public static void uploadImage(Context context, final String filePath, FileUploadService.Category category, final OnFileUploadResultListener listener) {
+    public static void uploadImage(Context context, String uploadUrl, boolean isDebug, final String filePath,
+        FileUploadService.Category category, final OnFileUploadResultListener listener) {
 
         //  这里加入压缩的逻辑，先读文件，然后压缩，上传
         File file = new File(filePath);
         String compressedImagePath = null;
-        if(file.exists()){
+        if (file.exists()) {
             long fileSize = file.length() / 1024; // 得到文件的大小，单位为kb
-            Log.d(TAG,"fileSize = " + fileSize);
+            Log.d(TAG, "fileSize = " + fileSize);
 
-            if(fileSize < 200){
+            if (fileSize < 200) {
                 compressedImagePath = filePath;
-            } else if(fileSize < 500){
+            } else if (fileSize < 500) {
                 // 200kb-500kb
                 compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_100, null);
-            } else if (fileSize < 1000){
+            } else if (fileSize < 1000) {
                 // 500kb-1000kb
                 compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_90, null);
-            } else if (fileSize < 2000){
+            } else if (fileSize < 2000) {
                 // 1000kb-2000kb
                 compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_80, null);
-            } else if (fileSize < 3000){
+            } else if (fileSize < 3000) {
                 // 2000kb-3000kb
                 compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_70, null);
             } else {
@@ -302,23 +262,18 @@ public class ImageUtils {
             }
 
             Log.d(TAG, "uploadImage: compressedImagePath = " + compressedImagePath);
-            FileUploadService.uploadFile(compressedImagePath, category, listener);
+            FileUploadService.uploadFile(uploadUrl, isDebug, compressedImagePath, category, listener);
         } else {
             Log.e(TAG, "uploadImage: file not exit");
         }
-
     }
 
     /**
      * 上传一组图片
-     * @param context
-     * @param filePaths
-     * @param upLoadUrl
-     * @param category
-     * @param listener
      */
-    public static void uploadImages(Context context, final List<String> filePaths, String upLoadUrl , String category, final OnFilesUploadResultListener listener) {
-//        UploadHelper.getInstance().uploadImages(context, filePaths, upLoadUrl,category,listener);
+    public static void uploadImages(Context context, final List<String> filePaths, String upLoadUrl, String category,
+        final OnFilesUploadResultListener listener) {
+        //        UploadHelper.getInstance().uploadImages(context, filePaths, upLoadUrl,category,listener);
     }
 
     /**
@@ -338,13 +293,13 @@ public class ImageUtils {
     public interface OnFilesUploadResultListener {
         /**
          * 上传成功
+         *
          * @param data 上传成功后的临时文件 id 数组
          */
         void onUploadSuccess(List<String> data); // 上传成功
 
         /**
          * 上传出错或失败
-         * @param error
          */
         void onUploadError(String error); // 上传出错
     }
@@ -352,16 +307,16 @@ public class ImageUtils {
     /**
      * 缩放图片的处理函数
      *
-     * @param filePath  文件路径
+     * @param filePath 文件路径
      * @param scaleRate 压缩率（取值1-100，传入的值是多少就压缩为原来的百分之多少）
      */
-    public static String transformPicture(Context context, String filePath, Integer scaleRate, Integer identifier){
+    public static String transformPicture(Context context, String filePath, Integer scaleRate, Integer identifier) {
 
         // 注意，这里的图片，宽高不压缩，只压缩图片的质量，质量压缩为原来的1/10.
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-//        Log.d(TAG,"getSDCompressedImgDir = " + MyPath.getSDCompressedImgDir());
+        //        Log.d(TAG,"getSDCompressedImgDir = " + MyPath.getSDCompressedImgDir());
         File imageFileSource = null;
-        if(identifier != null){
+        if (identifier != null) {
             // 这里之所以把文件名中也加入identifier索引，是为了解决多线程情况下，时间戳可能相同，导致临时文件重复的问题
             imageFileSource = new File(FileUtils.getSDCompressedImgDir(), timeStamp + identifier + "_source.jpg");
         } else {
@@ -380,23 +335,23 @@ public class ImageUtils {
 
         Bitmap bmpSource = BitmapFactory.decodeFile(filePath, options);
 
-//        // 读取图片的旋转角度
-//        int degree = ImageUtils.readPictureDegree(filePath);
-//        Log.d(TAG, "degree ==== " + degree);
-//        Bitmap bmpRotateSource = null;
-//        if (degree == 0) {
-//            bmpRotateSource = bmpSource;
-//        } else {
-//            bmpRotateSource = ImageUtils.rotatingImageView(degree, bmpSource);
-//        }
+        //        // 读取图片的旋转角度
+        //        int degree = ImageUtils.readPictureDegree(filePath);
+        //        Log.d(TAG, "degree ==== " + degree);
+        //        Bitmap bmpRotateSource = null;
+        //        if (degree == 0) {
+        //            bmpRotateSource = bmpSource;
+        //        } else {
+        //            bmpRotateSource = ImageUtils.rotatingImageView(degree, bmpSource);
+        //        }
         Bitmap bmpRotateSource = bmpSource;
 
-//        Bitmap bmpSource = BitmapFactory.decodeFile(filePath);
+        //        Bitmap bmpSource = BitmapFactory.decodeFile(filePath);
         try {
             imageFileSource.createNewFile();
             FileOutputStream fosSource = new FileOutputStream(imageFileSource);
-//            bmpSource.compress(Bitmap.CompressFormat.JPEG, 100, fosSource);// 保存原图
-            Log.e(TAG,"scaleRate = " + scaleRate);
+            //            bmpSource.compress(Bitmap.CompressFormat.JPEG, 100, fosSource);// 保存原图
+            Log.e(TAG, "scaleRate = " + scaleRate);
             if (scaleRate != null) {//0-100
                 bmpRotateSource.compress(Bitmap.CompressFormat.JPEG, scaleRate, fosSource);// 将图片质量压缩为设定的压缩比率再写入文件
             } else {
@@ -424,10 +379,6 @@ public class ImageUtils {
 
     /**
      * 计算缩放比例
-     * @param options
-     * @param reqWidth
-     * @param reqHeight
-     * @return
      */
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int width = options.outWidth;
@@ -446,23 +397,21 @@ public class ImageUtils {
         return inSampleSize;
     }
 
-
     /**
      * 从相册选择照片
-     * @param activity
+     *
      * @param callBack 回调文件路径
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      */
-    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack , boolean isCrop){
+    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack, boolean isCrop) {
         selectSingleImageByPhoto(activity, callBack, isCrop, null, null, null, null);
     }
 
     /**
      * 从相册选择照片
      *
-     *  注意：裁剪图片宽与高如果设定的情况下，裁剪图片的宽高比与裁剪图片的横纵向比例必须一致。
+     * 注意：裁剪图片宽与高如果设定的情况下，裁剪图片的宽高比与裁剪图片的横纵向比例必须一致。
      *
-     * @param activity
      * @param callBack 回调文件路径
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      * @param aspectX 裁剪横向比例
@@ -470,12 +419,13 @@ public class ImageUtils {
      * @param outputX 裁剪图片宽
      * @param outputY 裁剪图片高
      */
-    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack , boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY){
+    public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack, boolean isCrop,
+        Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
         ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
         imageSingleSelect.photo(new ImageSingleSelect.IPathCallBack() {
             @Override
             public void callBackPath(String filePath) {
-                if (callBack!=null){
+                if (callBack != null) {
                     callBack.callBackPath(filePath);
                 }
             }
@@ -484,20 +434,19 @@ public class ImageUtils {
 
     /**
      * 相机拍照
-     * @param activity
+     *
      * @param callBack 回调文件路径
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      */
-    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack , boolean isCrop){
+    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack, boolean isCrop) {
         selectSingleImageByCamera(activity, callBack, isCrop, null, null, null, null);
     }
 
     /**
      * 相机拍照
      *
-     *  注意：裁剪图片宽与高如果设定的情况下，裁剪图片的宽高比与裁剪图片的横纵向比例必须一致。
+     * 注意：裁剪图片宽与高如果设定的情况下，裁剪图片的宽高比与裁剪图片的横纵向比例必须一致。
      *
-     * @param activity
      * @param callBack 回调文件路径
      * @param isCrop 是否剪裁 true 剪裁 false 不剪裁
      * @param aspectX 裁剪横向比例
@@ -505,12 +454,13 @@ public class ImageUtils {
      * @param outputX 裁剪图片宽
      * @param outputY 裁剪图片高
      */
-    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack , boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY){
+    public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack, boolean isCrop,
+        Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
         ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
         imageSingleSelect.camera(new ImageSingleSelect.IPathCallBack() {
             @Override
             public void callBackPath(String filePath) {
-                if (callBack!=null){
+                if (callBack != null) {
                     callBack.callBackPath(filePath);
                 }
             }
@@ -519,8 +469,6 @@ public class ImageUtils {
 
     /**
      * base64转Bitmap
-     * @param base64
-     * @return
      */
     public static Bitmap decodeBase64(String base64) {
         //将返回的字符串拆分 得到的数组中的第二个元素就是真正的Base64码
@@ -531,14 +479,13 @@ public class ImageUtils {
         return BitmapFactory.decodeByteArray(byteVCode, 0, byteVCode.length);
     }
 
-    public interface IPathCallBack{
+    public interface IPathCallBack {
         void callBackPath(String filePath);
     }
 
     /**
      * copy exif 信息
-     * @param srcFilePath
-     * @param destFilePath
+     *
      * @throws Exception
      */
     private static void saveExif(String srcFilePath, String destFilePath) throws Exception {
@@ -573,8 +520,4 @@ public class ImageUtils {
          */
         void onFailed();
     }
-
-
-
-
 }
