@@ -127,7 +127,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testUploadImage() {
-        ImageUtils.uploadImage(getContext(), testUploadImageFileName, FileUploadService.Category.USER_LOGO,
+        ImageUtils.uploadImage(getContext(), ApiConstant.BASE_URL, ApiConstant.IS_DEBUG, testUploadImageFileName, FileUploadService.Category.USER_LOGO,
             new ImageUtils.OnFileUploadResultListener() {
                 @Override
                 public void onUploadSuccess(String data) {
