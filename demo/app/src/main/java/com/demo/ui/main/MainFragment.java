@@ -1,8 +1,10 @@
 package com.demo.ui.main;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,13 @@ import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.Page;
 import com.demo.corelib.model.api.Sort;
 import com.demo.corelib.network.FileUploadService;
+import com.demo.corelib.util.DownLoadUtils;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.databinding.MainFragBinding;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.MainViewModel;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -104,9 +108,36 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                     }
                 }, true);
                 break;
+            case R.id.btn_download_file:
+                downloadFile();
+                break;
             default:
                 break;
         }
+    }
+
+    private void downloadFile() {
+        String apkUrl = "https://cdn.llscdn.com/yy/files/tkzpx40x-lls-LLS-5.7-785-20171108-111118.apk";
+        String parentFilePath = getParentFile(getActivity()).getPath();
+        Log.e("test", "parentFilePath = " + parentFilePath);
+        DownLoadUtils.downloadFile(apkUrl, getParentFile(getActivity()), "1.apk",
+            new DownLoadUtils.DownloadCallbackListener() {
+                @Override
+                public void onDownloadStart() {
+                    Toast.makeText(getActivity(), "onDownloadStart", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDownloadEnd( Exception realCause) {
+                    Toast.makeText(getActivity(), "onDownloadEnd", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDownloading(int progress) {
+                    mBinding.pbProgress.setProgress(progress);
+                }
+            });
+        mBinding.pbProgress.setMax(100);
     }
 
     private void testGet() {
@@ -162,5 +193,14 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    private File getParentFile(@NonNull Context context) {
+        final File externalSaveDir = context.getExternalCacheDir();
+        if (externalSaveDir == null) {
+            return context.getCacheDir();
+        } else {
+            return externalSaveDir;
+        }
     }
 }

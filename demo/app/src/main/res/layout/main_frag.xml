@@ -11,6 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/pb_progress"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            style= "?android:attr/progressBarStyleHorizontal"/>
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -59,6 +65,14 @@
             android:layout_height="wrap_content"
             android:text="拍照"
             android:onClick="@{fragment::onButtonClick}"/>
+
+        <Button
+            android:id="@+id/btn_download_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下载文件"
+            android:onClick="@{fragment::onButtonClick}"/>
+
 
     </LinearLayout>
 </layout>
