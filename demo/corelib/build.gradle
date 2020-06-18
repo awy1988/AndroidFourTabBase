@@ -62,4 +62,7 @@ dependencies {
 
     // 工具类
     implementation 'com.blankj:utilcodex:1.28.4'
+
+    // 文件下载
+    implementation 'com.liulishuo.okdownload:okdownload:1.0.7'
 }

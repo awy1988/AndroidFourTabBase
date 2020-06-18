@@ -1,13 +1,16 @@
 package com.demo.ui.main;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
@@ -15,19 +18,24 @@ import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.Page;
 import com.demo.corelib.model.api.Sort;
 import com.demo.corelib.network.FileUploadService;
+import com.demo.corelib.util.DownLoadUtils;
 import com.demo.corelib.util.ImageUtils;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.databinding.MainFragBinding;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.MainViewModel;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MainFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final int REQ_CODE_CAMERA_PERMISSION = 1;
+    private static final int REQ_CODE_QR_CODE_SCAN = 2;
 
     private MainViewModel mViewModel;
 
@@ -80,7 +88,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
                 if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    startActivity(new Intent(getContext(), CaptureActivity.class));
+                    startActivityForResult(new Intent(getContext(), CaptureActivity.class), REQ_CODE_QR_CODE_SCAN);
                 } else {
                     EasyPermissions.requestPermissions(MainFragment.this, getString(R.string.app_name),
                         REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA,
@@ -104,9 +112,36 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                     }
                 }, true);
                 break;
+            case R.id.btn_download_file:
+                downloadFile();
+                break;
             default:
                 break;
         }
+    }
+
+    private void downloadFile() {
+        String apkUrl = "https://cdn.llscdn.com/yy/files/tkzpx40x-lls-LLS-5.7-785-20171108-111118.apk";
+        String parentFilePath = getParentFile(getActivity()).getPath();
+        Log.e("test", "parentFilePath = " + parentFilePath);
+        DownLoadUtils.downloadFile(apkUrl, getParentFile(getActivity()), "1.apk",
+            new DownLoadUtils.DownloadCallbackListener() {
+                @Override
+                public void onDownloadStart() {
+                    Toast.makeText(getActivity(), "onDownloadStart", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDownloadEnd( Exception realCause) {
+                    Toast.makeText(getActivity(), "onDownloadEnd", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onDownloading(int progress) {
+                    mBinding.pbProgress.setProgress(progress);
+                }
+            });
+        mBinding.pbProgress.setMax(100);
     }
 
     private void testGet() {
@@ -162,5 +197,24 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQ_CODE_QR_CODE_SCAN) {
+                Toast.makeText(getActivity(), data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private File getParentFile(@NonNull Context context) {
+        final File externalSaveDir = context.getExternalCacheDir();
+        if (externalSaveDir == null) {
+            return context.getCacheDir();
+        } else {
+            return externalSaveDir;
+        }
     }
 }

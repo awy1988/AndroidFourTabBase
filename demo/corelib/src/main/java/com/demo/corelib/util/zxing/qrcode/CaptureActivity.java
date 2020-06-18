@@ -217,11 +217,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
         Log.d(TAG,"parsePicCallback result = " + result);
 
-
-        // 从主页面扫一扫进入，直接解析结果，打开需要访问的页面
-//        if (URLUtil.isNetworkUrl(result)) {
-//            WebViewActivity.start(CaptureActivity.this,"",result);
-//        }
+        Intent resultData = new Intent();
+        resultData.putExtra("result", result);
+        setResult(RESULT_OK, resultData);
         CaptureActivity.this.finish();
 
     }
@@ -242,7 +240,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         Bitmap bitmap = BitmapFactory.decodeFile(path, options);
         options.inJustDecodeBounds = false; // 获取新的大小
         // 缩放比
-        int be = (int) (options.outHeight / (float) 200);
+        int be = calculateInSampleSize(options, 1080,1440); // 图片尺寸如果大于1080*1440则按照1080*1440比例压缩
+        //int be = (int) (options.outHeight / (float) 200);
         if (be <= 0){
             be = 1;
         }
@@ -541,5 +540,25 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             e.printStackTrace();
         }
         return 0;
+    }
+
+    /**
+     * 计算缩放比例
+     */
+    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            //计算图片高度和我们需要高度的最接近比例值
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            //宽度比例值
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            //取比例值中的较大值作为inSampleSize
+            inSampleSize = heightRatio > widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
     }
 }
