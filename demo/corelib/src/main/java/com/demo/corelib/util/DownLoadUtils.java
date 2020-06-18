@@ -1,6 +1,5 @@
 package com.demo.corelib.util;
 
-import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.liulishuo.okdownload.DownloadTask;
@@ -21,9 +20,6 @@ public class DownLoadUtils {
             .setMinIntervalMillisCallbackProcess(80)
             .setAutoCallbackToUIThread(true)
             .build();
-
-        Handler handler;
-        Handler.Callback callback;
 
         task.enqueue(new DownloadListener2() {
 
