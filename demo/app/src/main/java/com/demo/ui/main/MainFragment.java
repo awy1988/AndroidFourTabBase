@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import com.demo.R;
@@ -28,10 +29,13 @@ import java.util.HashMap;
 import java.util.List;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MainFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = MainFragment.class.getSimpleName();
     private static final int REQ_CODE_CAMERA_PERMISSION = 1;
+    private static final int REQ_CODE_QR_CODE_SCAN = 2;
 
     private MainViewModel mViewModel;
 
@@ -84,7 +88,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
 
                 if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    startActivity(new Intent(getContext(), CaptureActivity.class));
+                    startActivityForResult(new Intent(getContext(), CaptureActivity.class), REQ_CODE_QR_CODE_SCAN);
                 } else {
                     EasyPermissions.requestPermissions(MainFragment.this, getString(R.string.app_name),
                         REQ_CODE_CAMERA_PERMISSION, Manifest.permission.CAMERA,
@@ -193,6 +197,16 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQ_CODE_QR_CODE_SCAN) {
+                Toast.makeText(getActivity(), data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private File getParentFile(@NonNull Context context) {
