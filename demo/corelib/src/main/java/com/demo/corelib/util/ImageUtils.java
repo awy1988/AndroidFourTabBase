@@ -27,6 +27,8 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * 图片操作共同类
@@ -232,39 +234,65 @@ public class ImageUtils {
     //================================================================================
     // 上传图片
     //================================================================================
-    public static void uploadImage(Context context, String uploadUrl, boolean isDebug, final String filePath,
-        FileUploadService.Category category, final OnFileUploadResultListener listener) {
+    public static void uploadImage(Context context, final String uploadUrl, final boolean isDebug, final String filePath,
+        final FileUploadService.Category category, final OnFileUploadResultListener listener) {
 
         //  这里加入压缩的逻辑，先读文件，然后压缩，上传
         File file = new File(filePath);
-        String compressedImagePath = null;
+        //String compressedImagePath = null;
         if (file.exists()) {
             long fileSize = file.length() / 1024; // 得到文件的大小，单位为kb
             Log.d(TAG, "fileSize = " + fileSize);
 
-            if (fileSize < 200) {
-                compressedImagePath = filePath;
-            } else if (fileSize < 500) {
-                // 200kb-500kb
-                compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_100, null);
-            } else if (fileSize < 1000) {
-                // 500kb-1000kb
-                compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_90, null);
-            } else if (fileSize < 2000) {
-                // 1000kb-2000kb
-                compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_80, null);
-            } else if (fileSize < 3000) {
-                // 2000kb-3000kb
-                compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_70, null);
-            } else {
-                // >3000kb
-                compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_60, null);
-            }
+            //if (fileSize < 200) {
+            //    compressedImagePath = filePath;
+            //} else if (fileSize < 500) {
+            //    // 200kb-500kb
+            //    compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_100, null);
+            //} else if (fileSize < 1000) {
+            //    // 500kb-1000kb
+            //    compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_90, null);
+            //} else if (fileSize < 2000) {
+            //    // 1000kb-2000kb
+            //    compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_80, null);
+            //} else if (fileSize < 3000) {
+            //    // 2000kb-3000kb
+            //    compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_70, null);
+            //} else {
+            //    // >3000kb
+            //    compressedImagePath = transformPicture(context, filePath, IMAGE_COMPRESS_QUALITY_60, null);
+            //}
 
-            Log.d(TAG, "uploadImage: compressedImagePath = " + compressedImagePath);
-            FileUploadService.uploadFile(uploadUrl, isDebug, compressedImagePath, category, listener);
+            // 压缩图片
+            Luban.with(context)
+                .load(filePath)
+                .ignoreBy(200) // 图片压缩下限，单位:K，这里定义的规则表示，图片小于200k时不压缩。
+                .setTargetDir(FileUtils.getSDCompressedImgDir())
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Log.d(TAG, "uploadImage: compressedImagePath = " + file);
+                        long fileSize = file.length() / 1024; // 得到文件的大小，单位为kb
+                        Log.d(TAG, "fileSize = " + fileSize);
+                        FileUploadService.uploadFile(uploadUrl, isDebug, file, category, listener);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                }).launch();
+
+
+
         } else {
             Log.e(TAG, "uploadImage: file not exit");
+            if (listener != null) {
+                listener.onUploadFailure("file not exit");
+            }
         }
     }
 
