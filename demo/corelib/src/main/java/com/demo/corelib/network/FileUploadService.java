@@ -1,6 +1,5 @@
 package com.demo.corelib.network;
 
-
 import com.demo.corelib.model.common.FileUploadResultModel;
 import com.demo.corelib.model.common.ResponseModel;
 import com.demo.corelib.network.base.HttpApiHelper;
@@ -28,15 +27,22 @@ public class FileUploadService {
     /**
      * 上传单个文件
      */
-    public static void uploadFile(String uploadUrl, boolean isDebug,String filePath, Category category, final ImageUtils.OnFileUploadResultListener listener) {
+    public static void uploadFile(String uploadUrl, boolean isDebug, String filePath, Category category, final ImageUtils.OnFileUploadResultListener listener) {
         File file =  new File(filePath);
-        RequestBody requestFile = RequestBody.create( HttpApiHelper.guessMimeType(filePath), file);
+        uploadFile(uploadUrl, isDebug, file, category, listener);
+    }
+
+    /**
+     * 上传单个文件
+     */
+    public static void uploadFile(String uploadUrl, boolean isDebug, File fileTobeUploaded, Category category, final ImageUtils.OnFileUploadResultListener listener) {
+        RequestBody requestFile = RequestBody.create( HttpApiHelper.guessMimeType(fileTobeUploaded.getPath()), fileTobeUploaded);
         IFileUploadService uploadService = HttpApiHelper.getRetrofitInstance(uploadUrl, isDebug).create(IFileUploadService.class);
         MultipartBody.Part part = null;
         Call<ResponseModel<FileUploadResultModel>> call = null;
         switch (category) {
             case USER_LOGO:
-                part = MultipartBody.Part.createFormData(FORM_DATA_NAME_LOGO, file.getName(), requestFile );
+                part = MultipartBody.Part.createFormData(FORM_DATA_NAME_LOGO, fileTobeUploaded.getName(), requestFile );
                 call = uploadService.uploadUserLogo(part);
                 break;
             default:
