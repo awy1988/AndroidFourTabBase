@@ -1,6 +1,5 @@
 package com.demo.corelib.util.image;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,17 +8,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.demo.corelib.constant.AppConstant;
 import com.demo.corelib.util.FileUtils;
-
+import com.yalantis.ucrop.UCrop;
 import java.io.File;
 import java.util.List;
-
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -57,10 +53,10 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
 
     private boolean mIsCrop = false;
 
-    private int aspectX = 1; // 横向宽的比例
-    private int aspectY = 1; // 横向高的比例
-    private int outputX = 100; // 裁剪图片宽
-    private int outputY = 100; // 裁剪图片高
+    private int aspectX = -1; // 横向宽的比例
+    private int aspectY = -1; // 横向高的比例
+    private int outputX = -1; // 裁剪图片宽
+    private int outputY = -1; // 裁剪图片高
 
 
     @Override
@@ -69,14 +65,14 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
         mActivity = this;
         mType = getIntent().getStringExtra("type");
         mIsCrop = getIntent().getBooleanExtra("isCrop", false);
-        aspectX = getIntent().getIntExtra("aspectX", 1);
-        aspectY = getIntent().getIntExtra("aspectY", 1);
-        outputX = getIntent().getIntExtra("outputX", 100);
-        outputY = getIntent().getIntExtra("outputY", 100);
+        aspectX = getIntent().getIntExtra("aspectX", -1);
+        aspectY = getIntent().getIntExtra("aspectY", -1);
+        outputX = getIntent().getIntExtra("outputX", -1);
+        outputY = getIntent().getIntExtra("outputY", -1);
 
-        if (mType.equals(ImageSingleSelect.CAMERA_EXTRA)) {
+        if (mType.equals(ImageSingleSelector.CAMERA_EXTRA)) {
             camera();
-        } else if (mType.equals(ImageSingleSelect.PHOTO_EXTRA)) {
+        } else if (mType.equals(ImageSingleSelector.PHOTO_EXTRA)) {
             photo();
         }
     }
@@ -90,6 +86,7 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
             //7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider
             //并且这样可以解决MIUI系统上拍照返回size为0的情况
             file = FileUtils.getEmptyImageFile();
+            // TODO 这里的provider名称需要斟酌
             fileUri = FileProvider.getUriForFile(mActivity, "com.demo.fileprovider", file);
         }
 
@@ -110,14 +107,56 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
     }
 
     // 图片剪切
-    private void cropImageUri(Uri uri, Uri outputUri, int outputX, int outputY, int requestCode) {
+    private void cropImageUri(Uri uri, Uri outputUri, int aspectX, int aspectY, int outputX, int outputY, int requestCode) {
+        //cropImageByAndroidCropAction(uri, outputUri, aspectX, aspectY, outputX, outputY, requestCode);
+        cropImageByUCrop(uri, outputUri, aspectX, aspectY, outputX, outputY, requestCode);
+    }
+
+    // 使用UCrop进行图片剪切
+    private void cropImageByUCrop(Uri inputFileUri, Uri outputUri, int aspectX, int aspectY, int outputX, int outputY, int requestCode) {
+
+        UCrop uCrop = UCrop.of(inputFileUri, outputUri);
+
+        if (outputX != -1 && outputY != -1) {
+            uCrop.withMaxResultSize(outputX, outputY);
+        }
+
+        if (aspectX != -1 && aspectY != -1) {
+            uCrop.withAspectRatio(aspectX, aspectY);
+        }
+
+        uCrop.start(this);
+
+    }
+
+    /**
+     * 原生方式裁剪图片
+     * @param uri
+     * @param outputUri
+     * @param outputX
+     * @param outputY
+     * @param requestCode
+     */
+    private void cropImageByAndroidCropAction(Uri uri, Uri outputUri, int aspectX, int aspectY, int outputX, int outputY, int requestCode) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");// crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("aspectX", aspectX);// 宽的比例
-        intent.putExtra("aspectY", aspectY);// 高的比例
-        intent.putExtra("outputX", outputX);// 裁剪图片宽
-        intent.putExtra("outputY", outputY);// 裁剪图片高
+        if (aspectX != -1) {
+            intent.putExtra("aspectX", aspectX);// 宽的比例
+        }
+
+        if (aspectY != -1) {
+            intent.putExtra("aspectY", aspectY);// 高的比例
+        }
+
+        if (outputX != -1) {
+            intent.putExtra("outputX", outputX);// 裁剪图片宽
+        }
+
+        if (outputY != -1) {
+            intent.putExtra("outputY", outputY);// 裁剪图片高
+        }
+
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
         intent.putExtra("return-data", false);
@@ -161,7 +200,7 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
                 fileCropUri = FileUtils.getEmptyImageFileUri();
 
                 if (mIsCrop) {
-                    cropImageUri(fileUri, fileCropUri, outputX, outputY, REQ_CODE_PHOTO_CROP);
+                    cropImageUri(fileUri, fileCropUri, aspectX, aspectY, outputX, outputY, REQ_CODE_PHOTO_CROP);
                 }
 
             }else {
@@ -172,11 +211,7 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
         } else if (requestCode == REQ_CODE_PHOTO_CROP) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    String filePath = FileUtils.getRealPathFromURI(fileCropUri, mActivity);
-                    Intent intent = new Intent();
-                    intent.setAction(AppConstant.BROADCAST_ACTION_SINGLE_IMAGE_SELECT);
-                    intent.putExtra("filePath", filePath);
-                    LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+                    sendCropFileName();
                     finish();
                 } catch (Exception e) {
                     finish();
@@ -184,8 +219,26 @@ public class ImageSingleSelectActivity extends Activity implements EasyPermissio
             }else {
                 finish();
             }
+        } else if (requestCode == UCrop.REQUEST_CROP) {
+            if (resultCode == RESULT_OK) {
+                sendCropFileName();
+                finish();
+            } else if (resultCode == UCrop.RESULT_ERROR) {
+                finish();
+            }
         }
 
+    }
+
+    /**
+     * 获取裁剪的图片名称，并返回给 ImageSingleSelector 类。
+     */
+    private void sendCropFileName() {
+        String filePath = FileUtils.getRealPathFromURI(fileCropUri, mActivity);
+        Intent intent = new Intent();
+        intent.setAction(AppConstant.BROADCAST_ACTION_SINGLE_IMAGE_SELECT);
+        intent.putExtra("filePath", filePath);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @AfterPermissionGranted(REQ_CODE_CAMERA_PERMISSION)
