@@ -72,9 +72,6 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         return mBinding.getRoot();
     }
 
-    private String testUploadImageFileName = "/storage/emulated/0/proding/image/M20180614101231.jpg";
-    private String nextLinkUrl = null;
-
     public void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -187,7 +184,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                         }
                     });
             }
-        }, false);
+        }, true);
 
     }
 
