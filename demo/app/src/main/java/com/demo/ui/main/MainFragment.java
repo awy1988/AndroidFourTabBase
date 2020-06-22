@@ -115,6 +115,9 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
             case R.id.btn_download_file:
                 downloadFile();
                 break;
+            case R.id.btn_upload_file:
+                testUploadImage();
+                break;
             default:
                 break;
         }
@@ -132,7 +135,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                 }
 
                 @Override
-                public void onDownloadEnd( Exception realCause) {
+                public void onDownloadEnd(Exception realCause) {
                     Toast.makeText(getActivity(), "onDownloadEnd", Toast.LENGTH_SHORT).show();
                 }
 
@@ -162,23 +165,30 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
     }
 
     private void testUploadImage() {
-        ImageUtils.uploadImage(getContext(), ApiConstant.BASE_URL, ApiConstant.IS_DEBUG, testUploadImageFileName, FileUploadService.Category.USER_LOGO,
-            new ImageUtils.OnFileUploadResultListener() {
-                @Override
-                public void onUploadSuccess(String data) {
 
-                }
+        ImageUtils.selectSingleImageByPhoto(getActivity(), new ImageUtils.IPathCallBack() {
+            @Override
+            public void callBackPath(String filePath) {
+                ImageUtils.uploadImage(getContext(), ApiConstant.BASE_URL, ApiConstant.IS_DEBUG, filePath, FileUploadService.Category.USER_LOGO,
+                    new ImageUtils.OnFileUploadResultListener() {
+                        @Override
+                        public void onUploadSuccess(String data) {
+                            Toast.makeText(getActivity(), "onUploadSuccess: " + data, Toast.LENGTH_SHORT).show();
+                        }
 
-                @Override
-                public void onUploadFailure(String message) {
+                        @Override
+                        public void onUploadFailure(String message) {
+                            Log.e(TAG, message);
+                        }
 
-                }
+                        @Override
+                        public void onUploadError(String error) {
+                            Log.e(TAG, error);
+                        }
+                    });
+            }
+        }, false);
 
-                @Override
-                public void onUploadError(String error) {
-
-                }
-            });
     }
 
     @Override
