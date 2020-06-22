@@ -17,7 +17,7 @@ import com.demo.corelib.constant.AppConstant;
  * 调用的页面可省去ActivityResult
  */
 
-public class ImageSingleSelect {
+public class ImageSingleSelector {
 
 
     public static final String CAMERA_EXTRA = "camera";
@@ -25,60 +25,43 @@ public class ImageSingleSelect {
 
     private Activity mActivity;
 
-    public ImageSingleSelect(Activity activity) {
+    public ImageSingleSelector(Activity activity) {
         mActivity = activity;
     }
 
 
     /**
-     * @param callPathBack 回调路径的接口
-     * @param isCrop       是否剪裁 true剪裁 false 不剪裁
+     * @param callback 回调路径的接口
+     * @param isCrop   是否剪裁 true剪裁 false 不剪裁
      */
-    public void camera(final IPathCallBack callPathBack, boolean isCrop) {
+    public void camera(final IPathCallBack callback, boolean isCrop) {
 
-        camera(callPathBack, isCrop, null, null, null, null);
+        camera(callback, isCrop, null, null, null, null);
 
     }
 
     /**
-     * @param callPathBack 回调路径的接口
-     * @param isCrop       是否剪裁 true剪裁 false 不剪裁
+     * @param callback 回调路径的接口
+     * @param isCrop   是否剪裁 true剪裁 false 不剪裁
      */
-    public void camera(final IPathCallBack callPathBack, boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
-        initReceiver(callPathBack);
-        Intent intent = new Intent(mActivity, ImageSingleSelectActivity.class);
-        intent.putExtra("type", CAMERA_EXTRA)
-            .putExtra("isCrop", isCrop);
-
-        if (aspectX != null) {
-            intent.putExtra("aspectX", aspectX);
-        }
-
-        if (aspectY != null) {
-            intent.putExtra("aspectY", aspectY);
-        }
-
-        if (outputX != null) {
-            intent.putExtra("outputX", outputX);
-        }
-
-        if (outputY != null) {
-            intent.putExtra("outputY", outputY);
-        }
-
-        mActivity.startActivity(intent);
-
+    public void camera(final IPathCallBack callback, boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
+        selectImage(callback, isCrop, aspectX, aspectY, outputX, outputY, CAMERA_EXTRA);
     }
 
-    public void photo(final IPathCallBack onPathCallBack, boolean isCrop) {
+    public void photo(final IPathCallBack callback, boolean isCrop) {
 
-        camera(onPathCallBack, isCrop, null, null, null, null);
+        camera(callback, isCrop, null, null, null, null);
     }
 
-    public void photo(final IPathCallBack onPathCallBack, boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
-        initReceiver(onPathCallBack);
+    public void photo(final IPathCallBack callback, boolean isCrop, Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
+        selectImage(callback, isCrop, aspectX, aspectY, outputX, outputY, PHOTO_EXTRA);
+    }
+
+    private void selectImage(IPathCallBack callback, boolean isCrop, Integer aspectX,
+        Integer aspectY, Integer outputX, Integer outputY, String typeExtra) {
+        initReceiver(callback);
         Intent intent = new Intent(mActivity, ImageSingleSelectActivity.class);
-        intent.putExtra("type", PHOTO_EXTRA)
+        intent.putExtra("type", typeExtra)
             .putExtra("isCrop", isCrop);
 
         if (aspectX != null) {

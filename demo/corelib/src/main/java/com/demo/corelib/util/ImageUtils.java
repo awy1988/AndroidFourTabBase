@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.demo.corelib.network.FileUploadService;
 import com.demo.corelib.util.image.GlideApp;
-import com.demo.corelib.util.image.ImageSingleSelect;
+import com.demo.corelib.util.image.ImageSingleSelector;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -449,8 +449,8 @@ public class ImageUtils {
      */
     public static void selectSingleImageByPhoto(Activity activity, final IPathCallBack callBack, boolean isCrop,
         Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
-        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-        imageSingleSelect.photo(new ImageSingleSelect.IPathCallBack() {
+        ImageSingleSelector imageSingleSelector = new ImageSingleSelector(activity);
+        imageSingleSelector.photo(new ImageSingleSelector.IPathCallBack() {
             @Override
             public void callBackPath(String filePath) {
                 if (callBack != null) {
@@ -484,8 +484,8 @@ public class ImageUtils {
      */
     public static void selectSingleImageByCamera(Activity activity, final IPathCallBack callBack, boolean isCrop,
         Integer aspectX, Integer aspectY, Integer outputX, Integer outputY) {
-        ImageSingleSelect imageSingleSelect = new ImageSingleSelect(activity);
-        imageSingleSelect.camera(new ImageSingleSelect.IPathCallBack() {
+        ImageSingleSelector imageSingleSelector = new ImageSingleSelector(activity);
+        imageSingleSelector.camera(new ImageSingleSelector.IPathCallBack() {
             @Override
             public void callBackPath(String filePath) {
                 if (callBack != null) {
