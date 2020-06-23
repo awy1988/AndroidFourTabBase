@@ -2,9 +2,9 @@ package com.demo.appmvp.data.remote.api.auth;
 
 import android.text.TextUtils;
 import com.demo.appmvp.data.model.AuthenticateRequestBodyModel;
+import com.demo.appmvp.data.model.Captcha;
 import com.demo.appmvp.data.model.CaptchaDataModel;
 import com.demo.appmvp.data.model.ValidateCaptchaRequestBodyModel;
-import com.demo.corelib.model.api.Captcha;
 import com.demo.corelib.model.common.ResponseModel;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Response;
