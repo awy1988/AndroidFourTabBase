@@ -21,9 +21,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
- * 调用照相机和拍照的工具类的Fragment 名字待修订
+ * 调用照相机和拍照的工具类的辅助Activity
  */
-public class ImageSingleSelectActivity extends Activity implements EasyPermissions.PermissionCallbacks{
+public class ImageSingleSelectActivity extends Activity implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = ImageSingleSelectActivity.class.getSimpleName();
 

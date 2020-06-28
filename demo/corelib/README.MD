@@ -11,3 +11,17 @@ allprojects {
 }
 ```
 
+根据需要，在 AndroidManifest.xml 中配置对应的功能页面 Activity ：
+```xml
+<application>
+    ......
+    <!-- 二维码扫描 -->
+    <activity android:name="com.demo.corelib.util.zxing.qrcode.CaptureActivity" />
+    <!-- 选择图片 -->
+    <activity android:name="com.demo.corelib.util.image.ImageSingleSelectActivity" />
+    <!-- 预览图片 -->
+    <activity android:name="com.demo.corelib.util.image.ImagePagerActivity" />
+    ......
+</application>
+```
+
