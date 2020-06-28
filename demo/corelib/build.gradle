@@ -71,4 +71,7 @@ dependencies {
 
     // 图片裁剪
     implementation 'com.github.yalantis:ucrop:2.2.5'
+
+    // 图片显示
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

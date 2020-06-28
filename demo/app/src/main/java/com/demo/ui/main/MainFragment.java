@@ -20,11 +20,13 @@ import com.demo.corelib.model.api.Sort;
 import com.demo.corelib.network.FileUploadService;
 import com.demo.corelib.util.DownLoadUtils;
 import com.demo.corelib.util.ImageUtils;
+import com.demo.corelib.util.image.ImagePagerActivity;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.databinding.MainFragBinding;
 import com.demo.ui.base.BaseFragment;
 import com.demo.ui.main.viewmodel.MainViewModel;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -97,6 +99,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                 ImageUtils.selectSingleImageByPhoto(getActivity(), new ImageUtils.IPathCallBack() {
                     @Override
                     public void callBackPath(String filePath) {
+                        Log.d(TAG, filePath);
                         Toast.makeText(getContext(), "file path = " + filePath, Toast.LENGTH_SHORT).show();
                     }
                 }, true);
@@ -114,6 +117,9 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
                 break;
             case R.id.btn_upload_file:
                 testUploadImage();
+                break;
+            case R.id.btn_image_pager:
+                testImagePager();
                 break;
             default:
                 break;
@@ -186,6 +192,28 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
             }
         }, true);
 
+    }
+
+    private void testImagePager() {
+
+        ArrayList<String> imagePaths = new ArrayList<>();
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+        imagePaths.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593317940124&di=aa00a41b4aa6f29a02ab1817f8574fbb&imgtype=0&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D403949589%2C2257383715%26fm%3D214%26gp%3D0.jpg");
+
+
+        Intent intent = new Intent();
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, 0);
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_PATHS, imagePaths);
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_SHOW_DELETE_BUTTON, true);
+        intent.setClass(getActivity(), ImagePagerActivity.class);
+        startActivity(intent);
     }
 
     @Override
