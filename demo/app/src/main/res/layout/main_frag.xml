@@ -80,6 +80,13 @@
             android:text="上传文件"
             android:onClick="@{fragment::onButtonClick}"/>
 
+        <Button
+            android:id="@+id/btn_image_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查看图片"
+            android:onClick="@{fragment::onButtonClick}"/>
+
 
     </LinearLayout>
 </layout>

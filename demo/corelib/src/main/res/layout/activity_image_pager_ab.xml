@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_action_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/image_pager_ab_height"
+    android:minHeight="@dimen/image_pager_ab_height">
+
+    <LinearLayout
+        android:id="@+id/ll_common_ab_back_btn"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/imgView_backButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_back"
+            android:tint="@android:color/white"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/indicator"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/viewpager_indicator"/>
+
+    <LinearLayout
+        android:id="@+id/ll_delete_circle_img_btn"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_delete"
+            android:tint="@android:color/white"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
