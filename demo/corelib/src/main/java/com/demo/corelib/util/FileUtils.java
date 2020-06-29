@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,46 +19,25 @@ import java.util.Date;
  */
 public class FileUtils {
 
-    // TODO 改造
-
     private static final String TAG = FileUtils.class.getSimpleName();
 
     //用户的图片
-    public static String sd_ImgPath = Environment.getExternalStorageDirectory()
-            + File.separator + "demo" + File.separator + "image";
+    public static String sd_ImgPath = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath();
 
     //App存储根目录
-    public static String sd_AppPath = Environment.getExternalStorageDirectory()
-            + File.separator + "demo" + File.separator ;
+    public static String sd_AppPath = Utils.getApp().getExternalFilesDir(null).getPath();
 
     //压缩的图片
-    public static String sd_CompressedImgPath = Environment.getExternalStorageDirectory()
-            + File.separator + "demo" + File.separator + "compressedImg";
+    public static String sd_CompressedImgPath = Utils.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath() + File.separator + "compressedImg";
 
     /**
      * 创建文件夹用于保存缓存的图片 *
      */
-    public static final void createPath(String strPath) {
+    public static void createPath(String strPath) {
 
         try {
             File fileName = new File(strPath);
-            if (fileName.exists() == false) {
-                fileName.mkdirs();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /**
-     * 创建文件夹用于保存缓存的图片 *
-     */
-    public static final void createImgPath() {
-
-        try {
-            File fileName = new File(sd_ImgPath);
-            if (fileName.exists() == false) {
+            if (!fileName.exists()) {
                 fileName.mkdirs();
             }
         } catch (Exception e) {
@@ -70,7 +48,7 @@ public class FileUtils {
 
     public static String getSDCardImgPath() {
 
-        createImgPath();
+        createPath(sd_ImgPath);
 
         return sd_ImgPath + "/";
     }
@@ -114,18 +92,6 @@ public class FileUtils {
                 file.delete(); // delete()方法 你应该知道 是删除的意思;
             }
         }
-    }
-
-    /**
-     * 获取apk下载路径
-     * @return
-     */
-    public static String getApkDownloadDir(){
-
-        String apkDownloadDir = sd_AppPath + "apk" + File.separator;
-        createPath(apkDownloadDir);
-
-        return apkDownloadDir;
     }
 
     /**
