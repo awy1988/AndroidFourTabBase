@@ -74,4 +74,8 @@ dependencies {
 
     // 图片显示
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    // Log显示
+    implementation 'com.orhanobut:logger:2.2.0'
+
 }
