@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Environment;
 import androidx.multidex.MultiDex;
+import com.demo.BuildConfig;
 import com.demo.corelib.CoreLib;
 import com.demo.corelib.constant.ApiConstant;
 import com.demo.util.AppExecutors;
@@ -67,7 +68,7 @@ public class App extends Application {
 
         initThirdPartyAuthorization();
 
-        CoreLib.init(this);
+        CoreLib.init(this, BuildConfig.DEBUG);
 
         mAppExecutors = new AppExecutors();
 
