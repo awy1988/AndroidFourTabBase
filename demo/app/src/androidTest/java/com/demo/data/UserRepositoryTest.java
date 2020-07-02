@@ -34,9 +34,9 @@ public class UserRepositoryTest {
     @Before
     public void prepareUserRepository() {
 
-        authService = new AuthService(HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
+        authService = new AuthService(HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL)
             .create(IAuthService.class));
-        accountService = new AccountService(HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
+        accountService = new AccountService(HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL)
             .create(IAccountService.class));
         appDatabase = Room.databaseBuilder(mContext,
             AppDatabase.class, "test-database-name").build();

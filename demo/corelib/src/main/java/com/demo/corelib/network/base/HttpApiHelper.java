@@ -2,10 +2,12 @@ package com.demo.corelib.network.base;
 
 import android.text.TextUtils;
 import android.util.Log;
+import com.demo.corelib.CoreLib;
 import com.demo.corelib.constant.ApiConstant;
 import com.demo.corelib.model.api.HttpQueryParamBaseModel;
 import com.demo.corelib.model.common.LinksModel;
 import com.demo.corelib.model.common.ResponseModel;
+import com.demo.corelib.util.SPUtils;
 import com.google.gson.Gson;
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -36,17 +39,24 @@ public class HttpApiHelper {
 
     private static final HashMap<String, Retrofit> SYSTEM_RETROFIT_INSTANCE_MAP = new HashMap<>();
 
-    public static Retrofit getRetrofitInstance(String baseUrl, boolean isDebug) {
+    public static Retrofit getRetrofitInstance(String baseUrl) {
 
         Retrofit retrofitInstance = SYSTEM_RETROFIT_INSTANCE_MAP.get(baseUrl);
 
         if (retrofitInstance == null) {
             synchronized (HttpApiHelper.class) {
+                retrofitInstance = SYSTEM_RETROFIT_INSTANCE_MAP.get(baseUrl);
+                if (retrofitInstance != null) {
+                    return retrofitInstance;
+                }
+
                 OkHttpClient.Builder builder = new OkHttpClient.Builder();
                 builder.addInterceptor(new HttpParamsInterceptor())
-                    .connectTimeout(ApiConstant.REQUEST_TIME_OUT_SECONDS, TimeUnit.SECONDS);
+                    .connectTimeout(
+                        CoreLib.httpConfig().getConnectTimeout() == null ? ApiConstant.DEFAULT_REQUEST_TIME_OUT_SECONDS
+                            : CoreLib.httpConfig().getConnectTimeout(), TimeUnit.SECONDS);
 
-                if (isDebug) {
+                if (CoreLib.httpConfig().isDebug()) {
                     builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
                 }
 
@@ -116,6 +126,13 @@ public class HttpApiHelper {
             }
 
             private void handleResponseHeaders(Response<ResponseModel<T>> response) {
+                Headers headers = response.headers();
+                String token = headers.get("x-access-token");
+                if (!TextUtils.isEmpty(token)) {
+                    // 存储token
+                    SPUtils.saveAccessToken(token);
+                }
+
                 if (listener instanceof HandleResponseHeaderRequestCallbackListener) {
                     ((HandleResponseHeaderRequestCallbackListener) listener).onHandleResponseHeaders(
                         response.headers());
@@ -158,7 +175,6 @@ public class HttpApiHelper {
                     listener.onEndedWithError("error occurred!");
                 }
             }
-
         });
     }
 
