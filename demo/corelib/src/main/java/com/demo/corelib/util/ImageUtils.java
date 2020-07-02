@@ -234,7 +234,7 @@ public class ImageUtils {
     //================================================================================
     // 上传图片
     //================================================================================
-    public static void uploadImage(Context context, final String uploadUrl, final boolean isDebug, final String filePath,
+    public static void uploadImage(Context context, final String uploadUrl, final String filePath,
         final FileUploadService.Category category, final OnFileUploadResultListener listener) {
 
         //  这里加入压缩的逻辑，先读文件，然后压缩，上传
@@ -278,7 +278,7 @@ public class ImageUtils {
                         Log.d(TAG, "uploadImage: compressedImagePath = " + file);
                         long fileSize = file.length() / 1024; // 得到文件的大小，单位为kb
                         Log.d(TAG, "fileSize = " + fileSize);
-                        FileUploadService.uploadFile(uploadUrl, isDebug, file, category, listener);
+                        FileUploadService.uploadFile(uploadUrl, file, category, listener);
                     }
 
                     @Override

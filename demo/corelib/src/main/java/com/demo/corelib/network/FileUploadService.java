@@ -27,17 +27,17 @@ public class FileUploadService {
     /**
      * 上传单个文件
      */
-    public static void uploadFile(String uploadUrl, boolean isDebug, String filePath, Category category, final ImageUtils.OnFileUploadResultListener listener) {
+    public static void uploadFile(String uploadBaseUrl, boolean isDebug, String filePath, Category category, final ImageUtils.OnFileUploadResultListener listener) {
         File file =  new File(filePath);
-        uploadFile(uploadUrl, isDebug, file, category, listener);
+        uploadFile(uploadBaseUrl, file, category, listener);
     }
 
     /**
      * 上传单个文件
      */
-    public static void uploadFile(String uploadUrl, boolean isDebug, File fileTobeUploaded, Category category, final ImageUtils.OnFileUploadResultListener listener) {
+    public static void uploadFile(String uploadBaseUrl, File fileTobeUploaded, Category category, final ImageUtils.OnFileUploadResultListener listener) {
         RequestBody requestFile = RequestBody.create( HttpApiHelper.guessMimeType(fileTobeUploaded.getPath()), fileTobeUploaded);
-        IFileUploadService uploadService = HttpApiHelper.getRetrofitInstance(uploadUrl, isDebug).create(IFileUploadService.class);
+        IFileUploadService uploadService = HttpApiHelper.getRetrofitInstance(uploadBaseUrl).create(IFileUploadService.class);
         MultipartBody.Part part = null;
         Call<ResponseModel<FileUploadResultModel>> call = null;
         switch (category) {

@@ -3,10 +3,6 @@ package com.demo.corelib.model.common;
 
 import java.util.ArrayList;
 
-/**
- * Created by anweiyang on 18/1/3.
- */
-
 public class ErrorModel {
     private String message;
     private String name;

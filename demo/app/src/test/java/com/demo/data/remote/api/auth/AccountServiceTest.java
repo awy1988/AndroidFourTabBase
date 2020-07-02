@@ -9,8 +9,6 @@ import java.util.concurrent.CountDownLatch;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class AccountServiceTest {
 
     AccountService accountService;
@@ -18,7 +16,7 @@ public class AccountServiceTest {
     @Before
     public void prepareAccountService() {
         accountService = new AccountService(
-            HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
+            HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL)
                 .create(IAccountService.class));
     }
 
