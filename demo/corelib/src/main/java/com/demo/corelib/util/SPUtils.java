@@ -13,7 +13,6 @@ public class SPUtils {
 
     private static final String SP_IS_FIRST_START = "first_start";
     private static final String SP_API_TOKEN = "api_token";
-    private static final String SP_USER_INFO = "user_info";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法

@@ -1,4 +1,4 @@
-package com.demo.corelib.config.logger;
+package com.demo.corelib.config.log;
 
 import android.os.Handler;
 import android.os.Looper;

@@ -33,13 +33,13 @@ public class AccountModule {
 
     @Provides
     public IAuthService provideIAuthService() {
-        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
+        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL)
             .create(IAuthService.class);
     }
 
     @Provides
     public IAccountService provideIAccountService() {
-        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL, AppModuleApiConstant.IS_DEBUG)
+        return HttpApiHelper.getRetrofitInstance(AppModuleApiConstant.BASE_URL)
             .create(IAccountService.class);
     }
 }

@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding;
 import com.demo.R;
 import com.demo.corelib.util.ScreenUtils;
 import com.demo.databinding.SplashActBinding;
-import com.demo.ui.MainActivity;
+import com.demo.ui.auth.LoginActivity;
 import com.demo.ui.base.BaseFragmentActivity;
 import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -111,7 +111,7 @@ public class SplashActivity extends BaseFragmentActivity implements EasyPermissi
      */
     void toMain() {
 
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

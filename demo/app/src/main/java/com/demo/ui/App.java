@@ -8,7 +8,6 @@ import android.os.Environment;
 import androidx.multidex.MultiDex;
 import com.demo.BuildConfig;
 import com.demo.corelib.CoreLib;
-import com.demo.corelib.constant.ApiConstant;
 import com.demo.util.AppExecutors;
 import java.util.List;
 
@@ -69,6 +68,7 @@ public class App extends Application {
         initThirdPartyAuthorization();
 
         CoreLib.init(this, BuildConfig.DEBUG);
+        CoreLib.httpConfig().setUserAgent(getUserAgent());
 
         mAppExecutors = new AppExecutors();
 
@@ -153,7 +153,8 @@ public class App extends Application {
      * @return userAgent字符串
      */
     public String getUserAgent() {
-        return ApiConstant.BASE_UA_APP_NAME +"/"+App.getApp().getVersion() + " "+ getDeviceUserAgent();
+        return "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36";
+        //return ApiConstant.BASE_UA_APP_NAME +"/"+App.getApp().getVersion() + " "+ getDeviceUserAgent();
     }
 
 

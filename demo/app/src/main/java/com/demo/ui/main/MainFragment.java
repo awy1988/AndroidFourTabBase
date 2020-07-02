@@ -20,6 +20,7 @@ import com.demo.corelib.model.api.Sort;
 import com.demo.corelib.network.FileUploadService;
 import com.demo.corelib.util.DownLoadUtils;
 import com.demo.corelib.util.ImageUtils;
+import com.demo.corelib.util.LogUtils;
 import com.demo.corelib.util.image.ImagePagerActivity;
 import com.demo.corelib.util.zxing.qrcode.CaptureActivity;
 import com.demo.databinding.MainFragBinding;
@@ -59,7 +60,13 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
             hideLoadingDialog();
         });
 
-
+        LogUtils.v("hello world!!");
+        LogUtils.d("hello world!!");
+        LogUtils.i("hello world!!");
+        LogUtils.w("hello world!!");
+        LogUtils.e("hello world!!");
+        LogUtils.json("{ \"key\": 3, \"value\": something}");
+        LogUtils.xml("<xml>Test</xml>");
 
     }
 
@@ -172,7 +179,7 @@ public class MainFragment extends BaseFragment implements EasyPermissions.Permis
         ImageUtils.selectSingleImageByPhoto(getActivity(), new ImageUtils.IPathCallBack() {
             @Override
             public void callBackPath(String filePath) {
-                ImageUtils.uploadImage(getContext(), ApiConstant.BASE_URL, ApiConstant.IS_DEBUG, filePath, FileUploadService.Category.USER_LOGO,
+                ImageUtils.uploadImage(getContext(), ApiConstant.BASE_URL, filePath, FileUploadService.Category.USER_LOGO,
                     new ImageUtils.OnFileUploadResultListener() {
                         @Override
                         public void onUploadSuccess(String data) {

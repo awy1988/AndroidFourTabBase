@@ -1,7 +1,6 @@
 package com.demo.corelib.model.api;
 
 /**
- * Created by anweiyang on 17/12/27.
  * 分页对象
  */
 public class Sort extends HttpQueryParamBaseModel {

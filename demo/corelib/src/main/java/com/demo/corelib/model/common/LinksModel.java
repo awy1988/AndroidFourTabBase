@@ -1,9 +1,5 @@
 package com.demo.corelib.model.common;
 
-/**
- * Created by anweiyang on 18/1/9.
- */
-
 public class LinksModel {
 
 

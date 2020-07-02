@@ -1,4 +1,4 @@
-package com.demo.corelib.config.logger;
+package com.demo.corelib.config.log;
 
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -17,7 +17,7 @@ import java.io.File;
 /**
  * Log 输出配置类
  */
-public class LoggerConfig {
+public class LogConfig {
 
     private static final int MAX_BYTES = 500 * 1024; // 500K averages to a 4000 lines per file
 
@@ -29,7 +29,7 @@ public class LoggerConfig {
     /**
      * 采用普通模式输出 log
      */
-    public LoggerConfig normal() {
+    public LogConfig normal() {
         Logger.addLogAdapter(new AndroidLogAdapter(new FormatStrategy() {
 
             LogStrategy logStrategy = new LogcatLogStrategy();
@@ -45,7 +45,7 @@ public class LoggerConfig {
     /**
      * 采用 pretty 模式输出 log
      */
-    public LoggerConfig pretty() {
+    public LogConfig pretty() {
         Logger.addLogAdapter(new AndroidLogAdapter());
         return this;
     }
@@ -54,7 +54,7 @@ public class LoggerConfig {
      * 将日志输出到硬盘。
      * 注意：使用此方法时，需要申请系统写外部存储的权限。（<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>）
      */
-    public LoggerConfig disk(String folder) {
+    public LogConfig disk(String folder) {
         CsvFormatStrategy csvFormatStrategy = CsvFormatStrategy.newBuilder()
             .logStrategy(getDiskLogStrategy(folder))
             .build();
@@ -65,7 +65,7 @@ public class LoggerConfig {
     /**
      * 清除日志适配器
      */
-    public LoggerConfig clearLogAdapter() {
+    public LogConfig clearLogAdapter() {
         Logger.clearLogAdapters();
         return this;
     }
