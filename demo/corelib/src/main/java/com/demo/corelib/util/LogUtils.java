@@ -89,7 +89,5 @@ public class LogUtils {
             Logger.xml(xml);
         }
     }
-
-
 }
 

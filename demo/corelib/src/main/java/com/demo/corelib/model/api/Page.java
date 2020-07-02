@@ -1,7 +1,6 @@
 package com.demo.corelib.model.api;
 
 /**
- *
  * 分页对象
  */
 public class Page extends HttpQueryParamBaseModel {
