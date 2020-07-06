@@ -174,7 +174,7 @@ public class ImagePagerActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
     }
 
-    private class ImagePagerAdapter extends FragmentStatePagerAdapter {
+    private static class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
         public ArrayList<String> fileList;
         private ArrayList<Fragment> mItems;
