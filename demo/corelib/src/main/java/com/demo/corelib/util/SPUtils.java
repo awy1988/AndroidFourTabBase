@@ -11,7 +11,6 @@ public class SPUtils {
 
     private static final String TAG = SPUtils.class.getSimpleName();
 
-    private static final String SP_IS_FIRST_START = "first_start";
     private static final String SP_API_TOKEN = "api_token";
 
     /**
@@ -67,21 +66,6 @@ public class SPUtils {
         return defaultObject;
     }
 
-    /**
-     * 判断是否第一次启动
-     *
-     * @return boolean (true:第一次启动, false:第二次启动以后)
-     */
-    public static boolean isFirstStartup() {
-        return (boolean) get(SP_IS_FIRST_START, true);
-    }
-
-    /**
-     * 设定第一次启动
-     */
-    public static void setFirstStartup() {
-        put(SP_IS_FIRST_START, false);
-    }
 
     //================================================================================
     // 用户相关信息
