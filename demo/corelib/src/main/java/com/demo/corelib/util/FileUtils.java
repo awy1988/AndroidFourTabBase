@@ -95,6 +95,15 @@ public class FileUtils {
     }
 
     /**
+     * return the file by path
+     * @param filePath
+     * @return file
+     */
+    public static File getFileByPath(String filePath) {
+        return com.blankj.utilcode.util.FileUtils.getFileByPath(filePath);
+    }
+
+    /**
      * 在应用的图片文件夹下生成空的图片文件（主要用于上传图片之前的照相或者选择操作）
      * @return
      */
